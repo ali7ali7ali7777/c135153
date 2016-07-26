@@ -59,8 +59,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
                         <div class="content-wrapper">
                             <?php
+                        //    print_r($_POST['m'].$_POST['m1']."****************");
                 $gro_id = get_safe_post($mysqlicheck,"m");
-				if($post['m'] != "" && $post['m1'] != ""){
+				if($_POST['m'] != "" && $_POST['m1'] != ""){
 				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m1") != "" && get_safe_post($mysqlicheck,"m") != "" )
 				{
                     $m = get_safe_post($mysqlicheck,"m");
@@ -81,13 +82,41 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					$m14 = get_safe_post($mysqlicheck,"m14");
 					$m15 = get_safe_post($mysqlicheck,"m15");
                     
-
-
                     
-                    $sql = "INSERT INTO object(object_id, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15) VALUES (null,'$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15')";
+                    
+					
+                    
+                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15')";
 
                     $result = $mysqlicheck->query($sql);
                     $object_new_id = mysqli_insert_id($mysqlicheck);
+                    
+                    $total = count($_FILES['pics']['name']);
+					// Loop through each file
+					for($i=0; $i<$total; $i++) {
+						if ((($_FILES["pics"]["type"][$i] == "image/png") || ($_FILES["pics"]["type"][$i] == "image/jpeg") || ($_FILES["pics"]["type"][$i] == "image/jpg")) || ($_FILES["pics"]["type"][$i] == "image/x-icon"))
+						{
+							$name[] = $_FILES["pics"]["name"][$i];
+							$Target_File = $_FILES["pics"]["name"][$i];
+							if ($_FILES["pics"]["error"][$i] > 0){
+							  echo "Return Code: " . $_FILES["pics"]["error"][$i] . "<br />";
+							}
+							else{
+								$file_extention	=	substr($Target_File,strlen($Target_File)-3);
+								$file_name = substr($_FILES["pics"]["name"][$i], 0, -4);
+								if($file_extention=="peg")
+									$file_extention = "jpg";
+								
+								//braye sakhte dobare
+								$New_Target_File = $file_name.".".$file_extention;
+								if (!file_exists('../images/object/'.$object_new_id)) {
+									mkdir('../images/object/'.$object_new_id, 0777, true);
+								}
+								move_uploaded_file($_FILES["pics"]["tmp_name"][$i],'../images/object/'.$object_new_id.'/'.$New_Target_File);
+							}
+						}
+					}
+
                     if (!$result) {
                         echo'
 							<div class="alert alert-danger alert-styled-left alert-bordered">
@@ -116,7 +145,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 			?>
                                 <div class="content">
                                     <div class="col-md-6">
-                                        <form method="post" class="form-horizontal">
+                                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
                                             <div class="panel panel-flat">
                                                 <div class="panel-heading">
                                                     <h5 class="panel-title">ایجاد کالا جدید</h5>

@@ -58,14 +58,14 @@ if(get_safe_post($mysqlicheck,'change')== 'change'){
         <div class="form-group">
             <label class="col-lg-3 control-label">کد کالا :</label>
             <div class="col-lg-9">
-                <input type="text" class="form-control" disable placeholder=" کد کالا" value="نام این فیلد قابل تغییر نیست">
+                <input type="text" class="form-control" disable placeholder="نام این فیلد قابل تغییر نیست" value="نام این فیلد قابل تغییر نیست">
             </div>
         </div>
         <hr>
         <div class="form-group">
             <label class="col-lg-3 control-label">نام کالا :</label>
             <div class="col-lg-9">
-                <input type="text" name="m1" class="form-control" value="'. $mm1.'" placeholder="نام کالا">
+                <input type="text" name="m1" class="form-control" value="نام این فیلد قابل تغییر نیست" placeholder="نام این فیلد قابل تغییر نیست ">
             </div>
         </div>
         <hr>
@@ -307,6 +307,14 @@ if(get_safe_post($mysqlicheck,'change2')== 'change2'){
             <label class="col-lg-3 control-label">مشخصه 10 :</label>
             <div class="col-lg-9">
                 <input type="text" name="m15" class="form-control" value="" placeholder="مشخصه 10">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-lg-3 control-label text-semibold">ارسال تصویر :</label>
+            <div class="col-lg-9">
+                <input type="file" name="pics[]" class="file-input" data-show-caption="false" multiple="multiple" data-show-upload="false" data-browse-class="btn btn-primary" data-remove-class="btn btn-default">
+                <span class="help-block">حجم کمتر از 2 مگابایت و فرمت قابل قبول jpg و png </span>
             </div>
         </div>';
         

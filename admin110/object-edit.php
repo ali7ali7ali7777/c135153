@@ -67,7 +67,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					if ($result23->num_rows > 0) {
 						echo '<div class="alert alert-warning alert-styled-left">
 										<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-										گروه <span class="text-semibold">'.$name_gp.'</span> قبلا ایجاد شده است .
+										کالا <span class="text-semibold">'.$name_gp.'</span> قبلا ایجاد شده است .
 								    </div>';
 					}
 					else
@@ -83,7 +83,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 						}else{
 							echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
 									<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-									گروه <span class="text-semibold">'.$name_gp.'</span> با موفقیت ایجاد گردید . 
+									کالا <span class="text-semibold">'.$name_gp.'</span> با موفقیت ایجاد گردید . 
 								</div>';
 						}
 					}
@@ -93,7 +93,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				<div class="content">
                 	<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">ویرایش گروه</h5>
+							<h5 class="panel-title">ویرایش کالا</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
 			                		<li><a data-action="collapse"></a></li>
@@ -102,14 +102,18 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 						</div>
 
 						<div class="panel-body">
-							گروه مورد نظر را انخاب کنید
+							کالا مورد نظر را انخاب کنید
 						</div>
 
 						<table class="table datatable-basic">
 							<thead>
 								<tr>
-									<th>نام گروه</th>
-									<th>گروه های فرعی این گروه</th>
+									<th>نام کالا</th>
+									<th>کد اختصاصی برنامه</th>
+									<th>کد کالا</th>
+									<th></th>
+									<th></th>
+									<th>تاریخ ایجاد</th>
 									<th class="text-center">فعال / غیر فعال</th>
 									<th class="text-center">ویرایش</th>
 								</tr>
@@ -132,7 +136,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 												</td>
 												<td>';
 												
-										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_parent_id=".$rows2['gro_id']." ");
+										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM object WHERE gro_parent_id=".$rows2['gro_id']." ");
 										$numResults2 = $table3->num_rows;
 										$counter2 = 0;
 										while($rows3=mysqli_fetch_assoc($table3))
@@ -147,7 +151,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                         <td class="text-center">'.$temp.'</td>';
                                         
 										echo '
-											<td class="text-center"><a class="btn bg-slate" href="gp-product.php?selected='.$gro_id.'">ویرایش</a></td>
+											<td class="text-center"><a class="btn bg-slate" href="object-product.php?selected='.$gro_id.'">ویرایش</a></td>
 											</tr>';
 									}
 									?>
