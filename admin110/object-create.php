@@ -86,7 +86,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     
 					
                     
-                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15')";
+                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15, object_status) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15','1')";
 
                     $result = $mysqlicheck->query($sql);
                     $object_new_id = mysqli_insert_id($mysqlicheck);

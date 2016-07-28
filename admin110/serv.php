@@ -213,100 +213,100 @@ if(get_safe_post($mysqlicheck,'change2')== 'change2'){
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مدل :</label>
+            <label class="col-lg-3 control-label">'.$mm2.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m2" class="form-control" value="" placeholder="مدل">
+                <input type="text" name="m2" class="form-control" value="" placeholder="'.$mm2.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">سازنده :</label>
+            <label class="col-lg-3 control-label">'.$mm3.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m3" class="form-control" value="" placeholder="سازنده">
+                <input type="text" name="m3" class="form-control" value="" placeholder="'.$mm3.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">تعداد :</label>
+            <label class="col-lg-3 control-label">'.$mm4.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m4" class="form-control" value="" placeholder="تعداد">
+                <input type="text" name="m4" class="form-control" value="" placeholder="'.$mm4.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">تاریخ :</label>
+            <label class="col-lg-3 control-label">'.$mm5.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m5" class="form-control" value="" placeholder="تاریخ">
+                <input type="text" name="m5" class="form-control" value="" placeholder="'.$mm5.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 1 :</label>
+            <label class="col-lg-3 control-label">'.$mm6.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m6" class="form-control" value="" placeholder="مشخصه 1">
+                <input type="text" name="m6" class="form-control" value="" placeholder="'.$mm6.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 2 :</label>
+            <label class="col-lg-3 control-label">'.$mm7.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m7" class="form-control" value="" placeholder="مشخصه 2">
+                <input type="text" name="m7" class="form-control" value="" placeholder="'.$mm7.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 3 :</label>
+            <label class="col-lg-3 control-label">'.$mm8.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m8" class="form-control" value="" placeholder="مشخصه 3">
+                <input type="text" name="m8" class="form-control" value="" placeholder="'.$mm8.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 4 :</label>
+            <label class="col-lg-3 control-label">'.$mm9.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m9" class="form-control" value="" placeholder="مشخصه 4">
+                <input type="text" name="m9" class="form-control" value="" placeholder="'.$mm9.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 5 :</label>
+            <label class="col-lg-3 control-label">'.$mm10.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m10" class="form-control" value="" placeholder="مشخصه 5">
+                <input type="text" name="m10" class="form-control" value="" placeholder="'.$mm10.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 6 :</label>
+            <label class="col-lg-3 control-label">'.$mm11.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m11" class="form-control" value="" placeholder="مشخصه 6">
+                <input type="text" name="m11" class="form-control" value="" placeholder="'.$mm11.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 7 :</label>
+            <label class="col-lg-3 control-label">'.$mm12.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m12" class="form-control" value="" placeholder="مشخصه 7">
+                <input type="text" name="m12" class="form-control" value="" placeholder="'.$mm12.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 8 :</label>
+            <label class="col-lg-3 control-label">'.$mm13.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m13" class="form-control" value="" placeholder="مشخصه 8">
+                <input type="text" name="m13" class="form-control" value="" placeholder="'.$mm13.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 9 :</label>
+            <label class="col-lg-3 control-label">'.$mm14.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m14" class="form-control" value="" placeholder="مشخصه 9">
+                <input type="text" name="m14" class="form-control" value="" placeholder="'.$mm14.'">
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <label class="col-lg-3 control-label">مشخصه 10 :</label>
+            <label class="col-lg-3 control-label">'.$mm15.' :</label>
             <div class="col-lg-9">
-                <input type="text" name="m15" class="form-control" value="" placeholder="مشخصه 10">
+                <input type="text" name="m15" class="form-control" value="" placeholder="'.$mm15.'">
             </div>
         </div>
         <hr>
@@ -320,6 +320,31 @@ if(get_safe_post($mysqlicheck,'change2')== 'change2'){
         
     }
 	echo $datachange2;
+}
+///////edit object
+if(get_safe_post($mysqlicheck,'object3')== 'object3'){
+	
+	$object3 = get_safe_post($mysqlicheck,'object33');
+
+	$sqlobject3 = "update object set object_status='2' WHERE object_id='$object3'";
+	if($mysqlicheck->query($sqlobject3) === TRUE) {
+		echo "ok3";
+	}else{
+		die();
+	}
+	
+}
+if(get_safe_post($mysqlicheck,'object4')== 'object4'){
+	
+	$object4 = get_safe_post($mysqlicheck,'object44');
+
+	$sqlobject4 = "update object set object_status='1' WHERE object_id='$object4'";
+	if($mysqlicheck->query($sqlobject4) === TRUE) {
+		echo "ok4";
+	}else{
+		die();
+	}
+	
 }
 
 

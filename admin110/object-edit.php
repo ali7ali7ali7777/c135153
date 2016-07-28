@@ -109,49 +109,55 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 							<thead>
 								<tr>
 									<th>نام کالا</th>
-									<th>کد اختصاصی برنامه</th>
-									<th>کد کالا</th>
-									<th></th>
-									<th></th>
-									<th>تاریخ ایجاد</th>
+									<th>گروه کالا</th>
+									<th class="text-center">کد اختصاصی برنامه</th>
+									<th class="text-center">کد کالا</th>
+									<th class="text-center">تاریخ ایجاد</th>
 									<th class="text-center">فعال / غیر فعال</th>
 									<th class="text-center">ویرایش</th>
 								</tr>
 							</thead>
 							<tbody>
                                  <?php
-									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro");
+									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM object");
 									while($rows2=mysqli_fetch_assoc($table2))
 									{
-                                        $gro_status = $rows2['gro_status'];
-                                        $gro_id = $rows2['gro_id'];
-                                        if($gro_status == 1) 
-                                            $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(1,'.$gro_id.')">فعال</a>'; 
-                                        elseif($gro_status == 2) 
-                                            $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(2,'.$gro_id.')">غیر فعال</a>';
+                                        $object_gro_id = $rows2['object_gro_id'];
+                                        $object_code = $rows2['object_code'];
+                                        $object_id = $rows2['object_id'];
+                                        $date_obj = mkdate("Y/m/d H:m",$rows2['object_date'],'fa');
+                                        $object_status = $rows2['object_status'];
+                                        if($object_status == 1) 
+                                            $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$object_id.'" onClick="AdminChange2(1,'.$object_id.')">فعال</a>'; 
+                                        elseif($object_status == 2) 
+                                            $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$object_id.'" onClick="AdminChange2(2,'.$object_id.')">غیر فعال</a>';
 										
                                         echo '<tr>
 												<td>
-												  '.$rows2['gro_name'].'
+												  '.$rows2['object_m1'].'
 												</td>
 												<td>';
 												
-										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM object WHERE gro_parent_id=".$rows2['gro_id']." ");
-										$numResults2 = $table3->num_rows;
-										$counter2 = 0;
+										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_id=".$rows2['object_gro_id']." ");
 										while($rows3=mysqli_fetch_assoc($table3))
 										{
-											if(++$counter2 == $numResults2) 
-												echo $rows3['gro_name'];// last row
-											 else
-												echo $rows3['gro_name']." - "; // not last row
+                                            echo $rows3['gro_name'];
 											
 										}
                                         echo'</td>
+                                            <td class="text-center">
+                                              '.$object_id.'
+                                            </td>
+                                            <td class="text-center">
+                                              '.$object_code.'
+                                            </td>
+                                            <td class="text-center">
+                                              '.$date_obj.'
+                                            </td>
                                         <td class="text-center">'.$temp.'</td>';
                                         
 										echo '
-											<td class="text-center"><a class="btn bg-slate" href="object-product.php?selected='.$gro_id.'">ویرایش</a></td>
+											<td class="text-center"><a class="btn bg-slate" href="object-product.php?selected='.$object_id.'">ویرایش</a></td>
 											</tr>';
 									}
 									?>
@@ -174,7 +180,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
         if(x==1){
 
-            $.post('serv.php',{'method3':'change3','info3':id},function(result3){
+            $.post('serv.php',{'object3':'object3','object33':id},function(result3){
 
                 if(result3 == "ok3" ){
 
@@ -188,7 +194,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                 }
             });
         }else {
-            $.post('serv.php',{'method4':'change4','info4':id},function(result4){
+            $.post('serv.php',{'object4':'object4','object44':id},function(result4){
                 console.log(result4);
                 if(result4 == "ok4" ){
                     var btnid2 ="AdminChange2(1,"+id+")";
