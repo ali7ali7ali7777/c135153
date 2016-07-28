@@ -62,9 +62,10 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					$sub = $_POST['sub'];
 					$name_gp = get_safe_post($mysqlicheck,"name");
 					$id_gp = get_safe_post($mysqlicheck,"item");
+                    $gro_status = get_safe_post($mysqlicheck,"status");
 					
 					
-					$sql="UPDATE gro SET gro_name='$name_gp',gro_parent_id='$sub' WHERE gro_id='$id_gp'";
+					$sql="UPDATE gro SET gro_name='$name_gp',gro_status='$gro_status',gro_parent_id='$sub' WHERE gro_id='$id_gp'";
 					$result = $mysqlicheck->query($sql);
 					if (!$result) {
 						echo'
@@ -87,8 +88,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				{
 					$gro_name = $rows2['gro_name'];
 					$gro_parent_id = $rows2['gro_parent_id'];
+                    $gro_status = $rows2['gro_status'];
 				}
-
+                if($gro_status == 1)
+                    $btn = '<button id="demobtn" type="button" class="btn col-lg-5 bg-success-400 dropdown-toggle" data-toggle="dropdown">فعال</button>';
+                if($gro_status == 2)
+                    $btn = '<button id="demobtn" type="button" class="btn col-lg-5 bg-grey-400 dropdown-toggle" data-toggle="dropdown">غیر فعال</button>';
+					
 					
 				
 			?>
@@ -143,7 +149,35 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             </select>
                                         </div>
                                     </div>
-
+                                    <hr>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">نکته :</label>
+                                        <div class="col-lg-9">
+                                            <div class="form-control-static">
+                                                <p>با حذف یا غیر فعال کردن گروه ، تمام گروه های فرعی (زیرمجموعه) این گروه غیر فعال میشوند .</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">نکته :</label>
+                                        <div class="col-lg-9">
+                                            <div class="form-control-static">
+                                                <p>در صورت حذف کردن دیگر به آن دسترسی ندارید و برگشت پذیر نخواهد بود.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">وضعیت انتشار :</label>
+                                        <input type="hidden" name="status" id="status" value="<?php echo $gro_status; ?>">
+                                        <div class="btn-group dropup col-lg-9">
+                                            <?php echo $btn; ?>
+                                            <ul id="demolist" class="dropdown-menu dropdown-menu-left">
+                                                <li value="1"><a ><i class="glyphicon glyphicon-ok"></i> فعال</a></li>
+                                                <li value="2"><a ><i class="glyphicon glyphicon-remove"></i> غیر فعال</a></li>
+                                                <li value="3"><a ><i class="glyphicon glyphicon-trash"></i> حذف</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="text-right">
                                         <button type="submit" name="submit" value="save" class="btn btn-primary">ویرایش و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
                                     </div>
@@ -159,5 +193,21 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
 	</div>
 
+    <script type="text/javascript">
+    $('#demolist li').on('click', function(){
+        var detaval = $(this).val();
+        var detatext = $(this).text();
+        $('#status').val(detaval);
+        $('#demobtn').text(detatext);
+        $('#demobtn').removeClass("bg-success-400 bg-danger-400 bg-grey-400");
+        if(detaval == 1)
+        $('#demobtn').addClass("bg-success-400");
+        if(detaval == 2)
+        $('#demobtn').addClass("bg-grey-400");
+        if(detaval == 3)
+        $('#demobtn').addClass("bg-danger-400");
+        
+    });
+    </script>
 </body>
 </html>

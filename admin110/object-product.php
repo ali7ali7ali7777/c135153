@@ -346,15 +346,24 @@ foreach ($directory as $fileinfo) {
                                             <input type="text" name="m15" class="form-control" value="<?php  echo $object_m15; ?>" placeholder="<?php  echo $mm15; ?>">
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">نکته :</label>
+                                        <div class="col-lg-9">
+                                            <div class="form-control-static">
+                                                <p>در صورت حذف کردن دیگر به آن دسترسی ندارید و برگشت پذیر نخواهد بود.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                         <label class="col-lg-3 control-label">وضعیت انتشار :</label>
                                         <input type="hidden" name="status" id="status" value="<?php echo $object_status; ?>">
                                         <div class="btn-group dropup col-lg-9">
                                             <?php echo $btn; ?>
                                             <ul id="demolist" class="dropdown-menu dropdown-menu-left">
-                                                <li value="1"><a ><i class="icon-menu7"></i> فعال</a></li>
-                                                <li value="2"><a ><i class="icon-screen-full"></i> غیر فعال</a></li>
-                                                <li value="3"><a ><i class="icon-mail5"></i> حذف</a></li>
+                                                <li value="1"><a ><i class="glyphicon glyphicon-ok"></i> فعال</a></li>
+                                                <li value="2"><a ><i class="glyphicon glyphicon-remove"></i> غیر فعال</a></li>
+                                                <li value="3"><a ><i class="glyphicon glyphicon-trash"></i> حذف</a></li>
                                             </ul>
                                         </div>
                                     </div>
