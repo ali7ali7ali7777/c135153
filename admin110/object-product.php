@@ -7,32 +7,38 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	header( "Location: $url" );
 	die();
 }
-
+//error_reporting(1);
 $object_id = get_safe_get($mysqlicheck,"selected");
 
 $_SESSION['object_id'] = $object_id;
 $dir = '../images/object/'.$object_id.'/';
-// image extensions
-$extensions = array('jpg', 'jpeg', 'png');
 
-// init result
-$result = array();
-
-// directory to scan
-$directory = new DirectoryIterator($dir);
 
 // iterate
-foreach ($directory as $fileinfo) {
-    // must be a file
-    if ($fileinfo->isFile()) {
-        // file extension
-        $extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
-        // check if extension match
-        if (in_array($extension, $extensions)) {
-            // add to result
-            $result[] = $fileinfo->getFilename();
+if(!$dir){
+    // image extensions
+    $extensions = array('jpg', 'jpeg', 'png');
+
+    // init result
+    $result = array();
+
+    // directory to scan
+    $directory = new DirectoryIterator($dir);
+    foreach ($directory as $fileinfo) {
+        // must be a file
+        if ($fileinfo->isFile()) {
+            // file extension
+            $extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
+            // check if extension match
+            if (in_array($extension, $extensions)) {
+                // add to result
+                $result[] = $fileinfo->getFilename();
+            }
         }
     }
+}else{
+    
+    
 }
 ?>
 
@@ -128,7 +134,8 @@ foreach ($directory as $fileinfo) {
                 
 
 				$table2 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_id='$object_id'");
-				while($rows2=mysqli_fetch_assoc($table2))
+				if (mysqli_num_rows($table2) > 0) {
+                while($rows2=mysqli_fetch_assoc($table2))
 				{
 					$object_m1 = $rows2['object_m1'];
                     $object_m2 = $rows2['object_m2'];
@@ -151,8 +158,16 @@ foreach ($directory as $fileinfo) {
                     $object_status = $rows2['object_status'];
                     
 				}
+                } else {
+                    $url1 = 'object-edit.php';
+                    header( "Location: $url1" );
+                    echo '<script type="text/javascript">
+                    window.location.assign("object-edit.php");
+                    </script>';
+                }
                 
-                $table22 = mysqli_query($mysqlicheck,"SELECT * FROM gro_title WHERE gro_title_id='$object_gro_id'");
+                
+                $table22 = mysqli_query($mysqlicheck,"SELECT * FROM gro_title");
                 while($rows22=mysqli_fetch_assoc($table22))
                 {
                     $mm = $rows22['gro_title_id'];
@@ -356,14 +371,13 @@ foreach ($directory as $fileinfo) {
                                             </div>
                                         </div>
                                     </div>
-                                        <label class="col-lg-3 control-label">وضعیت انتشار :</label>
+                                        <label class="col-lg-3 control-label"> وضعیت انتشار در سایت :</label>
                                         <input type="hidden" name="status" id="status" value="<?php echo $object_status; ?>">
                                         <div class="btn-group dropup col-lg-9">
                                             <?php echo $btn; ?>
                                             <ul id="demolist" class="dropdown-menu dropdown-menu-left">
                                                 <li value="1"><a ><i class="glyphicon glyphicon-ok"></i> فعال</a></li>
                                                 <li value="2"><a ><i class="glyphicon glyphicon-remove"></i> غیر فعال</a></li>
-                                                <li value="3"><a ><i class="glyphicon glyphicon-trash"></i> حذف</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -438,13 +452,11 @@ foreach ($directory as $fileinfo) {
         var detatext = $(this).text();
         $('#status').val(detaval);
         $('#demobtn').text(detatext);
-        $('#demobtn').removeClass("bg-success-400 bg-danger-400 bg-grey-400");
+        $('#demobtn').removeClass("bg-success-400 bg-grey-400");
         if(detaval == 1)
         $('#demobtn').addClass("bg-success-400");
         if(detaval == 2)
         $('#demobtn').addClass("bg-grey-400");
-        if(detaval == 3)
-        $('#demobtn').addClass("bg-danger-400");
         
         
     });

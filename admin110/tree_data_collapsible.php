@@ -79,12 +79,12 @@ echo $name;
 }
 ';*/
 $name .='{"name": "انبار","children": [';
-$table1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0");
+$table1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 AND gro_status='1'");
 $numResults1 = $table1->num_rows;
 $counter1 = 0;
 while($rows1=mysqli_fetch_assoc($table1))
 {
-    $table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows1['gro_id']."");
+    $table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows1['gro_id']." AND gro_status='1'");
     $numResults2 = $table2->num_rows;
     $counter2 = 0;
    if ($numResults1 == 0) {
@@ -93,7 +93,7 @@ while($rows1=mysqli_fetch_assoc($table1))
         $name .='{"name": "'.$rows1['gro_name'].'","children": ['; // age bache dashte bashe
         while($rows2=mysqli_fetch_assoc($table2))
         {
-            $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows2['gro_id']."");
+            $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows2['gro_id']." AND gro_status='1'");
             $numResults3 = $table3->num_rows;
             $counter3 = 0;
             if ($numResults3 == 0) {
@@ -102,7 +102,7 @@ while($rows1=mysqli_fetch_assoc($table1))
                 $name .='{"name": "'.$rows2['gro_name'].'","children": ['; // age bache dashte bashe
                 while($rows3=mysqli_fetch_assoc($table3))
                 {
-                    $table4 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows3['gro_id']."");
+                    $table4 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows3['gro_id']." AND gro_status='1'");
                     $numResults4 = $table4->num_rows;
                     $counter4 = 0;
                     if ($numResults4 == 0) {
@@ -111,7 +111,7 @@ while($rows1=mysqli_fetch_assoc($table1))
                         $name .='{"name": "'.$rows3['gro_name'].'","children": ['; // age bache dashte bashe
                         while($rows4=mysqli_fetch_assoc($table4))
                         {
-                            $table5 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows4['gro_id']."");
+                            $table5 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows4['gro_id']." AND gro_status='1'");
                             $numResults5 = $table5->num_rows;
                             $counter5 = 0;
                             if ($numResults5 == 0) {

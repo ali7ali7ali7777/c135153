@@ -120,14 +120,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">نکته :</label>
-                                        <div class="col-lg-9">
-                                            <div class="form-control-static">
-                                                <p>چنانچه این گروه ، گروه فرعی میباشد ، گروه اصلی آن را مشخص کنید.</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">انتخاب گروه اصلی</label>
@@ -149,35 +141,37 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             </select>
                                         </div>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">نکته :</label>
+                                        <div class="col-lg-9">
+                                            <div class="form-control-static">
+                                                <p>چنانچه این گروه ، گروه فرعی میباشد ، گروه اصلی آن را مشخص کنید.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr>
+                                    
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">نکته :</label>
-                                        <div class="col-lg-9">
-                                            <div class="form-control-static">
-                                                <p>با حذف یا غیر فعال کردن گروه ، تمام گروه های فرعی (زیرمجموعه) این گروه غیر فعال میشوند .</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">نکته :</label>
-                                        <div class="col-lg-9">
-                                            <div class="form-control-static">
-                                                <p>در صورت حذف کردن دیگر به آن دسترسی ندارید و برگشت پذیر نخواهد بود.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">وضعیت انتشار :</label>
+                                        <label class="col-lg-3 control-label">وضعیت نمایش در سایت فروشگاه :</label>
                                         <input type="hidden" name="status" id="status" value="<?php echo $gro_status; ?>">
                                         <div class="btn-group dropup col-lg-9">
                                             <?php echo $btn; ?>
                                             <ul id="demolist" class="dropdown-menu dropdown-menu-left">
                                                 <li value="1"><a ><i class="glyphicon glyphicon-ok"></i> فعال</a></li>
                                                 <li value="2"><a ><i class="glyphicon glyphicon-remove"></i> غیر فعال</a></li>
-                                                <li value="3"><a ><i class="glyphicon glyphicon-trash"></i> حذف</a></li>
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">نکته :</label>
+                                        <div class="col-lg-9">
+                                            <div class="form-control-static">
+                                                <p>با غیر فعال کردن گروه ، تمام گروه های فرعی (زیرمجموعه) و کالا های این گروه در سایت فروشگاه غیر فعال میشوند .</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="text-right">
                                         <button type="submit" name="submit" value="save" class="btn btn-primary">ویرایش و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
                                     </div>
@@ -199,13 +193,11 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         var detatext = $(this).text();
         $('#status').val(detaval);
         $('#demobtn').text(detatext);
-        $('#demobtn').removeClass("bg-success-400 bg-danger-400 bg-grey-400");
+        $('#demobtn').removeClass("bg-success-400 bg-grey-400");
         if(detaval == 1)
         $('#demobtn').addClass("bg-success-400");
         if(detaval == 2)
         $('#demobtn').addClass("bg-grey-400");
-        if(detaval == 3)
-        $('#demobtn').addClass("bg-danger-400");
         
     });
     </script>

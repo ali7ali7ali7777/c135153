@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 $requst_from = substr($_SERVER['SCRIPT_FILENAME'],(strripos($_SERVER['SCRIPT_FILENAME'],'/')+1));
 if($_SESSION['login']!="modir" && $_SESSION['login']!="user" && $requst_from!="login.php"  )
 {

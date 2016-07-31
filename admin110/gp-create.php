@@ -82,21 +82,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 										</div>';
                             
 						}else{
-                        $sql2="INSERT INTO gro_title (gro_title_id) VALUES ('$gro_title_id')";
-                            $result2 = $mysqlicheck->query($sql2);
-                            if (!$result2) {
-                                echo'
-							<div class="alert alert-danger alert-styled-left alert-bordered">
-											<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-											ارسال اطلاعات با <span class="text-semibold">خطا</span> رو برو گردید.
-										</div>';
-							
-                            }else
                                 echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
 									<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
 									گروه <span class="text-semibold">'.$name_gp.'</span> با موفقیت ایجاد گردید . 
 								</div>';
-						}
+                            }
+                                
+						
 					}
 					
 				}

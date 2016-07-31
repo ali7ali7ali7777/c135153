@@ -56,40 +56,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 			<?php require_once "menu2.php"; ?>
             
             <div class="content-wrapper">
-            <?php
-				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != "")
-				{
-					$sub = $_POST['sub'];
-					$name_gp = get_safe_post($mysqlicheck,"name");
-					
-					$result23 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_name ='$name_gp' AND gro_parent_id ='$sub'");
-					
-					if ($result23->num_rows > 0) {
-						echo '<div class="alert alert-warning alert-styled-left">
-										<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-										کالا <span class="text-semibold">'.$name_gp.'</span> قبلا ایجاد شده است .
-								    </div>';
-					}
-					else
-					{
-						$sql="INSERT INTO gro (gro_name,gro_parent_id) VALUES ('$name_gp','$sub')";
-						$result = $mysqlicheck->query($sql);
-						if (!$result) {
-							echo'
-							<div class="alert alert-danger alert-styled-left alert-bordered">
-											<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-											ارسال اطلاعات با <span class="text-semibold">خطا/span> رو برو گردید.
-										</div>';
-						}else{
-							echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
-									<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-									کالا <span class="text-semibold">'.$name_gp.'</span> با موفقیت ایجاد گردید . 
-								</div>';
-						}
-					}
-					
-				}
-			?>
 				<div class="content">
                 	<div class="panel panel-flat">
 						<div class="panel-heading">
@@ -112,8 +78,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 									<th>گروه کالا</th>
 									<th class="text-center">کد اختصاصی برنامه</th>
 									<th class="text-center">کد کالا</th>
-									<th class="text-center">تاریخ ایجاد</th>
-									<th class="text-center">فعال / غیر فعال</th>
+									<th class="text-center">وضعیت نمایش در سایت</th>
 									<th class="text-center">ویرایش</th>
 								</tr>
 							</thead>
@@ -150,9 +115,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             </td>
                                             <td class="text-center">
                                               '.$object_code.'
-                                            </td>
-                                            <td class="text-center">
-                                              '.$date_obj.'
                                             </td>
                                         <td class="text-center">'.$temp.'</td>';
                                         

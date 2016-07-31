@@ -1,5 +1,7 @@
 <?php
+error_reporting(0);
 session_start(); 
+$_SESSION['login']="user";
 include("inc_ShamsiDate.php");
 include("inc_con.php");
 
