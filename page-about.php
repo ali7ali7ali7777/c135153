@@ -1,23 +1,40 @@
+<?php
+include("inc_db.php");
+
+if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
+{
+	$url = 'login.php';
+	header( "Location: $url" );
+	die();
+}
+
+
+
+
+$rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
+		if (mysqli_num_rows($rant_a1) > 0) {	
+			$row_a1=mysqli_fetch_assoc($rant_a1);
+			}
+			else
+			{
+				echo "الطفا ارتباط با ما را تکمیل نمائید.";
+			}
+
+?>
+
+
+?>
 <!DOCTYPE html>
-<!--
-Theme: JANGO - Ultimate Multipurpose HTML Theme Built With Twitter Bootstrap 3.3.6
-Version: 1.3.7
-Author: Themehats
-Site: http://www.themehats.com
-Purchase: http://themeforest.net/item/jango-responsive-multipurpose-html5-template/11987314?ref=themehats
-Contact: support@themehats.com
-Follow: http://www.twitter.com/themehats
--->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html dir="rtl">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - About Us 3</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>صفحه درباره ما</title>
+        <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta content="" name="description" />
@@ -47,7 +64,7 @@ Follow: http://www.twitter.com/themehats
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
 
-    <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
+    <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
         <?php require_once "header.php"; ?>
         <!-- BEGIN: PAGE CONTAINER -->
@@ -63,39 +80,25 @@ Follow: http://www.twitter.com/themehats
                         <div class="col-md-6 c-bg-dark">
                             <div class="c-feature-13-container">
                                 <div class="c-content-title-1">
-                                    <h3 class="c-center c-font-uppercase c-font-white c-font-bold">Why hire
-                                        <span class="c-theme-font">Us</span>?</h3>
+                                    <h3 class="c-center c-font-uppercase c-font-white c-font-bold">درباره
+                                        <span class="c-theme-font">ما</span></h3>
                                     <div class="c-line-center c-theme-bg"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6 c-feature-13-tile">
+                                    <div class="col-sm-12 c-feature-13-tile">
                                         <i class="icon-energy c-theme-font c-font-24"></i>
                                         <div class="c-feature-13-content">
-                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">Blazing Development</h4>
-                                            <p class="c-font-white">Lorem ipsum dolor consetuer adipicing sed diam ticidut erat votpat dolore</p>
+                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">تیتر یک</h4>
+                                            <p class="c-font-white"><?php echo $row_a1['about_title_1']; ?></p>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 c-feature-13-tile">
-                                        <i class="icon-star c-theme-font c-font-24"></i>
-                                        <div class="c-feature-13-content">
-                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">Top Quality</h4>
-                                            <p class="c-font-white">Lorem ipsum dolor consetuer adipicing sed diam ticidut erat votpat dolore</p>
-                                        </div>
-                                    </div>
-                                </div>
+                              </div>
                                 <div class="row c-margin-t-40">
-                                    <div class="col-sm-6 c-feature-13-tile">
+                                    <div class="col-sm-12 c-feature-13-tile">
                                         <i class="icon-hourglass c-theme-font c-font-24"></i>
                                         <div class="c-feature-13-content">
-                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">Highly Efficient</h4>
-                                            <p class="c-font-white">Lorem ipsum dolor consetuer adipicing sed diam ticidut erat votpat dolore</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 c-feature-13-tile">
-                                        <i class="icon-bubbles c-theme-font c-font-24"></i>
-                                        <div class="c-feature-13-content">
-                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">Great Support</h4>
-                                            <p class="c-font-white">Lorem ipsum dolor consetuer adipicing sed diam ticidut erat votpat dolore</p>
+                                            <h4 class="c-font-uppercase c-theme-font c-font-bold">در ادامه</h4>
+                                            <p class="c-font-white"><?php echo $row_a1['about_title_2']; ?></p>
                                         </div>
                                     </div>
                                 </div>

@@ -1,3 +1,20 @@
+<?php
+
+
+$rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
+		if (mysqli_num_rows($rant_f1) > 0) {	
+			$row_f1=mysqli_fetch_assoc($rant_f1);
+			}
+			else
+			{
+				echo "الطفا ارتباط با ما را تکمیل نمائید.";
+			}
+
+?>
+
+
+
+
 <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-6 -->
 <a name="footer"></a>
 <footer class="c-layout-footer c-layout-footer-6 c-bg-grey-1">
@@ -17,11 +34,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="c-right">
-                            <h3 class="c-title c-font-uppercase c-font-bold">Download Mobile App</h3>
+                            <h3 class="c-title c-font-uppercase c-font-bold">دانلود اپلیکشن موبایل</h3>
                             <div class="c-icons" >
-                                <a href="#" class="c-font-30 c-font-green-1 socicon-btn c-bg-grey-1-hover socicon-android tooltips" data-original-title="Android" data-container="body"></a>
-                                <a href="#" class="c-font-30 c-font-grey-3 socicon-btn c-bg-grey-1-hover socicon-apple tooltips" data-original-title="Apple" data-container="body"></a>
-                                <a href="#" class="c-font-30 c-font-blue-3 socicon-btn c-bg-grey-1-hover socicon-windows tooltips" data-original-title="Windows" data-container="body"></a>
+                                <a href="#" class="c-font-30 c-font-green-1 socicon-btn c-bg-grey-1-hover socicon-android tooltips" data-original-title="اندروید" data-container="body"></a>
+                                <a href="#" class="c-font-30 c-font-grey-3 socicon-btn c-bg-grey-1-hover socicon-apple tooltips" data-original-title="اپل" data-container="body"></a>
+                                <a href="#" class="c-font-30 c-font-blue-3 socicon-btn c-bg-grey-1-hover socicon-windows tooltips" data-original-title="ویندوز" data-container="body"></a>
                             </div>
                         </div>
                     </div>
@@ -73,64 +90,34 @@
                         </ul>
                     </div>
                     <div class="col-md-5 col-sm-6 col-xs-12">
-                        <div class="c-content-title-1 c-title-md">
-                            <h3 class="c-title c-font-uppercase c-font-bold">Latest Tweets</h3>
+                         <div class="c-content-title-1 c-title-md">
+                            <h3 class="c-font-uppercase c-font-bold">
+                                <span class="c-theme-font">درباره ما</span>
+                            </h3>
                             <div class="c-line-left hide"></div>
                         </div>
-                        <div class="c-twitter">
-                            <a class="twitter-timeline" href="https://twitter.com/themehats" data-widget-id="626329365547061249" data-tweet-limit="2" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @themehats...</a>
-                        </div>
+                        <p class="c-text c-font-16 c-font-regular"><?php echo $row_f1['about_title_1']; ?></p>
                     </div>
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="c-content-title-1 c-title-md">
-                            <h3 class="c-title c-font-uppercase c-font-bold">ارتباط با ما</h3>
+                            <h3 class="c-title c-font-uppercase c-font-bold">
+                            	<span class="c-theme-font">ارتباط با ما</span>
+                            </h3>
                             <div class="c-line-left hide"></div>
                         </div>
-                        <p class="c-address c-font-16"> 25, Lorem Lis Street, Orange
-                            <br/> California, US
-                            <br/> Phone: 800 123 3456
-                            <br/> Fax: 800 123 3456
-                            <br/> Email:
+                        <p class="c-address c-font-16"> <?php echo $row_f1['mac']; ?>
+                            <br/> تلفن : <?php echo $row_f1['tel_1']. ' - 0'.$row_f1['kod']; ?>
+                            <br/> فکس : <?php echo $row_f1['fax']; ?>
+                            <br/> ایمیل :
                             <a href="mailto:info@jango.com">
-                                <span class="c-theme-color">info@jango.com</span>
-                            </a>
-                            <br/> Skype:
-                            <a href="#">
-                                <span class="c-theme-color">jango</span>
+                                <span class="c-theme-color"><?php echo $row_f1['email']; ?></span>
                             </a>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="c-line"></div>
-            <div class="c-foot">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="c-content-title-1 c-title-md">
-                            <h3 class="c-font-uppercase c-font-bold">About
-                                <span class="c-theme-font">JANGO</span>
-                            </h3>
-                            <div class="c-line-left hide"></div>
-                        </div>
-                        <p class="c-text c-font-16 c-font-regular">Tolerare unus ducunt ad brevis buxum. Est alter buxum, cesaris. Eheu, lura! Racanas crescere in emeritis oenipons! Ubi est rusticus repressor? Lixa grandis clabulare est. Eposs tolerare.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="c-content-title-1 c-title-md">
-                            <h3 class="c-font-uppercase c-font-bold">Subscribe to Newsletter</h3>
-                            <div class="c-line-left hide"></div>
-                        </div>
-                        <div class="c-line-left hide"></div>
-                        <form action="#">
-                            <div class="input-group input-group-lg c-square">
-                                <input type="text" class="form-control c-square c-font-grey-3 c-border-grey c-theme" placeholder="Your Email Here" />
-                                <span class="input-group-btn">
-                                    <button class="btn c-theme-btn c-theme-border c-btn-square c-btn-uppercase c-font-16" type="button">Subscribe</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
+           
         </div>
     </div>
     <div class="c-postfooter c-bg-dark-2">
@@ -142,7 +129,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 col-sm-12 c-col">
-                    <ul class="list-unstyled list-inline pull-right">
+                    <ul class="list-unstyled list-inline pull-left">
                         <li>
                             <img class="img-responsive" src="assets/base/img/content/payments/light/1.png" width="60" />
                         </li>

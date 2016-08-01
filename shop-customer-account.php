@@ -1,23 +1,24 @@
+<?php
+include("inc_db.php");
+
+if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
+{
+	$url = 'login.php';
+	header( "Location: $url" );
+	die();
+}
+?>
 <!DOCTYPE html>
-<!--
-Theme: JANGO - Ultimate Multipurpose HTML Theme Built With Twitter Bootstrap 3.3.6
-Version: 1.3.7
-Author: Themehats
-Site: http://www.themehats.com
-Purchase: http://themeforest.net/item/jango-responsive-multipurpose-html5-template/11987314?ref=themehats
-Contact: support@themehats.com
-Follow: http://www.twitter.com/themehats
--->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html dir="rtl">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Customer Login/Register</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta content="" name="description" />
@@ -47,7 +48,7 @@ Follow: http://www.twitter.com/themehats
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
 
-    <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
+   <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
         <?php require_once "header.php"; ?>
         <!-- BEGIN: PAGE CONTAINER -->

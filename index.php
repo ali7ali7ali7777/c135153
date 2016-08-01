@@ -9,18 +9,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 }
 ?>
 <!DOCTYPE html>
-<!--
-Theme: JANGO - Ultimate Multipurpose HTML Theme Built With Twitter Bootstrap 3.3.6
-Version: 1.3.7
-Author: Themehats
-Site: http://www.themehats.com
-Purchase: http://themeforest.net/item/jango-responsive-multipurpose-html5-template/11987314?ref=themehats
-Contact: support@themehats.com
-Follow: http://www.twitter.com/themehats
--->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
-<html>
+<html dir="rtl">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
 
@@ -59,8 +50,8 @@ Follow: http://www.twitter.com/themehats
         <link href="assets/base/css/custom.css" rel="stylesheet" type="text/css" />
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
-
-    <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse" >
+<!--<body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">-->
+    <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
 
 
@@ -84,7 +75,7 @@ Follow: http://www.twitter.com/themehats
                                 <div class="tp-caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="-385" data-voffset="-200" data-speed="500" data-start="1000" data-transform_in="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:500;e:Back.easeInOut;"
                                 data-transform_out="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;s:600;e:Back.easeInOut;" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1"
                                 data-endspeed="600">
-                                    <h3 class="c-main-title c-font-bold c-font-uppercase c-font-white"> WINTER COLLECTION </h3>
+                                    <h3 class="c-main-title c-font-bold c-font-uppercase c-font-white" style="direction:ltr"> WINTER COLLECTION </h3>
                                 </div>
                                 <!--END -->
                                 <!--BEGIN: SUB TITLE -->

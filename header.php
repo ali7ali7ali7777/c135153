@@ -1,10 +1,58 @@
 
        <!-- BEGIN: HEADER -->
-        <header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">
-            <div class="c-topbar c-topbar-light" >
+       <header class="c-layout-header c-layout-header-6 c-navbar-fluid" data-minimize-offset="80">
+            <div class="c-topbar">
                 <div class="container">
-                    <!-- BEGIN: INLINE NAV -->
-                    <nav class="c-top-menu c-pull-right">
+                    <nav class="c-top-menu">
+                        <ul class="c-links c-theme-ul">
+                            <li>
+                                <a href="index.php" class="c-font-uppercase c-font-bold">خانه</a>
+                            </li>
+                            <li class="c-divider"></li>
+                            <li>
+                                <a href="page-contact.php" class="c-font-uppercase c-font-bold">ارتباط با ما</a>
+                            </li>
+                            <li class="c-divider"></li>
+                            <li>
+                                <a href="page-about.php" class="c-font-uppercase c-font-bold">درباره ما</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" data-toggle="modal" data-target="#login-form" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ورود</a>
+                            </li>
+                        </ul>
+                        <ul class="c-ext hide c-theme-ul">
+                            <!--<li class="c-lang dropdown c-last">
+                                <a href="#">en</a>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li class="active">
+                                        <a href="#">English</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">German</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Espaniol</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Portugise</a>
+                                    </li>
+                                </ul>
+                            </li>-->
+                            <li class="c-search hide">
+                                <!-- BEGIN: QUICK SEARCH -->
+                                <form action="#">
+                                    <input type="text" name="query" placeholder="search..." value="" class="form-control" autocomplete="off">
+                                    <i class="fa fa-search"></i>
+                                </form>
+                                <!-- END: QUICK SEARCH -->
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="c-brand">
+                        <a href="index.php" class="c-logo">
+                            <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo">
+                            <img src="assets/base/img/layout/logos/logo-1.png" alt="JANGO" class="c-desktop-logo-inverse">
+                            <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-mobile-logo"> </a>
                         <ul class="c-icons c-theme-ul">
                             <li>
                                 <a href="#">
@@ -21,67 +69,29 @@
                                     <i class="icon-social-dribbble"></i>
                                 </a>
                             </li>
-                            <li class="hide">
-                                <span>Phone: +99890345677</span>
-                            </li>
                         </ul>
-                    </nav>
-                    <!-- END: INLINE NAV -->
-                    <!-- BEGIN: INLINE NAV -->
-                    <nav class="c-top-menu c-pull-left">
-                        <ul class="c-links c-theme-ul">
-                            <li>
-                                <a href="#">ساعت</a>
-                            </li>
-                            <li class="c-divider">|</li>
-                            <li>
-                                <a href="#">تاریخ</a>
-                            </li>
-                            <li class="c-divider">|</li>
-                            <li>
-                                <a href="#">ارتباط با ما</a>
-                            </li>
-                        </ul>
-                        <ul class="c-ext c-theme-ul">
-                            
-                            <li class="c-search hide">
-                                <!-- BEGIN: QUICK SEARCH -->
-                                <form action="#">
-                                    <input type="text" name="query" placeholder="search..." value="" class="form-control" autocomplete="off">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                                <!-- END: QUICK SEARCH -->
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- END: INLINE NAV -->
+                       <button class="c-topbar-toggler" type="button">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
+                            <span class="c-line"></span>
+                            <span class="c-line"></span>
+                            <span class="c-line"></span>
+                        </button>
+                        <button class="c-search-toggler" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button class="c-cart-toggler" type="button">
+                            <i class="icon-handbag"></i>
+                            <span class="c-cart-number c-theme-bg">2</span>
+                        </button>
+                      </div>
                 </div>
             </div>
             <div class="c-navbar">
                 <div class="container">
                     <!-- BEGIN: BRAND -->
                     <div class="c-navbar-wrapper clearfix">
-                        <div class="c-brand c-pull-right">
-                            <a href="index.php" class="c-logo">
-                                <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo">
-                                <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo-inverse">
-                                <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-mobile-logo"> </a>
-                            <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
-                                <span class="c-line"></span>
-                                <span class="c-line"></span>
-                                <span class="c-line"></span>
-                            </button>
-                            <button class="c-topbar-toggler" type="button">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </button>
-                            <button class="c-search-toggler" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            <button class="c-cart-toggler" type="button">
-                                <i class="icon-handbag"></i>
-                                <span class="c-cart-number c-theme-bg">2</span>
-                            </button>
-                        </div>
                         <!-- END: BRAND -->
                         <!-- BEGIN: QUICK SEARCH -->
                         <form class="c-quick-search" action="#">
@@ -93,62 +103,71 @@
                         <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
                         <!-- BEGIN: MEGA MENU -->
                         <!-- Dropdown menu toggle on mobile: c-toggler class can be applied to the link arrow or link itself depending on toggle mode -->
-            
-                        <nav class="c-mega-menu c-pull-left c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+                        <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
                             <ul class="nav navbar-nav c-theme-nav">
       <?php
 		    
-			$rant1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0");
-			while($rows_f1=mysqli_fetch_assoc($rant1))
+			
+			
+			
+			
+	$rant_h1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
+		if (mysqli_num_rows($rant_h1) > 0) {	
+			while($row_h1=mysqli_fetch_assoc($rant_h1))
 			{
 	  ?> 	
 					     	   <li>
-                                  <a href="javascript:;" class="c-link dropdown-toggle"><?php echo $rows_f1['gro_name'] ?>
-                                      <span class=c-arrow c-toggler></span>
+                                  <a href="javascript:;" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?>
+                                      <span class="c-arrow c-toggler"></span>
                                   </a>
                                     
                          		  <div class="dropdown-menu c-menu-type-mega c-menu-type-fullwidth" style="min-width: auto">
 						 			<div class="row">
       <?php
-				$rant2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$rows_f1['gro_id']."");
-					
-				while($rows_f2=mysqli_fetch_assoc($rant2))
+				$rant_h2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$row_h1['gro_id']." and gro_status =1");
+				if (mysqli_num_rows($rant_h2) > 0) {		
+				while($row_h2=mysqli_fetch_assoc($rant_h2))
 				{
          ?>       
                                         <div class="col-md-2">
                                                 <ul class="dropdown-menu c-menu-type-inline">
                                                     <li>
-                                                        <a href=#><?php echo $rows_f2['gro_name'] ?></a>
+                                                        <a href=#><?php echo $row_h2['gro_name'] ?></a>
                                                     </li>
                                                 </ul>
                                         </div>
-		<?php	} ?>
+		<?php	}
+			} else {
+					echo "گروه تعریف نشده";
+				}
+		 ?>
                  		  	      	  </div>
                                    </div>
 								</li>
-	<?php  }  ?>
-                           
+	<?php  }
+	} else {
+			echo "گروه تعریف نشده";
+}  ?>                           
 						    
-                                <li class="c-search-toggler-wrapper">
-                                    <a href="#" class="c-btn-icon c-search-toggler">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                </li>
-                                <li class="c-cart-toggler-wrapper">
+                            
+							                            
+                            
+                                  <li class="c-cart-toggler-wrapper c-quick-sidebar-toggler-wrapper">
                                     <a href="#" class="c-btn-icon c-cart-toggler">
                                         <i class="icon-handbag c-cart-icon"></i>
                                         <span class="c-cart-number c-theme-bg">2</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="javascript:;" data-toggle="modal" data-target="#login-form" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-dark c-btn-circle c-btn-uppercase c-btn-sbold">
-                                    <i class="icon-user"></i>ورود</a>
-                                </li>
-                                <li class="c-quick-sidebar-toggler-wrapper">
+                               <!-- <li class="c-quick-sidebar-toggler-wrapper">
                                     <a href="#" class="c-quick-sidebar-toggler">
                                         <span class="c-line"></span>
                                         <span class="c-line"></span>
                                         <span class="c-line"></span>
+                                    </a>
+                                </li>-->
+                                <li class="c-search-toggler-wrapper">
+                                    <a href="#" class="c-btn-icon c-search-toggler">
+                                        <i class="fa fa-search"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -161,8 +180,8 @@
                     <!-- BEGIN: CART MENU -->
                     <div class="c-cart-menu">
                         <div class="c-cart-menu-title">
-                            <p class="c-cart-menu-float-l c-font-sbold">2 کالا</p>
-                            <p class="c-cart-menu-float-r c-theme-font c-font-sbold">2000000 ريال</p>
+                            <p class="c-cart-menu-float-l c-font-sbold">2 item(s)</p>
+                            <p class="c-cart-menu-float-r c-theme-font c-font-sbold">$79.00</p>
                         </div>
                         <ul class="c-cart-menu-items">
                             <li>
@@ -171,8 +190,8 @@
                                 </div>
                                 <img src="assets/base/img/content/shop2/24.jpg" />
                                 <div class="c-cart-menu-content">
-                                    <p>
-                                        <span class="c-item-price c-theme-font">$30</span> x 1
+                                    <p>1 x
+                                        <span class="c-item-price c-theme-font">$30</span>
                                     </p>
                                     <a href="shop-product-details.php" class="c-item-name c-font-sbold">Winter Coat</a>
                                 </div>
@@ -183,8 +202,8 @@
                                 </div>
                                 <img src="assets/base/img/content/shop2/12.jpg" />
                                 <div class="c-cart-menu-content">
-                                    <p>
-                                        <span class="c-item-price c-theme-font">$30</span>  x 1
+                                    <p>1 x
+                                        <span class="c-item-price c-theme-font">$30</span>
                                     </p>
                                     <a href="shop-product-details.php" class="c-item-name c-font-sbold">Sports Wear</a>
                                 </div>
