@@ -39,7 +39,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_basic_object.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_basic_unit.js"></script>
 	<script type="text/javascript" src="assets/js/main.js"></script>
 
 </head>
@@ -74,52 +74,27 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 						<table class="table datatable-basic">
 							<thead>
 								<tr>
-									<th>نام کالا</th>
-									<th>گروه کالا</th>
-									<th class="text-center">کد اختصاصی برنامه</th>
-									<th class="text-center">کد کالا</th>
-									<th class="text-center">وضعیت نمایش در سایت</th>
+									<th>نام واحد</th>
+									<th>تعداد هر واحد</th>
 									<th class="text-center">ویرایش</th>
 								</tr>
 							</thead>
 							<tbody>
                                  <?php
-									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM object");
+									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
 									while($rows2=mysqli_fetch_assoc($table2))
 									{
-                                        $object_gro_id = $rows2['object_gro_id'];
-                                        $object_code = $rows2['object_code'];
-                                        $object_id = $rows2['object_id'];
-                                        $date_obj = mkdate("Y/m/d H:m",$rows2['object_date'],'fa');
-                                        $object_status = $rows2['object_status'];
-                                        if($object_status == 1) 
-                                            $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$object_id.'" onClick="AdminChange2(1,'.$object_id.')">فعال</a>'; 
-                                        elseif($object_status == 2) 
-                                            $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$object_id.'" onClick="AdminChange2(2,'.$object_id.')">غیر فعال</a>';
-										
-                                        echo '<tr>
-												<td>
-												  '.$rows2['object_m1'].'
-												</td>
-												<td>';
-												
-										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_id=".$rows2['object_gro_id']." ");
-										while($rows3=mysqli_fetch_assoc($table3))
-										{
-                                            echo $rows3['gro_name'];
-											
-										}
-                                        echo'</td>
-                                            <td class="text-center">
-                                              '.$object_id.'
+                                        $unit_id = $rows2['unit_id'];
+                                        $unit_name = $rows2['unit_name'];
+                                        $unit_single = $rows2['unit_single'];
+                                        echo'<tr>
+                                            <td>
+                                              '.$unit_name.'
                                             </td>
-                                            <td class="text-center">
-                                              '.$object_code.'
+                                            <td>
+                                              '.$unit_single.'
                                             </td>
-                                        <td class="text-center">'.$temp.'</td>';
-                                        
-										echo '
-											<td class="text-center"><a class="btn bg-slate" href="object-product.php?selected='.$object_id.'">ویرایش</a></td>
+											<td class="text-center"><a class="btn bg-slate" href="unit-product.php?selected='.$unit_id.'">ویرایش</a></td>
 											</tr>';
 									}
 									?>

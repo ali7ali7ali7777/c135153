@@ -61,6 +61,13 @@
 												<li><a href="object-edit.php">ویرایش کالا</a></li>
 											</ul>
 										</li>
+										<li>
+											<a href="#">واحد کالا</a>
+											<ul>
+												<li><a href="unit-create.php">تعریف واحد کالا</a></li>
+												<li><a href="unit-edit.php">ویرایش واحد کالا</a></li>
+											</ul>
+										</li>
 									</ul>
 								</li>
 								<li>
