@@ -7,6 +7,8 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	header( "Location: $url" );
 	die();
 }
+
+$datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 ?>
 
     <!DOCTYPE html>
@@ -33,14 +35,19 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
         <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/uploaders/fileinput.min.js"></script>
         
+        <script type="text/javascript" src="assets/js/plugins/uploaders/fileinput.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/validation/validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/styling/switch.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+
         <script type="text/javascript" src="assets/js/core/app.js"></script>
+        <script type="text/javascript" src="assets/js/pages/form_validation.js"></script>
     	<script type="text/javascript" src="assets/js/pages/uploader_bootstrap.js"></script>
-        <script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
         <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
         <script type="text/javascript" src="assets/js/main.js"></script>
 
@@ -62,7 +69,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                         //    print_r($_POST['m'].$_POST['m1']."****************");
                 $gro_id = get_safe_post($mysqlicheck,"m");
 				if($_POST['m'] != "" && $_POST['m1'] != ""){
-				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m1") != "" && get_safe_post($mysqlicheck,"m") != "" )
+				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m1") != "" && get_safe_post($mysqlicheck,"m") != "" && get_safe_post($mysqlicheck,"unit") != "" )
 				{
                     $m = get_safe_post($mysqlicheck,"m");
                     $mcode = get_safe_post($mysqlicheck,"mcode");
@@ -70,7 +77,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					$m2 = get_safe_post($mysqlicheck,"m2");
 					$m3 = get_safe_post($mysqlicheck,"m3");
 					$m4 = get_safe_post($mysqlicheck,"m4");
-					$m5 = get_safe_post($mysqlicheck,"m5");
+					$m5 = get_safe_post($mysqlicheck,"date_iso");
 					$m6 = get_safe_post($mysqlicheck,"m6");
 					$m7 = get_safe_post($mysqlicheck,"m7");
 					$m8 = get_safe_post($mysqlicheck,"m8");
@@ -81,12 +88,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					$m13 = get_safe_post($mysqlicheck,"m13");
 					$m14 = get_safe_post($mysqlicheck,"m14");
 					$m15 = get_safe_post($mysqlicheck,"m15");
+					$unit = get_safe_post($mysqlicheck,"unit");
                     
                     
                     
 					
                     
-                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15, object_status) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15','1')";
+                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15, object_status,object_unit_id) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15','1','$unit')";
 
                     $result = $mysqlicheck->query($sql);
                     $object_new_id = mysqli_insert_id($mysqlicheck);
@@ -157,7 +165,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                 
 			?>
                                 <div class="content">
-                                        <form method="post" class="" enctype="multipart/form-data">
+                                        <form method="post" class="form-horizontal form-validate-jquery" enctype="multipart/form-data">
                                             <div class="panel">
                                                 <div class="panel-heading">
                                                     <h5 class="panel-title">ایجاد کالا جدید</h5>
@@ -218,17 +226,31 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                                     </div>
                                                                 </div>
                                                                 <div class="row content-group-lg">
+                                                                    
                                                                     <div class="col-md-6">
-                                                                        <div class="col-md-8">
+                                                                        <div class="col-md-5">
+                                                                            <label>انتخاب واحد کالا</label>
+                                                                            <select class="select" id="gp-edit-select" name="unit">
+                                                                                <?php
+                                                                                $table3 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
+                                                                                while($rows3=mysqli_fetch_assoc($table3))
+                                                                                {
+                                                                                    echo '<option value="'.$rows3['unit_id'].'">'.$rows3['unit_name'].'</option>';
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="col-md-3">
                                                                             <label><?php echo  $mm4; ?> :</label>
-                                                                            <input type="text" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
+                                                                            <input type="number" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm5; ?> :</label>
-                                                                            <input type="text" name="m5" class="form-control" value="" placeholder="<?php echo  $mm5; ?> را وارد کنید">
+                                                                            <input type="text" name="date_iso" value="<?php echo $datenow; ?>" required="required" class="form-control" aria-required="true" placeholder="<?php echo  $mm5; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -236,14 +258,14 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm6; ?> :</label>
-                                                                            <input type="text" name="m6" class="form-control" value="" placeholder="<?php echo  $mm6; ?> را وارد کنید">
+                                                                            <input type="number" name="m6" class="form-control" placeholder="<?php echo  $mm6; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm7; ?> :</label>
-                                                                            <input type="text" name="m7" class="form-control" value="" placeholder="<?php echo  $mm7; ?> را وارد کنید">
+                                                                            <input type="number" class="form-control" name="m7" placeholder="<?php echo  $mm7; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>

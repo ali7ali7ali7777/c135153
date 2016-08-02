@@ -114,7 +114,7 @@ $(function() {
         },
         validClass: "validation-valid-label",
         success: function(label) {
-            label.addClass("validation-valid-label").text("Success.")
+            label.addClass("validation-valid-label").text("صحیح.")
         },
         rules: {
             password: {
