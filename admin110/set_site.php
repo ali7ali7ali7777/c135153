@@ -22,11 +22,26 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 <link href="assets/css/colors.css" rel="stylesheet" type="text/css">
 <link href="assets/css/yekan.css" rel="stylesheet" type="text/css">
 <link href="assets/css/main.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="assets/js/plugins/uploaders/fileinput.min.js"></script>
+
+	<script type="text/javascript" src="assets/js/core/app.js"></script>
+	
+	<!-- /theme JS files -->
 <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
 <script type="text/javascript" src="assets/js/core/app.js"></script>
 <script type="text/javascript" src="assets/js/layout_fixed_custom.js"></script>
+<script type="text/javascript" src="assets/js/pages/site_shop.js"></script>
+
+
+
 </head>
 
 <body class="navbar-top">
@@ -36,28 +51,21 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
     <?php require_once "menu2.php"; ?>
     <div class="content-wrapper">
       <?php
-				
-				
-												
-												
-												
-				
-				
 				if(get_safe_post($mysqlicheck,"submit") == "save" )
 				{
-					$tel_1 	= $_POST['tel_1'];
-					$tel_2 	= $_POST['tel_2'];
-					$mobile = $_POST['mobile'];
-					$fax	= $_POST['fax'];
-					$mac	= $_POST['mac'];
-					$email	= $_POST['email'];
-					$kod	= $_POST['kod'];
-					$field	= $_POST['field'];
+					$tel_1 	= get_safe_post($mysqlicheck,"tel_1");
+					$tel_2 	= get_safe_post($mysqlicheck,"tel_2");
+					$mobile = get_safe_post($mysqlicheck,"mobile");
+					$fax	= get_safe_post($mysqlicheck,"fax");
+					$mac	= get_safe_post($mysqlicheck,"mac");
+					$email	= get_safe_post($mysqlicheck,"email");
+					$kod	= get_safe_post($mysqlicheck,"kod");
+					$field	= get_safe_post($mysqlicheck,"field");
 					
 					
-					$sql="UPDATE contact SET tel_1='$tel_1', mobile='$mobile',  tel_2='$tel_2', email='$email', kod='$kod', fax='$fax', field='$field' , mac='$mac' WHERE cont_id=1 ";
-					$result = $mysqlicheck->query($sql);
-					if (!$result)
+					$sql_a="UPDATE contact SET tel_1='$tel_1', mobile='$mobile',  tel_2='$tel_2', email='$email', kod='$kod', fax='$fax', field='$field' , mac='$mac' WHERE cont_id=1 ";
+					$result_a = $mysqlicheck->query($sql_a);
+					if (!$result_a)
 					{
 						header("location:si_contact.php");
 						echo'
@@ -74,7 +82,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 							</div>';
 					}
 				}
-				$show=mysqli_fetch_assoc(mysqli_query($mysqlicheck,"SELECT * FROM contact"));
+				$show_a=mysqli_fetch_assoc(mysqli_query($mysqlicheck,"SELECT * FROM contact"));
 			?>
       <div class="content">
         <div class="row">
@@ -108,25 +116,25 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                             <div class="form-group">
                               <label class="col-lg-3 control-label">تلفن یک :</label>
                               <div class="col-lg-9">
-                                <input type="tel" name="tel_1" class="form-control" placeholder="تلفن یک" value="<?php echo $show['tel_1'] ?>">
+                                <input type="tel" id="text-input-methods" disabled="disabled" name="tel_1" class="form-control" placeholder="تلفن یک" value="<?php echo $show_a['tel_1'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">تلفن دو :</label>
                               <div class="col-lg-9">
-                                <input type="tel" name="tel_2" class="form-control" placeholder="تلفن دو" value="<?php echo $show['tel_2'] ?>">
+                                <input type="tel" id="text-input-methods" disabled="disabled" name="tel_2" class="form-control" placeholder="تلفن دو" value="<?php echo $show_a['tel_2'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">کد شهر :</label>
                               <div class="col-lg-9">
-                                <input type="tel" name="kod" class="form-control" placeholder="کد شهر" value="<?php echo '0'.$show['kod'] ?>">
+                                <input type="tel" id="text-input-methods" disabled="disabled" name="kod" class="form-control" placeholder="کد شهر" value="<?php echo '0'.$show_a['kod'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">آدرس :</label>
                               <div class="col-lg-9">
-                                <textarea rows="3" cols="5" class="form-control elastic" placeholder="آدرس" name="mac"><?php echo $show['mac'] ?></textarea>
+                                <textarea rows="3" id="text-input-methods" disabled="disabled" cols="5" class="form-control elastic" placeholder="آدرس" name="mac"><?php echo $show_a['mac'] ?></textarea>
                               </div>
                             </div>
                           </div>
@@ -136,35 +144,76 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                             <div class="form-group">
                               <label class="col-lg-3 control-label">فکس :</label>
                               <div class="col-lg-9">
-                                <input type="tel" name="fax" class="form-control" placeholder="فکس" value="<?php echo $show['fax'] ?>">
+                                <input type="tel" id="text-input-methods" disabled="disabled" name="fax" class="form-control" placeholder="فکس" value="<?php echo $show_a['fax'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">موبایل :</label>
                               <div class="col-lg-9">
-                                <input type="tel" name="mobile" class="form-control" placeholder="موبایل" value="<?php echo '0'.$show['mobile'] ?>">
+                                <input type="tel" id="text-input-methods" disabled="disabled" name="mobile" class="form-control" placeholder="موبایل" value="<?php echo '0'.$show_a['mobile'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">ایمیل :</label>
                               <div class="col-lg-9">
-                                <input type="email" name="email" class="form-control" placeholder="ایمیل" value="<?php echo $show['email'] ?>">
+                                <input type="email" id="text-input-methods" disabled="disabled" name="email" class="form-control" placeholder="ایمیل" value="<?php echo $show_a['email'] ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-lg-3 control-label">فیلد :</label>
                               <div class="col-lg-9">
-                                <input type="text" name="field" class="form-control" placeholder="فیلد" value="<?php echo $show['field'] ?>">
+                                <input type="text" id="text-input-methods" disabled="disabled" name="field" class="form-control" placeholder="فیلد" value="<?php echo $show_a['field'] ?>">
                               </div>
                             </div>
                           </div>
-                          <div class="text-right">
-                            <button type="submit" name="submit" value="save" class="btn bg-teal-400">ویرایش و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="panel-default">
+                            <div class="panel-body">
+                              <div class="text-right">
+                              <button type="button" class="btn bg-teal-400" id="btn-contact" value="2">روشن</button>
+                                <button type="submit" name="submit" disabled="disabled" value="save" id="text-input-methods" class="btn bg-teal-400">ویرایش و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
+                                
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </form>
                     </div>
-                    <div class="tab-pane active" id="colored-justified-tab2"> Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin. </div>
+                    <div class="tab-pane active" id="colored-justified-tab2">
+                      <form method="post" class="form-horizontal">
+                        <div class="col-md-6">
+                         
+                            <div class="form-group">
+                              <label class="col-lg-2 control-label">درباره ما :</label>
+                              <div class="col-lg-10">
+                                <textarea rows="8" cols="5" class="form-control elastic" placeholder="می توانید درباره خود اینجا بنویسید" name="mac"><?php echo $show['mac'] ?></textarea>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-lg-2 control-label">ادامه :</label>
+                              <div class="col-lg-10">
+                                <textarea rows="8" cols="5" class="form-control elastic" placeholder="ادامه مطالب شما" name="mac"><?php echo $show['mac'] ?></textarea>
+                              </div>
+                            </div>
+                         
+                        </div>
+                        <div class="col-md-6">
+                           
+                           <div class="form-group">
+                          
+										<input type="file" class="file-input-overwrite" data-browse-class="btn bg-teal-400" data-show-remove="false" data-show-caption="false" data-show-upload="false">
+										
+									
+                           
+									
+                          <div class="text-right">
+                              <button type="submit" name="submit" value="save" class="btn bg-teal-400">ویرایش و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
+                           </div>
+                           </div>
+                         </div>
+                      </form>
+                    </div>
                     <div class="tab-pane" id="colored-justified-tab3"> DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg whatever. </div>
                     <div class="tab-pane" id="colored-justified-tab4"> Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet. </div>
                   </div>
