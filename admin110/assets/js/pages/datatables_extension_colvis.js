@@ -20,8 +20,8 @@ $(function() {
         autoWidth: false,
         dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
-            search: '<span>Filter:</span> _INPUT_',
-            lengthMenu: '<span>Show:</span> _MENU_',
+            search: '<span>جستجو:</span> _INPUT_',
+            lengthMenu: '<span>نمایش:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&larr;', 'previous': '&rarr;' }
         }
     });
@@ -131,7 +131,7 @@ $(function() {
 
 
     // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder', 'Type to filter...');
+    $('.dataTables_filter input[type=search]').attr('placeholder', 'جستجوی کلمه مورد نظر ...');
 
 
     // Enable Select2 select for the length option
