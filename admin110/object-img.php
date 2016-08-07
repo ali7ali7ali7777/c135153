@@ -53,7 +53,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                 <div class="panel-heading">
                                     <h5 class="panel-title">ویرایش و تغییرات به صورت خودکار ذخیره میشود</h5>
                                     <div class="heading-elements">
-                                        <button type="button" class="btn btn-primary" onclick="location.href='object-product.php?selected=<?php echo $_SESSION['object_id']; ?>';"> برگشت</button>
+                                        <button type="button" class="btn btn-primary" onclick="location.href='object-product.php?selected=<?php echo $_SESSION['object_id']; ?>';"> بازگشت</button>
                                     </div>
                                 </div>
                                 <hr>

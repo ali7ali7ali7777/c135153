@@ -16,11 +16,13 @@ $dir = '../images/object/'.$object_id.'/';
 
 // iterate
 if(!$dir){
+   
+}else{
     // image extensions
     $extensions = array('jpg', 'jpeg', 'png');
 
     // init result
-    $result = array();
+    $resultimg = array();
 
     // directory to scan
     $directory = new DirectoryIterator($dir);
@@ -32,13 +34,17 @@ if(!$dir){
             // check if extension match
             if (in_array($extension, $extensions)) {
                 // add to result
-                $result[] = $fileinfo->getFilename();
+                $resultimg[] = $fileinfo->getFilename();
             }
         }
     }
-}else{
     
-    
+}
+
+function clean($string) {
+   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+
+   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 }
 ?>
 
@@ -75,6 +81,7 @@ if(!$dir){
 	<script type="text/javascript" src="assets/js/pages/gallery.js"></script>
     <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
 	<script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
 
 </head>
 
@@ -91,7 +98,6 @@ if(!$dir){
             
             <div class="content-wrapper">
             <?php
-               // print_r($_POST);
 				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m") != "" && get_safe_post($mysqlicheck,"mm") == $object_id)
 				{
 					$m = get_safe_post($mysqlicheck,"m");
@@ -100,8 +106,8 @@ if(!$dir){
 					$m2 = get_safe_post($mysqlicheck,"m2");
 					$m3 = get_safe_post($mysqlicheck,"m3");
 					$m4 = get_safe_post($mysqlicheck,"m4");
-					$m5 = get_safe_post($mysqlicheck,"m5");
-					$m6 = get_safe_post($mysqlicheck,"m6");
+					$m5 = get_safe_post($mysqlicheck,"date_iso");
+					$m6 = clean(get_safe_post($mysqlicheck,"m6"));
 					$m7 = get_safe_post($mysqlicheck,"m7");
 					$m8 = get_safe_post($mysqlicheck,"m8");
 					$m9 = get_safe_post($mysqlicheck,"m9");
@@ -112,11 +118,11 @@ if(!$dir){
 					$m14 = get_safe_post($mysqlicheck,"m14");
 					$m15 = get_safe_post($mysqlicheck,"m15");
                     $status = get_safe_post($mysqlicheck,"status");
+                    $unit = get_safe_post($mysqlicheck,"unit");
+
+
+                    $sql = "UPDATE object SET object_gro_id='$m',object_code='$mcode',object_m1='$m1',object_m2='$m2',object_m3='$m3',object_m4='$m4',object_m5='$m5', object_m6='$m6',object_m7='$m7',object_m8='$m8',object_m9='$m9',object_m10='$m10', object_m11='$m11',object_m12='$m12',object_m13='$m13',object_m14='$m14', object_m15='$m15', object_status='$status', object_unit_id ='$unit' WHERE object_id='$object_id'";
                     
-
-
-                    $sql = "UPDATE object SET object_gro_id='$m',object_code='$mcode',object_m1='$m1',object_m2='$m2',object_m3='$m3',object_m4='$m4',object_m5='$m5', object_m6='$m6',object_m7='$m7',object_m8='$m8',object_m9='$m9',object_m10='$m10', object_m11='$m11',object_m12='$m12',object_m13='$m13',object_m14='$m14', object_m15='$m15', object_status='$status' WHERE object_id='$object_id'";
-
                     $result = $mysqlicheck->query($sql);
                     if (!$result) {
                         echo'
@@ -127,7 +133,7 @@ if(!$dir){
                     }else{
                         echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
 									<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-									ویرایش <span class="text-semibold">'.$m1.'</span> با موفقیت انجام شد . 
+									ویرایش با موفقیت انجام شد . 
 								</div>';
                     }
 				}
@@ -156,6 +162,7 @@ if(!$dir){
                     $object_gro_id = $rows2['object_gro_id'];
                     $object_code = $rows2['object_code'];
                     $object_status = $rows2['object_status'];
+                    $object_unit = $rows2['object_unit_id'];
                     
 				}
                 } else {
@@ -265,22 +272,38 @@ if(!$dir){
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"><?php  echo $mm2; ?> :</label>
+                                        <label class="col-lg-3 control-label"><?php  echo $mm6; ?> (ریال):</label>
                                         <div class="col-lg-9">
-                                            <input type="text" name="m2" class="form-control" value="<?php  echo $object_m2; ?>" placeholder="<?php  echo $mm2; ?>">
+                                            <input type="text" name="m6" id="prc" class="form-control" value="<?php  echo $object_m6; ?>" placeholder="<?php  echo $mm6; ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"><?php  echo $mm3; ?> :</label>
+                                        <label class="col-lg-3 control-label"><?php  echo $mm7; ?> :</label>
                                         <div class="col-lg-9">
-                                            <input type="text" name="m3" class="form-control" value="<?php  echo $object_m3; ?>" placeholder="<?php  echo $mm3; ?>">
+                                            <input type="text" name="m7" class="form-control" value="<?php  echo $object_m7; ?>" placeholder="<?php  echo $mm7; ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"><?php  echo $mm4; ?> :</label>
-                                        <div class="col-lg-9">
+                                        <div class="col-lg-5">
+                                            <label>انتخاب واحد کالا</label>
+                                            <select class="select" id="gp-edit-select" name="unit">
+                                                <?php
+                                                $table32 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
+                                                while($rows32=mysqli_fetch_assoc($table32))
+                                                {
+                                                    if($rows32['unit_id'] == $object_unit)
+                                                        echo '<option selected value="'.$rows3['unit_id'].'">'.$rows32['unit_name'].'</option>';
+                                                    else
+                                                        echo '<option value="'.$rows32['unit_id'].'">'.$rows32['unit_name'].'</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>تعداد</label>
                                             <input type="text" name="m4" class="form-control" value="<?php  echo $object_m4; ?>" placeholder="<?php  echo $mm4; ?>">
                                         </div>
                                     </div>
@@ -293,16 +316,16 @@ if(!$dir){
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"><?php  echo $mm6; ?> :</label>
+                                        <label class="col-lg-3 control-label"><?php  echo $mm3; ?> :</label>
                                         <div class="col-lg-9">
-                                            <input type="text" name="m6" class="form-control" value="<?php  echo $object_m6; ?>" placeholder="<?php  echo $mm6; ?>">
+                                            <input type="text" name="m3" class="form-control" value="<?php  echo $object_m3; ?>" placeholder="<?php  echo $mm3; ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"><?php  echo $mm7; ?> :</label>
+                                        <label class="col-lg-3 control-label"><?php  echo $mm2; ?> :</label>
                                         <div class="col-lg-9">
-                                            <input type="text" name="m7" class="form-control" value="<?php  echo $object_m7; ?>" placeholder="<?php  echo $mm7; ?>">
+                                            <input type="text" name="m2" class="form-control" value="<?php  echo $object_m2; ?>" placeholder="<?php  echo $mm2; ?>">
                                         </div>
                                     </div>
                                     <hr>
@@ -363,14 +386,6 @@ if(!$dir){
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">نکته :</label>
-                                        <div class="col-lg-9">
-                                            <div class="form-control-static">
-                                                <p>در صورت حذف کردن دیگر به آن دسترسی ندارید و برگشت پذیر نخواهد بود.</p>
-                                            </div>
-                                        </div>
-                                    </div>
                                         <label class="col-lg-3 control-label"> وضعیت انتشار در سایت :</label>
                                         <input type="hidden" name="status" id="status" value="<?php echo $object_status; ?>">
                                         <div class="btn-group dropup col-lg-9">
@@ -408,7 +423,7 @@ if(!$dir){
                                 <div class="row">
                                    <?php
                                     $temp_number = 0;
-                                    foreach($result as $image){
+                                    foreach($resultimg as $image){
                                         
                                         ?>
                                     <div class="col-lg-3 col-sm-3">
@@ -460,6 +475,13 @@ if(!$dir){
         
         
     });
+        $(document).ready(function () {
+            $("#prc").change(function () {
+               numval = $("#prc").val();
+                //alert(numval);
+                 $("#prc").val(ToRial(numval));
+            });
+        });
     </script>
 </body>
 </html>

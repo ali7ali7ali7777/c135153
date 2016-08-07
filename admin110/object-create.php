@@ -8,6 +8,12 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	die();
 }
 
+function clean($string) {
+   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+
+   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+}
+
 $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 ?>
 
@@ -49,6 +55,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
         <script type="text/javascript" src="assets/js/pages/form_validation.js"></script>
     	<script type="text/javascript" src="assets/js/pages/uploader_bootstrap.js"></script>
         <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
+        
         <script type="text/javascript" src="assets/js/main.js"></script>
 
     </head>
@@ -65,8 +72,8 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                     <?php require_once "menu2.php"; ?>
 
                         <div class="content-wrapper">
-                            <?php
-                        //    print_r($_POST['m'].$_POST['m1']."****************");
+                            <?php 
+                            
                 $gro_id = get_safe_post($mysqlicheck,"m");
 				if($_POST['m'] != "" && $_POST['m1'] != ""){
 				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m1") != "" && get_safe_post($mysqlicheck,"m") != "" && get_safe_post($mysqlicheck,"unit") != "" )
@@ -78,7 +85,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 					$m3 = get_safe_post($mysqlicheck,"m3");
 					$m4 = get_safe_post($mysqlicheck,"m4");
 					$m5 = get_safe_post($mysqlicheck,"date_iso");
-					$m6 = get_safe_post($mysqlicheck,"m6");
+					$m6 = clean(get_safe_post($mysqlicheck,"m6"));
 					$m7 = get_safe_post($mysqlicheck,"m7");
 					$m8 = get_safe_post($mysqlicheck,"m8");
 					$m9 = get_safe_post($mysqlicheck,"m9");
@@ -179,35 +186,37 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                         </div>
                                                         <div id="accordion-control-right-group1" class="panel-collapse collapse in">
                                                             <div class="panel-body">
-                                                                <div class="row  content-group-lg">
-                                                                    <div class="col-md-4">
-                                                                        <label>انتخاب گروه</label>
-                                                                        <select class="select" id="gp-edit-select" name="m">
-                                                                            <option value="0">انتخاب گروه</option>
-                                                                            <?php
-                                                            $table = mysqli_query($mysqlicheck,"SELECT * FROM gro ");
-                                                            $array_parent_id[] = 0;
-                                                            while($rows=mysqli_fetch_assoc($table))
-                                                            {
-                                                                if($rows['gro_parent_id'] != 0)
-                                                                $array_parent_id[] = $rows['gro_parent_id'];
-                                                            }
-                                                            //print_r($array_parent_id);
-
-                                                            $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro");
-                                                            while($rows3=mysqli_fetch_assoc($table3))
-                                                            {
-                                                                if(! in_array($rows3['gro_id'],$array_parent_id)){
-                                                                    if($rows3['gro_id'] == $gro_id)
-                                                                        echo '<option selected value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
-                                                                    else
-                                                                        echo '<option value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
+                                                                <div class="row content-group-lg">
+                                                                    <div class="col-md-6">
+                                                                        <div class="col-md-8">
+                                                                            <label>انتخاب گروه</label>
+                                                                            <select class="select" id="gp-edit-select" name="m">
+                                                                                <option value="0">انتخاب گروه</option>
+                                                                                <?php
+                                                                $table = mysqli_query($mysqlicheck,"SELECT * FROM gro ");
+                                                                $array_parent_id[] = 0;
+                                                                while($rows=mysqli_fetch_assoc($table))
+                                                                {
+                                                                    if($rows['gro_parent_id'] != 0)
+                                                                    $array_parent_id[] = $rows['gro_parent_id'];
                                                                 }
+                                                                //print_r($array_parent_id);
 
-                                                            }
-                                                            ?>
-                                                                        </select>
+                                                                $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro");
+                                                                while($rows3=mysqli_fetch_assoc($table3))
+                                                                {
+                                                                    if(! in_array($rows3['gro_id'],$array_parent_id)){
+                                                                        if($rows3['gro_id'] == $gro_id)
+                                                                            echo '<option selected value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
+                                                                        else
+                                                                            echo '<option value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
+                                                                    }
 
+                                                                }
+                                                                ?>
+                                                                            </select>
+
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row content-group-lg">
@@ -257,8 +266,8 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                 <div class="row content-group-lg">
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
-                                                                            <label><?php echo  $mm6; ?> :</label>
-                                                                            <input type="number" name="m6" class="form-control" placeholder="<?php echo  $mm6; ?> را وارد کنید">
+                                                                            <label><?php echo  $mm6; ?> (ریال):</label>
+                                                                            <input type="text" name="m6" id="prc" class="form-control" placeholder="<?php echo  $mm6; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
 
@@ -294,7 +303,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm2; ?> :</label>
-                                                                            <input type="text" name="m2" class="form-control" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
+                                                                            <input type="text" name="m2" class="htNumeric current" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
 
@@ -430,6 +439,14 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 
                     });
                 });*/
+                $(document).ready(function () {
+                    $("#prc").change(function () {
+                       numval = $("#prc").val();
+                        //alert(numval);
+                         $("#prc").val(ToRial(numval));
+                    });
+                });
+
             </script>
     </body>
 
