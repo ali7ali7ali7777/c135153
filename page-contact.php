@@ -8,13 +8,44 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	die();
 }
 $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
-		if (mysqli_num_rows($rant_c1) > 0) {	
-			$row_c1=mysqli_fetch_assoc($rant_c1);
-			}
-			else
+		if (mysqli_num_rows($rant_c1) > 0)
+		{	
+		$row_c1=mysqli_fetch_assoc($rant_c1);
+		}
+		else
+		{
+			echo "الطفا ارتباط با ما را تکمیل نمائید.";
+		}
+		
+
+    if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != "" )
+	{
+		$co_name = get_safe_post($mysqlicheck,"name");
+		$co_email = get_safe_post($mysqlicheck,"email");
+		$co_tel = get_safe_post($mysqlicheck,"tel");
+		$co_text = get_safe_post($mysqlicheck,"message");
+		$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
+		$user    ='1';				
+		$sql_c="INSERT INTO comment (comment_user_id, comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ('&user', '$co_text', '$co_name', '$co_email', '$co_tel', '3', '$co_date')";
+		$result_c = $mysqlicheck->query($sql_c);
+		$mas_c2 ='';
+		if (!$result_c)
 			{
-				echo "الطفا ارتباط با ما را تکمیل نمائید.";
+				$mas_c = "1";  
 			}
+			else 
+			{
+				$co_name ='';
+				$co_email = '';
+				$co_tel = '';
+				$co_text = '';
+				$mas_c = "2";
+			}
+	
+	}
+	
+	
+	
 ?>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
@@ -67,6 +98,27 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
             <div class="c-content-box c-size-md c-bg-white">
                 <div class="container">
                     <div class="c-content-contact-1 c-option-1">
+                   		<div class="c-body">
+                   <?php 
+                   if ($mas_c =="2")
+					{
+                        echo    "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"> نظر شما با موفقیت ارسال شد.
+                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">×</span>
+                                </button>
+                                </div>";
+					}
+					else if ($mas_c =="1")
+					{
+                        echo   "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"> ارسال نظر با خطا مواجه گردید ، لطفاً دوباره سعی نمائید .
+                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">×</span>
+                                </button>
+                                </div>";
+					}
+					?> 
+                        </div>
+                    
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="c-body c-re">
@@ -79,17 +131,17 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                     <div class="c-section">
                                         <div class="c-content-label c-font-uppercase c-font-bold c-theme-bg">اطلاعات تماس</div>
                                         <p>
-                                            <strong>تلفن : </strong> <?php echo'0'.$row_c1['kod'].' - '. $row_c1['tel_1'].' - '. $row_c1['tel_2']?>
+                                            <strong>تلفن : </strong> <?php echo $row_c1['tel_1'].' - '. $row_c1['tel_2'].' - '.'0'.$row_c1['kod'];?>
                                             <br/>
-                                            <strong>فکس : </strong> <?php echo $row_c1['tel_1'] ?>
+                                            <strong>فکس : </strong> <?php echo $row_c1['fax']; ?>
                                             </br>
-                                            <strong>موبایل : </strong> <?php echo '0'.$row_c1['mobile'] ?>
+                                            <strong>موبایل : </strong> <?php echo '0'.$row_c1['mobile']; ?>
                                             </br>
-                                            <strong>ایمیل : </strong> <?php echo $row_c1['email'] ?>
+                                            <strong>ایمیل : </strong> <?php echo $row_c1['email']; ?>
                                          </p>
                                     </div>
                                     <div class="c-section">
-                                        <div class="c-content-label c-font-uppercase c-font-bold c-theme-bg">آدیگر</div>
+                                        <div class="c-content-label c-font-uppercase c-font-bold c-theme-bg">دیگر</div>
                                         <p><?php echo $row_c1['field'] ?></p>
                                     </div>
                                     <div class="c-section">
@@ -126,17 +178,18 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                     <div class="c-content-title-1">
                                         <p class="c-font-lowercase">از طریق فرم زیر می توانید با ما در تماس باشید.</p>
                                     </div>
-                                    <form action="#">
+                                    <form method="post">
                                         <div class="form-group">
-                                            <input type="text" placeholder="نام شما" class="form-control c-square c-theme input-lg"> </div>
+                                            <input type="text" placeholder="نام شما" class="form-control c-square c-theme input-lg" value="<?php echo $co_name; ?>" name="name"> </div>
                                         <div class="form-group">
-                                            <input type="text" placeholder="ایمیل شما" class="form-control c-square c-theme input-lg"> </div>
+                                            <input type="text" placeholder="ایمیل شما" class="form-control c-square c-theme input-lg" value="<?php echo $co_email; ?>" name="email"> </div>
                                         <div class="form-group">
-                                            <input type="text" placeholder="تلفن تماس" class="form-control c-square c-theme input-lg"> </div>
+                                            <input type="text" placeholder="تلفن تماس" class="form-control c-square c-theme input-lg" value="<?php echo $co_tel; ?>" name="tel"> </div>
                                         <div class="form-group">
-                                            <textarea rows="8" name="message" placeholder="نوشتن نظر در اینجا ..." class="form-control c-theme c-square input-lg"></textarea>
+                                            <textarea rows="8" name="message" placeholder="نوشتن نظر در اینجا ..." class="form-control c-theme c-square input-lg" name="text"><?php echo $co_text ?></textarea>
                                         </div>
-                                        <button type="submit" class="btn c-theme-btn c-btn-uppercase btn-lg c-btn-bold c-btn-square">ارسال</button>
+                                        <button type="submit" class="btn c-theme-btn c-btn-uppercase btn-lg c-btn-bold c-btn-square" name="submit" value="save">ارسال</button>
+       
                                     </form>
                                 </div>
                             </div>
@@ -186,14 +239,6 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
         <script src="assets/base/js/scripts/pages/contact-2.js" type="text/javascript"></script>
         <!-- END: PAGE SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-64667612-1', 'themehats.com');
-  ga('send', 'pageview');
-</script>
 </body>
 
 

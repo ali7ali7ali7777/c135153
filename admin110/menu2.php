@@ -71,15 +71,7 @@
 									</ul>
 								</li>
 								<li>
-									<a href="#"><i class="icon-indent-decrease2"></i> <span>سایت</span></a>
-									<ul>
-										<li><a href="si_header.php">هدر</a></li>
-										<li><a href="si_body.php">بدنه</a></li>
-                                        <li><a href="si_contact.php">ارتباط با ما</a></li>
-										<li><a href="#">فوتر</a></li>
-										
-										
-									</ul>
+									<a href="set_site.php"><i class="icon-indent-decrease2"></i> <span>سایت</span></a>
 								</li>
 
 							</ul>

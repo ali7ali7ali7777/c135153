@@ -74,9 +74,9 @@ $rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 
             <!-- BEGIN: CONTENT/FEATURES/FEATURES-13-1 -->
             <!-- BEGIN: FEATURES 13.1 -->
-            <div class="c-content-box c-size-md c-no-padding c-bg-img-center" style="background-image: url(assets/base/img/content/backgrounds/bg-71.jpg)">
+            <div class="c-content-box c-size-md c-no-padding c-bg-img-center" style="background-image: url(assets/base/img/content/backgrounds/bg-71.jpg);">
                 <div class="c-content-feature-13">
-                    <div class="row c-reset">
+                    <div class="row c-reset" style="">
                         <div class="col-md-6 c-bg-dark">
                             <div class="c-feature-13-container">
                                 <div class="c-content-title-1">

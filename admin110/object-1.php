@@ -25,7 +25,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
     <link href="assets/css/yekan.css" rel="stylesheet" type="text/css">
     <link href="assets/css/main.css" rel="stylesheet" type="text/css">
-    
+     
 
 	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
 	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
@@ -33,14 +33,18 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
 	
-	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+    
 	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
 
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
+	<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+	
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
+	<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 	<script type="text/javascript" src="assets/js/pages/datatables_extension_colvis.js"></script>
 	<script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
     <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
@@ -99,64 +103,88 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				}
 			?>
 				<div class="content">
-                   <div class="row">
-                	<div class="col-md-12">
-                        <form method="post" class="form-horizontal">
-                            <div class="panel panel-flat">
-                                <div class="panel-heading">
-                                    <h5 class="panel-title">ایجاد گروه</h5>
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li><a data-action="collapse"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <table class="table datatable-colvis-restore">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" class="form-horizontal">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_full"></button>
+                                <div class="panel panel-flat">
+                                    <table class="table datatable-colvis-basic">
                                         <thead>
                                             <tr>
+                                                <th>ردیف</th>
                                                 <th>نام کالا</th>
-                                                <th>کد کالا </th>
-                                                <th>گروه کالا</th>
-                                                <th>فی خرید</th>
-                                                <th>فی فروش</th>
-                                                <th>تعداد</th>
-                                                <th>انتخاب</th>
+                                                <th>تعداد </th>
+                                                <th>فی واحد</th>
+                                                <th>واحد</th>
+                                                <th>جمع</th>
+                                                <th>شرح کالا</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           <?php
-                                            $table = mysqli_query($mysqlicheck,"SELECT * FROM object");
-                                            while($rows=mysqli_fetch_assoc($table))
-                                            {
-                                                $object_m1 = $rows['object_m1'];
-                                                $object_id = $rows['object_id'];
-                                                $object_code = $rows['object_code'];
-                                                $object_gro_id = $rows['object_gro_id'];
-                                                $object_m6 = $rows['object_m6'];
-                                                $object_m7 = $rows['object_m7'];
-                                            }
-                                            ?>
                                             <tr>
-                                                <td>Marth</td>
-                                                <td><a href="#">Enright</a></td>
-                                                <td>Traffic Court Referee</td>
-                                                <td>22 Jun 1972</td>
-                                                <td><span class="label label-success">Active</span></td>
-                                                <td>$85,600</td>
-                                                <td class="text-center"><a class="btn bg-slate" href="gp-product.php?selected='.$gro_id.'">ویرایش</a></td></td>
+                                                <td><input type="text" class="form-control borderB1" value=""></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
+                                                <td><input type="text" class="form-control borderB1"></td>
                                             </tr>
-                                            </tbody>
+                                        </tbody>
                                     </table>
-                                    <hr>
-                                    <div class="text-right">
-                                        <button type="submit" name="submit" value="save" class="btn btn-primary">ایجاد و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
-                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="modal_full" class="modal fade">
+						<div class="modal-dialog modal-full">
+							<div class="modal-content">
+
+								<div class="modal-body">
+                                    <div class="panel panel-flat">
+                                        <table class="table datatable-colvis-basic">
+                                            <thead>
+                                                <tr>
+                                                    <th>نام کالا</th>
+                                                    <th>کد کالا </th>
+                                                    <th>گروه کالا</th>
+                                                    <th>فی خرید</th>
+                                                    <th>فی فروش</th>
+                                                    <th>درصد تخفیف</th>
+                                                    <th>تعداد</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               <?php
+                                                    $table = mysqli_query($mysqlicheck,"SELECT * FROM object");
+                                                    while($rows=mysqli_fetch_assoc($table))
+                                                    {
+                                                        $object_m1 = $rows['object_m1'];
+                                                        $object_id = $rows['object_id'];
+                                                        $object_code = $rows['object_code'];
+                                                        $object_gro_id = $rows['object_gro_id'];
+                                                        $object_m6 = $rows['object_m6'];
+                                                        $object_m7 = $rows['object_m7'];
+                                                        $object_m4 = $rows['object_m4'];
+
+                                                    ?>
+                                                <tr onclick="alert();">
+                                                    <td><?php echo $object_m1 ?></td>
+                                                    <td><?php echo $object_code ?></td>
+                                                    <td><?php echo $object_m1 ?></a></td>
+                                                    <td><?php echo $object_m6 ?></td>
+                                                    <td><?php echo 0 ?></td>
+                                                    <td><?php echo $object_m7 ?></td>
+                                                    <td><?php echo $object_m4 ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+								</div>
+							</div>
+						</div>
 					</div>
-                </div>
                 </div>
 			</div>
 
