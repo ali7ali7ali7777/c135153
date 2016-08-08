@@ -21,7 +21,7 @@ $(function() {
         dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>جستجو :</span> _INPUT_',
-            lengthMenu: '<span>مشاهده :</span> _MENU_',
+            lengthMenu: '<span>نمایش :</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&larr;', 'previous': '&rarr;' }
         }
     });
