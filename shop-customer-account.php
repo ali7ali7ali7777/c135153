@@ -17,7 +17,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>اکانت فروشگاه</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -65,11 +65,11 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                     <div class="panel-body c-panel-body">
                                         <form class="c-form-login">
                                             <div class="form-group has-feedback">
-                                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="Username">
+                                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="نام کاربری">
                                                 <span class="glyphicon glyphicon-user form-control-feedback c-font-grey"></span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <input type="password" class="form-control c-square c-theme input-lg" placeholder="Password">
+                                                <input type="password" class="form-control c-square c-theme input-lg" placeholder="پسورد">
                                                 <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
                                             </div>
                                             <div class="row c-margin-t-40">
@@ -79,11 +79,11 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                         <label for="checkbox1-77">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Remember me </label>
+                                                            <span class="box"></span> مرا به خاطر بسپار </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4">
-                                                    <button type="submit" class="pull-left btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Login</button>
+                                                    <button type="submit" class="pull-left btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ورود</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -97,7 +97,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             <h3 class="c-left">
                                                 <i class="icon-user"></i> حساب کاربری ندارید ?</h3>
                                             <div class="c-line-right c-theme-bg"></div>
-                                            <p>Join us and enjoy shopping online today.</p>
+                                            <p>به ما بپیوندید و از خرید آنلاین لذت ببرید.</p>
                                         </div>
                                         <div class="c-margin-fix">
                                             <div class="c-checkbox c-toggle-hide" data-object-selector="c-form-register" data-animation-speed="600">
@@ -105,12 +105,12 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                 <label for="checkbox6-444">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
-                                                    <span class="box"></span> Register Now! </label>
+                                                    <span class="box"></span> ثبت نام جدید! </label>
                                             </div>
                                         </div>
                                         <form class="c-form-register c-margin-t-20">
                                             <div class="form-group">
-                                                <label class="control-label">Country</label>
+                                                <label class="control-label">کشور</label>
                                                 <select class="form-control c-square c-theme">
                                                     <option value="1">Malaysia</option>
                                                     <option value="2">Singapore</option>
@@ -122,8 +122,8 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label class="control-label">First Name</label>
-                                                        <input type="text" class="form-control c-square c-theme" placeholder="First Name"> </div>
+                                                        <label class="control-label">نام</label>
+                                                        <input type="text" class="form-control c-square c-theme" placeholder="نام"> </div>
                                                     <div class="col-md-6">
                                                         <label class="control-label">Last Name</label>
                                                         <input type="text" class="form-control c-square c-theme" placeholder="Last Name"> </div>

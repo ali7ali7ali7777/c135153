@@ -17,7 +17,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>تاریخچه سفارشها</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -54,42 +54,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
             <div class="container">
-                <div class="c-layout-sidebar-menu c-theme ">
-                    <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                    <div class="c-sidebar-menu-toggler">
-                        <h3 class="c-title c-font-uppercase c-font-bold">My Profile</h3>
-                        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                        </a>
-                    </div>
-                    <ul class="c-sidebar-menu collapse " id="sidebar-menu-1">
-                        <li class="c-dropdown c-open">
-                            <a href="javascript:;" class="c-toggler">My Profile
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li class="c-active">
-                                    <a href="shop-customer-dashboard.html">My Dashbord</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-profile.html">Edit Profile</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-order-history.html">Order History</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-addresses.html">My Addresses</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-product-wishlist.html">My Wishlist</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                </div>
+            
+                <?php require_once "profile.php"; ?>
+                
                 <div class="c-layout-sidebar-content ">
                     <!-- BEGIN: PAGE CONTENT -->
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-ORDER-HISTORY-2 -->

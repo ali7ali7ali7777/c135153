@@ -52,14 +52,14 @@
 				this.stylePos = 'top';
 				this.mousePos = 'pageY';
 				this.sizePos = 'offsetHeight';
-				this.tooltip.addClass('right')[0].style.left = '100%';
+				this.tooltip.addClass('left')[0].style.right = '100%';
 				break;
 			default:
 				this.picker
 					.addClass('slider-horizontal')
 					.css('width', this.element.outerWidth());
 				this.orientation = 'horizontal';
-				this.stylePos = 'left';
+				this.stylePos = 'right';
 				this.mousePos = 'pageX';
 				this.sizePos = 'offsetWidth';
 				this.tooltip.addClass('top')[0].style.top = -this.tooltip.outerHeight() - 14 + 'px';

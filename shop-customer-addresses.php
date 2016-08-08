@@ -17,7 +17,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>آدرس</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -55,72 +55,39 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <div class="c-layout-page">
 
             <div class="container">
-                <div class="c-layout-sidebar-menu c-theme ">
-                    <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                    <div class="c-sidebar-menu-toggler">
-                        <h3 class="c-title c-font-uppercase c-font-bold">My Profile</h3>
-                        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                        </a>
-                    </div>
-                    <ul class="c-sidebar-menu collapse " id="sidebar-menu-1">
-                        <li class="c-dropdown c-open">
-                            <a href="javascript:;" class="c-toggler">My Profile
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li class="c-active">
-                                    <a href="shop-customer-dashboard.html">My Dashbord</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-profile.html">Edit Profile</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-order-history.html">Order History</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-addresses.html">My Addresses</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-product-wishlist.html">My Wishlist</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                </div>
+                
+                 <?php require_once "profile.php"; ?>
+                
                 <div class="c-layout-sidebar-content ">
                     <!-- BEGIN: PAGE CONTENT -->
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
                     <div class="c-content-title-1">
-                        <h3 class="c-font-uppercase c-font-bold">My Addresses</h3>
+                        <h3 class="c-font-uppercase c-font-bold">آدرسهای من</h3>
                         <div class="c-line-left"></div>
                     </div>
                     <div class="row c-margin-t-25">
-                        <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20 c-margin-t-10">The following addresses will be used on the checkout page by default.</div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20 c-margin-t-10">آدرسهای زیر به طور پیشفرض بر روی صفحه پرداخت قرار خواهد گرفت.</div>
                         <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
-                            <h3 class="c-font-uppercase c-font-bold">Billing Address</h3>
+                            <h3 class="c-font-uppercase c-font-bold">آدرس قبض</h3>
                             <ul class="list-unstyled">
                                 <li>Drake Hiro</li>
                                 <li>25, Lorem Lis Street, Orange C, California, US</li>
                                 <li>Phone: 800 123 3456</li>
                                 <li>Fax: 800 123 3456</li>
                             </ul>
-                            <a href="shop-customer-profile.html" class="btn c-theme-btn btn-xs">
-                                <i class="fa fa-edit"></i> Edit</a>
+                            <a href="shop-customer-profile.php" class="btn c-theme-btn btn-xs">
+                                <i class="fa fa-edit"></i> ویرایش</a>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
-                            <h3 class="c-font-uppercase c-font-bold">Shipping Address</h3>
+                            <h3 class="c-font-uppercase c-font-bold">آدرس ارسال</h3>
                             <ul class="list-unstyled">
                                 <li>Drake Hiro</li>
                                 <li>25, Lorem Lis Street, Orange C, California, US</li>
                                 <li>Phone: 800 123 3456</li>
                                 <li>Fax: 800 123 3456</li>
                             </ul>
-                            <a href="shop-customer-profile.html" class="btn c-theme-btn btn-xs">
-                                <i class="fa fa-edit"></i> Edit</a>
+                            <a href="shop-customer-profile.php" class="btn c-theme-btn btn-xs">
+                                <i class="fa fa-edit"></i> ویرایش</a>
                         </div>
                     </div>
                     <!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
@@ -162,14 +129,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         </script>
         <!-- END: THEME SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-64667612-1', 'themehats.com');
-  ga('send', 'pageview');
-</script>
 </body>
 
 

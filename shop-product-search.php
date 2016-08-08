@@ -17,7 +17,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>جستجوی کالا</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -68,7 +68,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-FILTER-SEARCH-1 -->
                     <ul class="c-shop-filter-search-1 list-unstyled">
                         <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Category</label>
+                            <label class="control-label c-font-uppercase c-font-bold">دسته بندی</label>
                             <select class="form-control c-square c-theme">
                                 <option value="0">All Categories</option>
                                 <option value="1">Art</option>

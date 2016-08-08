@@ -17,7 +17,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>ویرایش پروفایل</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -55,46 +55,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <div class="c-layout-page">
 
             <div class="container">
-                <div class="c-layout-sidebar-menu c-theme ">
-                    <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                    <div class="c-sidebar-menu-toggler">
-                        <h3 class="c-title c-font-uppercase c-font-bold">My Profile</h3>
-                        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                            <span class="c-line"></span>
-                        </a>
-                    </div>
-                    <ul class="c-sidebar-menu collapse " id="sidebar-menu-1">
-                        <li class="c-dropdown c-open">
-                            <a href="javascript:;" class="c-toggler">My Profile
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li class="c-active">
-                                    <a href="shop-customer-dashboard.html">My Dashbord</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-profile.html">Edit Profile</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-order-history.html">Order History</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-customer-addresses.html">My Addresses</a>
-                                </li>
-                                <li class="">
-                                    <a href="shop-product-wishlist.html">My Wishlist</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                </div>
-                <div class="c-layout-sidebar-content ">
+                
+                   <?php require_once "profile.php"; ?>
+                   
+                   <div class="c-layout-sidebar-content ">
                     <!-- BEGIN: PAGE CONTENT -->
                     <div class="c-content-title-1">
-                        <h3 class="c-font-uppercase c-font-bold">Edit Profile</h3>
+                        <h3 class="c-font-uppercase c-font-bold">ویرایش پروفایل</h3>
                         <div class="c-line-left"></div>
                     </div>
                     <form class="c-shop-form-1">
@@ -103,7 +70,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                             <!-- BEGIN: BILLING ADDRESS -->
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label class="control-label">Country</label>
+                                    <label class="control-label">کشور</label>
                                     <select class="form-control c-square c-theme">
                                         <option value="1">Malaysia</option>
                                         <option value="2">Singapore</option>
@@ -117,35 +84,35 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label class="control-label">First Name</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="First Name"> </div>
+                                            <label class="control-label">نام</label>
+                                            <input type="text" class="form-control c-square c-theme" placeholder="نام"> </div>
                                         <div class="col-md-6">
-                                            <label class="control-label">Last Name</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Last Name"> </div>
+                                            <label class="control-label">نام خانوادگی</label>
+                                            <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی"> </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label class="control-label">Address</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="Street Address"> </div>
+                                    <label class="control-label">آدرس</label>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام بلوار"> </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <input type="text" class="form-control c-square c-theme" placeholder="Apartment, suite, unit etc. (optional)"> </div>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس"> </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label class="control-label">Town / City</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="Town / City"> </div>
+                                    <label class="control-label">شهر</label>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="شهر"> </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label class="control-label">State / County</label>
+                                            <label class="control-label">کشور / استان</label>
                                             <select class="form-control c-square c-theme">
-                                                <option value="0">Select an option...</option>
+                                                <option value="0">انتخاب کن...</option>
                                                 <option value="1">Malaysia</option>
                                                 <option value="2">Singapore</option>
                                                 <option value="3">Indonesia</option>
@@ -154,8 +121,8 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="control-label">Postcode / Zip</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Postcode / Zip"> </div>
+                                            <label class="control-label">زیپ کد</label>
+                                            <input type="text" class="form-control c-square c-theme" placeholder="زیپ کد"> </div>
                                     </div>
                                 </div>
                             </div>
@@ -163,11 +130,11 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label class="control-label">Email Address</label>
-                                            <input type="email" class="form-control c-square c-theme" placeholder="Email Address"> </div>
+                                            <label class="control-label">ایمیل</label>
+                                            <input type="email" class="form-control c-square c-theme" placeholder="ایمیل"> </div>
                                         <div class="col-md-6">
-                                            <label class="control-label">Phone</label>
-                                            <input type="tel" class="form-control c-square c-theme" placeholder="Phone"> </div>
+                                            <label class="control-label">تلفن</label>
+                                            <input type="tel" class="form-control c-square c-theme" placeholder="تلفن"> </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,22 +142,22 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                             <!-- BEGIN: PASSWORD -->
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label class="control-label">Change Password</label>
-                                    <input type="password" class="form-control c-square c-theme" placeholder="Password"> </div>
+                                    <label class="control-label">تغییر کلمه عبور</label>
+                                    <input type="password" class="form-control c-square c-theme" placeholder="کلمه عبور"> </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label class="control-label">Repeat Password</label>
-                                    <input type="password" class="form-control c-square c-theme" placeholder="Password">
-                                    <p class="help-block">Hint: The password should be at least six characters long.
-                                        <br /> To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).</p>
+                                    <label class="control-label">نوشتن دوباره کلمه عبور</label>
+                                    <input type="password" class="form-control c-square c-theme" placeholder="کلمه عبور">
+                                    <p class="help-block">نکته: رمز عبور باید حداقل شش کاراکتر باشد.
+                                        <br /> با استفاده از حروف کوچک ، حروف بزرگ ، اعداد و کاراکترهای خاص مانند ! " ? $ % ^ & ) کلمه عبور خود را قویتر نمایید.</p>
                                 </div>
                             </div>
                             <!-- END: PASSWORD -->
                             <div class="row c-margin-t-30">
                                 <div class="form-group col-md-12" role="group">
-                                    <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
-                                    <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">Cancel</button>
+                                    <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ارسال</button>
+                                    <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">صرفنظر</button>
                                 </div>
                             </div>
                         </div>
