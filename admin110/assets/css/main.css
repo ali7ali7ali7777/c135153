@@ -3,6 +3,5 @@ body {
   color: #788288;
   }
 .borderB1{
-    border: none;
-    border-bottom-color: teal;
+    direction: rtl;
 }
