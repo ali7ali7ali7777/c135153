@@ -141,47 +141,17 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
      
      
      
-     
-     //Parents
-$data = mysql_fetch_assoc(mysql_query("select id,name from categories where parent = 0"));
+<?php 
 
-//Childrens
-foreach( $data as $key => $row)
-{
-    $data[$key]['childrens'] = mysql_fetch_assoc(mysql_query("select id,name from categories where parent ='".mysql_real_escape_string( $row['id'] )."'"));
-
-    //childrens
-    foreach( $data[$key]['childrens'] as $_key => $_row )
-    {
-        $data[$key]['childrens'][$_key]['childrens'] = mysql_fetch_assoc(mysql_query("select id,name from categories where parent ='".mysql_real_escape_string( $_row['id'] )."'"));
-    }
-}
-
-    //Print Array
-print_r( $data );
-     
  
  
- 
- function getChildren($parent) {
-    $query = "SELECT * FROM tableName WHERE parent_id = $parent";
-    $result = mysql_query($query);
-    $children = array();
-    $i = 0;
-    while($row = mysql_fetch_assoc($result)) {
-        $children[$i] = array();
-        $children[$i]['name'] = $row['name'];
-        $children[$i]['children'] = getChildren($row['id']);
-    $i++;
-    }
-return $children;
-}
+
  
      
      
      
                            
-  	<?php                     
+  	                    
         $rant_i1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
 		if ( mysqli_num_rows($rant_i1) > 0)
 		{
@@ -198,7 +168,10 @@ return $children;
      ?>		 
 				   </ul>
                  <div class="tab-content">
-      <?php                     
+      <?php 
+	  
+  
+	                      
         $rant_i3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
 		if ( mysqli_num_rows($rant_i3) > 0)
 		{
@@ -209,7 +182,9 @@ return $children;
 				if ($I_ac == "1") echo " "."in active";
 				echo "\"id=\"".$row_i3['gro_id']."\">
                            <div class=\"row\">";
-				$rant_i4 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_gro_id=".$row_i3['gro_id']." and object_status =1 limit 3 ");
+				$rant_i4 = mysqli_query($mysqlicheck,"SELECT * 
+										FROM object 
+										where object_gro_id	in (select ) and object_status =1 limit 3 ");
 				if (mysqli_num_rows($rant_i4) > 0)
 				{
 					while($row_i4=mysqli_fetch_assoc($rant_i4))
@@ -248,7 +223,7 @@ return $children;
                         </h3>
                     </div>
      <?php
-		$rant_i5 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m15 limit 8");
+		$rant_i5 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m15 DESC limit 8");
 		if (mysqli_num_rows($rant_i5) > 0)
 		{
 			$I_ac = "1";
@@ -306,7 +281,7 @@ return $children;
                         
                         
                           <?php
-		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m14 limit 4");
+		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m14 DESC limit 4");
 		if (mysqli_num_rows($rant_i5) > 0)
 		{
 			while($row_i6=mysqli_fetch_assoc($rant_i6))

@@ -63,26 +63,39 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                 {
                                     $name = get_safe_post($mysqlicheck,"name");
                                     $single = get_safe_post($mysqlicheck,"single");
-                                    $sql = "INSERT INTO unit(unit_id,unit_name,unit_single) VALUES (null,'$name','$single')";
+									
+									
+									$result_u = mysqli_query($mysqlicheck,"SELECT * FROM unit WHERE `unit_name` ='".$name."'");
+
+									if ($result_u->num_rows > 0)
+									{
+										echo '<div class="alert alert-warning alert-styled-left">
+													<button data-dismiss="alert" class="close" type="button">
+														<span>×</span>
+														<span class="sr-only">Close</span>
+											</button>
+										واحد <span class="text-semibold">'.$name.'</span> قبلا ایجاد شده است .									</div>';
+									}
+									else {
+                                    $sql = "INSERT INTO `unit`(`unit_name`, `unit_single`) VALUES ('$name','$single')";
 
                                     $result = $mysqlicheck->query($sql);
+									
+										if (!$result) {
+											echo'
+												<div class="alert alert-danger alert-styled-left alert-bordered">
+																<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
+																ارسال اطلاعات با <span class="text-semibold">خطا</span> رو برو گردید.
+															</div>';
+										}else{
+											echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
+														<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
+														با موفقیت ثبت گردید .
 
+													</div>';
+										}
 
-                                    if (!$result) {
-                                        echo'
-                                            <div class="alert alert-danger alert-styled-left alert-bordered">
-                                                            <button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-                                                            ارسال اطلاعات با <span class="text-semibold">خطا</span> رو برو گردید.
-                                                        </div>';
-                                    }else{
-                                        echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
-                                                    <button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-                                                    با موفقیت ثبت گردید .
-
-                                                </div>';
-                                    }
-
-
+									}
                                 }
 
                             ?>
@@ -109,7 +122,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                             </div>
                                                             <div class="col-md-8 content-group-lg">
                                                                 <label>تعداد هر واحد :</label>
-                                                                <input type="text" name="single" class="form-control" placeholder="تعداد واحد">
+                                                                <input type="number" name="single" class="form-control" placeholder="تعداد واحد">
                                                             </div>
                                                         </div>
 

@@ -87,9 +87,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM object");
 									while($rows2=mysqli_fetch_assoc($table2))
 									{
-                                        $object_gro_id = $rows2['object_gro_id'];
                                         $object_code = $rows2['object_code'];
-                                        $object_id = $rows2['object_id'];
+										$gro_kod = substr($object_code,0,5);
+										$object_id = $rows2['object_id'];
                                         $date_obj = mkdate("Y/m/d H:m",$rows2['object_date'],'fa');
                                         $object_status = $rows2['object_status'];
                                         if($object_status == 1) 
@@ -99,22 +99,21 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 										
                                         echo '<tr>
 												<td>
-												  '.$rows2['object_m1'].'
+												  '.$rows2['object_name'].'
 												</td>
 												<td>';
 												
-										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_id=".$rows2['object_gro_id']." ");
-										while($rows3=mysqli_fetch_assoc($table3))
-										{
-                                            echo $rows3['gro_name'];
-											
-										}
-                                        echo'</td>
-                                            <td class="text-center">
-                                              '.$object_id.'
-                                            </td>
+										$table3 = mysqli_query($mysqlicheck,"SELECT gro_name FROM gro WHERE gro_kod = ".$gro_kod." ");
+										$rows3=mysqli_fetch_row($table3);
+										
+                                            echo $rows3[0];
+										
+										echo'</td>
                                             <td class="text-center">
                                               '.$object_code.'
+                                            </td>
+                                            <td class="text-center">
+                                              '.$object_m1.'
                                             </td>
                                         <td class="text-center">'.$temp.'</td>';
                                         

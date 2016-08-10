@@ -74,36 +74,43 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                         <div class="content-wrapper">
                             <?php 
                             
-                $gro_id = get_safe_post($mysqlicheck,"m");
-				if($_POST['m'] != "" && $_POST['m1'] != ""){
-				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m1") != "" && get_safe_post($mysqlicheck,"m") != "" && get_safe_post($mysqlicheck,"unit") != "" )
+                if($_POST['m_g'] != "" && $_POST['m_n'] != ""){
+				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m_s") != "" &&  get_safe_post($mysqlicheck,"m_unit") != "" )
 				{
-                    $m = get_safe_post($mysqlicheck,"m");
-                    $mcode = get_safe_post($mysqlicheck,"mcode");
+					$m_g = get_safe_post($mysqlicheck,"m_g");
+					
+					$result7 = mysqli_query($mysqlicheck,"SELECT MAX(object_code) FROM object where object_code like '".$m_g."___' "); 
+							$max2=mysqli_fetch_row($result7);
+							if (!$max2[0])
+							{
+								$object_code = $m_g .'001';
+							}
+							else
+							{
+						 		$object_code = $max2[0] + 1 ;
+							}
+                    
+                    $m_n = trim(get_safe_post($mysqlicheck,"m_n"));
                     $m1 = get_safe_post($mysqlicheck,"m1");
 					$m2 = get_safe_post($mysqlicheck,"m2");
 					$m3 = get_safe_post($mysqlicheck,"m3");
 					$m4 = get_safe_post($mysqlicheck,"m4");
-					$m5 = get_safe_post($mysqlicheck,"date_iso");
-					$m6 = clean(get_safe_post($mysqlicheck,"m6"));
+					$m6 = get_safe_post($mysqlicheck,"m6");
 					$m7 = get_safe_post($mysqlicheck,"m7");
 					$m8 = get_safe_post($mysqlicheck,"m8");
 					$m9 = get_safe_post($mysqlicheck,"m9");
 					$m10 = get_safe_post($mysqlicheck,"m10");
 					$m11 = get_safe_post($mysqlicheck,"m11");
-					$m12 = get_safe_post($mysqlicheck,"m12");
-					$m13 = get_safe_post($mysqlicheck,"m13");
-					$m14 = get_safe_post($mysqlicheck,"m14");
-					$m15 = get_safe_post($mysqlicheck,"m15");
-					$unit = get_safe_post($mysqlicheck,"unit");
+					$m_s = clean(get_safe_post($mysqlicheck,"m_s"));
+					$m_s_d = get_safe_post($mysqlicheck,"m_s_d");
+					$unit = get_safe_post($mysqlicheck,"m_unit");
                     
                     
                     
-					
-                    
-                    $sql = "INSERT INTO object(object_id,object_date, object_gro_id, object_code, object_m1, object_m2, object_m3, object_m4, object_m5, object_m6, object_m7, object_m8, object_m9, object_m10, object_m11, object_m12, object_m13, object_m14, object_m15, object_status,object_unit_id) VALUES (null,'" . date('Y-m-d H:i:s') .  "','$m','$mcode','$m1','$m2','$m3','$m4','$m5','$m6','$m7','$m8','$m9','$m10','$m11','$m12','$m13','$m14','$m15','1','$unit')";
+                    $sql_o = "INSERT INTO `object`(`object_date`, `object_code`, `object_name`, `object_unit`, `object_sale`, `object_sale_di`, `object_m1`, `object_m2`, `object_m3`, `object_m4`, `object_m5`, `object_m6`, `object_m7`, `object_m8`, `object_m9`, `object_m10`, `object_m11`, `object_status`) VALUES ('". date('Y-m-d H:i:s')."', '$object_code', '$m_n', '$unit', '$m_s', '$m_s_d', '$m1',
+					'$m2', '$m3', '$m4', '$m5', '$m6', '$m7', '$m8', '$m9', '$m10', '$m11', 1)";
 
-                    $result = $mysqlicheck->query($sql);
+                    $result_o = $mysqlicheck->query($sql_o);
                     $object_new_id = mysqli_insert_id($mysqlicheck);
                     if (!file_exists('../images/object/'.$object_new_id)) {
 									mkdir('../images/object/'.$object_new_id, 0777, true);
@@ -132,7 +139,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 						}
 					}
 
-                    if (!$result) {
+                    if (!$result_o) {
                         echo'
 							<div class="alert alert-danger alert-styled-left alert-bordered">
 											<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
@@ -141,13 +148,13 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                     }else{
                         echo'<div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
 									<button data-dismiss="alert" class="close" type="button"><span>×</span><span class="sr-only">Close</span></button>
-									کالا <span class="text-semibold">'.$m1.'</span> با کد '.$mcode.' و کد اختصاصی برنامه به شماره '.$object_new_id.' ثبت گردید . 
+									کالا <span class="text-semibold">'.$m_n.'</span> با کد اختصاصی برنامه به شماره '.$object_code.' ثبت گردید . 
 									
 								</div>';
                     }
 					
 					
-				}
+					}
                 }
                 $table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro_title");
                 while($rows2=mysqli_fetch_assoc($table2))
@@ -163,11 +170,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                     $mm9 = $rows2['gro_title_m9'];
                     $mm10 = $rows2['gro_title_m10'];
                     $mm11 = $rows2['gro_title_m11'];
-                    $mm12 = $rows2['gro_title_m12'];
-                    $mm13 = $rows2['gro_title_m13'];
-                    $mm14 = $rows2['gro_title_m14'];
-                    $mm15 = $rows2['gro_title_m15'];
-
+                   
                 }
                 
 			?>
@@ -190,30 +193,16 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label>انتخاب گروه</label>
-                                                                            <select class="select" id="gp-edit-select" name="m">
-                                                                                <option value="0">انتخاب گروه</option>
-                                                                                <?php
-                                                                $table = mysqli_query($mysqlicheck,"SELECT * FROM gro ");
-                                                                $array_parent_id[] = 0;
-                                                                while($rows=mysqli_fetch_assoc($table))
-                                                                {
-                                                                    if($rows['gro_parent_id'] != 0)
-                                                                    $array_parent_id[] = $rows['gro_parent_id'];
-                                                                }
-                                                                //print_r($array_parent_id);
-
-                                                                $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro");
-                                                                while($rows3=mysqli_fetch_assoc($table3))
-                                                                {
-                                                                    if(! in_array($rows3['gro_id'],$array_parent_id)){
-                                                                        if($rows3['gro_id'] == $gro_id)
-                                                                            echo '<option selected value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
-                                                                        else
-                                                                            echo '<option value="'.$rows3['gro_id'].'">'.$rows3['gro_name'].'</option>';
-                                                                    }
-
-                                                                }
-                                                                ?>
+                                                                            <select class="select" id="gp-edit-select" name="m_g">
+                                                                                <option value="">انتخاب گروه</option>
+                                                         <?php
+                $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro  WHERE gro_kod like '_____'");
+                while($rows3=mysqli_fetch_assoc($table3))
+                {
+                    echo '<option value="'.$rows3['gro_kod'].'">'.$rows3['gro_name'].'</option>';
+                                           
+                }
+                                         ?>
                                                                             </select>
 
                                                                         </div>
@@ -222,15 +211,15 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                 <div class="row content-group-lg">
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
-                                                                            <label>کد کالا :</label>
-                                                                            <input type="text" name="mcode" class="form-control" required="required" placeholder="کد کالا را وارد کنید" value="">
+                                                                            <label><?php echo $mm1 ?> :</label>
+                                                                            <input type="text" name="m1" class="form-control"  placeholder="<?php echo $mm1 ?> را وارد کنید" value="">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label>نام کالا :</label>
-                                                                            <input type="text" name="m1" class="form-control" value="" required="required" placeholder="نام کالا را وارد کنید">
+                                                                            <input type="text" name="m_n" class="form-control" value="" required="required" placeholder="نام کالا را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -239,42 +228,43 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-5">
                                                                             <label>انتخاب واحد کالا</label>
-                                                                            <select class="select" id="gp-edit-select" name="unit">
+                                                                            <select class="select" id="gp-edit-select" name="m_unit">
                                                                                 <?php
                                                                                 $table3 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
                                                                                 while($rows3=mysqli_fetch_assoc($table3))
                                                                                 {
-                                                                                    echo '<option value="'.$rows3['unit_id'].'">'.$rows3['unit_name'].'</option>';
+                                                                                    echo '<option value="'.$rows3['unit_name'].'">'.$rows3['unit_name'].'</option>';
                                                                                 }
                                                                                 ?>
                                                                             </select>
 
                                                                         </div>
                                                                         <div class="col-md-3">
-                                                                            <label><?php echo  $mm4; ?> :</label>
-                                                                            <input type="number" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
+                                                                            <label>انتخاب واحد کالا</label>
+                                                                            <input type="text" value="" id="unit" class="form-control" aria-required="true" placeholder="تعداد" disabled>
+
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
-                                                                            <label><?php echo  $mm5; ?> :</label>
-                                                                            <input type="text" name="date_iso" value="<?php echo $datenow; ?>" required="required" class="form-control" aria-required="true" placeholder="<?php echo  $mm5; ?> را وارد کنید">
+                                                                            <label>تاریخ :</label>
+                                                                            <input type="text" name="m_date" value="<?php echo $datenow; ?>" required="required" class="form-control" aria-required="true" placeholder="تاریخ">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row content-group-lg">
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
-                                                                            <label><?php echo  $mm6; ?> (ریال):</label>
-                                                                            <input type="text" name="m6" id="prc" class="form-control" placeholder="<?php echo  $mm6; ?> را وارد کنید">
+                                                                            <label>قیمت فروش (ریال):</label>
+                                                                            <input type="text" name="m_s" id="prc" class="form-control" placeholder="قیمت فروش را وارد کنید">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
-                                                                            <label><?php echo  $mm7; ?> :</label>
-                                                                            <input type="number" class="form-control" name="m7" placeholder="<?php echo  $mm7; ?> را وارد کنید">
+                                                                            <label>قیمت با تخفیف :</label>
+                                                                            <input type="text" class="form-control" name="m_s_d" id="prc2" placeholder="قیمت با تخفیف را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -303,7 +293,7 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                     <div class="col-md-6">
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm2; ?> :</label>
-                                                                            <input type="text" name="m2" class="htNumeric current" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
+                                                                            <input type="text" name="m2" class="form-control" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
 
@@ -311,6 +301,36 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm3; ?> :</label>
                                                                             <input type="text" name="m3" class="form-control" value="" placeholder="<?php echo  $mm3; ?> را وارد کنید">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row content-group-lg">
+                                                                    <div class="col-md-6">
+                                                                        <div class="col-md-8">
+                                                                            <label><?php echo  $mm4; ?> :</label>
+                                                                            <input type="text" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="col-md-8">
+                                                                            <label><?php echo  $mm5; ?> :</label>
+                                                                            <input type="text" name="m5" class="form-control" value="" placeholder="<?php echo  $mm5; ?> را وارد کنید">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row content-group-lg">
+                                                                    <div class="col-md-6">
+                                                                        <div class="col-md-8">
+                                                                            <label><?php echo  $mm6; ?> :</label>
+                                                                            <input type="text" name="m6" class="form-control" value="" placeholder="<?php echo  $mm6; ?> را وارد کنید">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="col-md-8">
+                                                                            <label><?php echo  $mm7; ?> :</label>
+                                                                            <input type="text" name="m7" class="form-control" value="" placeholder="<?php echo  $mm7; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -341,36 +361,6 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                                                         <div class="col-md-8">
                                                                             <label><?php echo  $mm11; ?> :</label>
                                                                             <input type="text" name="m11" class="form-control" value="" placeholder="<?php echo  $mm11; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm12; ?> :</label>
-                                                                            <input type="text" name="m12" class="form-control" value="" placeholder="<?php echo  $mm12; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm13; ?> :</label>
-                                                                            <input type="text" name="m13" class="form-control" value="" placeholder="<?php echo  $mm13; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm14; ?> :</label>
-                                                                            <input type="text" name="m14" class="form-control" value="" placeholder="<?php echo  $mm14; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm15; ?> :</label>
-                                                                            <input type="text" name="m15" class="form-control" value="" placeholder="<?php echo  $mm15; ?> را وارد کنید">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -445,6 +435,15 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                         //alert(numval);
                          $("#prc").val(ToRial(numval));
                     });
+					$("#prc2").change(function () {
+                       numval = $("#prc2").val();
+                        //alert(numval);
+                         $("#prc2").val(ToRial(numval));
+                    });
+					/*$("#gp-edit-select").onclick(function () {
+                       unitid = $("#gp-edit-select").val();
+						 
+                    });*/
                 });
 
             </script>

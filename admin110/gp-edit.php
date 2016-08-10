@@ -71,52 +71,81 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 							گروه مورد نظر را انخاب کنید
 						</div>
 
-						<table class="table datatable-basic">
+						<table class="table  datatable-basic">
 							<thead>
 								<tr>
-									<th>نام گروه</th>
-									<th>گروه های فرعی این گروه</th>
+									<th>گروه اصلی / گروه فرعی</th>
+									<th>گروه فرعی</th>
 									<th class="text-center">وضعیت نمایش در سایت</th>
 									<th class="text-center">ویرایش</th>
 								</tr>
 							</thead>
 							<tbody>
-                                 <?php
-									$table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro");
-									while($rows2=mysqli_fetch_assoc($table2))
-									{
-                                        $gro_status = $rows2['gro_status'];
-                                        $gro_id = $rows2['gro_id'];
-                                        if($gro_status == 1) 
-                                            $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(1,'.$gro_id.')">فعال</a>'; 
-                                        elseif($gro_status == 2) 
-                                            $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(2,'.$gro_id.')">غیر فعال</a>';
+       <?php
+				$table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___'");
+				while($rows2=mysqli_fetch_assoc($table2))
+				{
+                     $gro_status = $rows2['gro_status'];
+                     $gro_id = $rows2['gro_id'];
+                     if($gro_status == 1) 
+                         $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(1,'.$gro_id.')">فعال</a>'; 
+                     elseif($gro_status == 2) 
+                         $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(2,'.$gro_id.')">غیر فعال</a>';
 										
-                                        echo '<tr>
-												<td>
-												  '.$rows2['gro_name'].'
-												</td>
-												<td>';
-												
-										$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro WHERE gro_parent_id=".$rows2['gro_id']." ");
-										$numResults2 = $table3->num_rows;
-										$counter2 = 0;
-										while($rows3=mysqli_fetch_assoc($table3))
-										{
-											if(++$counter2 == $numResults2) 
-												echo $rows3['gro_name'];// last row
-											 else
-												echo $rows3['gro_name']." - "; // not last row
+                     echo '<tr>
+							<td>
+								
+							  '.$rows2['gro_name'].'
+							  
+							</td>
+							<td>';
+							
+			$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like 		  '".$rows2['gro_kod']."__'");
+					$numResults2 = $table3->num_rows;
+					$counter2 = 0;
+					while($rows3=mysqli_fetch_assoc($table3))
+					{
+						if(++$counter2 == $numResults2) 
+							echo $rows3['gro_name'];// last row
+						 else
+							echo $rows3['gro_name']." - "; // not last row
 											
-										}
-                                        echo'</td>
-                                        <td class="text-center">'.$temp.'</td>';
+					}
+                    echo'</td>
+                          <td class="text-center">'.$temp.'</td>';
                                         
-										echo '
-											<td class="text-center"><a class="btn bg-slate" href="gp-product.php?selected='.$gro_id.'">ویرایش</a></td>
-											</tr>';
-									}
-									?>
+					echo '
+						<td class="text-center"><a class="btn bg-slate" href="gp-product.php?selected='.$gro_id.'">ویرایش</a></td>
+						</tr>';
+					$table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$rows2['gro_kod']."__'");
+					while($rows3=mysqli_fetch_assoc($table3))
+					{
+						$gro_status = $rows3['gro_status'];
+                     	$gro_id = $rows3['gro_id'];
+                     	if($gro_status == 1) 
+                         $temp = '<a class="btn bg-success-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(1,'.$gro_id.')">فعال</a>'; 
+                     	elseif($gro_status == 2) 
+                         $temp = '<a class="btn bg-danger-400 col-md-6 col-md-offset-3" id="btn'.$gro_id.'" onClick="AdminChange2(2,'.$gro_id.')">غیر فعال</a>';
+										
+						echo '<tr>
+							<td>
+								
+							    '.$rows2['gro_name'].' / '.$rows3['gro_name'].'
+							   
+							</td>
+							<td>
+								
+							</td>
+                          <td class="text-center">'.$temp.'</td>
+                                        
+						
+						<td class="text-center"><a class="btn bg-slate" href="gp-product.php?selected='.$gro_id.'">ویرایش</a></td>
+						</tr>';
+					
+					
+					}
+				}
+				?>
 							</tbody>
 						</table>
 					</div>

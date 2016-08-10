@@ -59,21 +59,18 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				if(get_safe_post($mysqlicheck,"submit"))
 				{
                     
-                    $m1 = "نام کالا"; 
+                    $m1 = "کد کالا"; 
 					$m2 = "مدل"; 
 					$m3 = "سازنده"; 
-					$m4 = "تعداد";
-					$m5 = "تاریخ"; 
-					$m6 = "قیمت"; 
-					$m7 = "درصد تخفیف";
-					$m8 = "مشخصه 1";
-					$m9 = "مشخصه 2";
-					$m10 = "مشخصه 3";
-					$m11 = "مشخصه 4";
-					$m12 = "مشخصه 5";
-					$m13 = "مشخصه 6";
-					$m14 = "مشخصه 7";
-					$m15 = "مشخصه 8";
+					$m4 = "مشخصه 1";
+					$m5 = "مشخصه 2"; 
+					$m6 = "مشخصه 3"; 
+					$m7 = "مشخصه 4";
+					$m8 = "مشخصه 5";
+					$m9 = "مشخصه 6";
+					$m10 = "مشخصه 7";
+					$m11 = "مشخصه 8";
+					
                     
                     
                     if(get_safe_post($mysqlicheck,"m1") != "")
@@ -98,18 +95,11 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 					$m10 = get_safe_post($mysqlicheck,"m10");
                     if(get_safe_post($mysqlicheck,"m11") != "")
 					$m11 = get_safe_post($mysqlicheck,"m11");
-                    if(get_safe_post($mysqlicheck,"m12") != "")
-					$m12 = get_safe_post($mysqlicheck,"m12");
-                    if(get_safe_post($mysqlicheck,"m13") != "")
-					$m13 = get_safe_post($mysqlicheck,"m13");
-                    if(get_safe_post($mysqlicheck,"m14") != "")
-					$m14 = get_safe_post($mysqlicheck,"m14");
-                    if(get_safe_post($mysqlicheck,"m15") != "")
-					$m15 = get_safe_post($mysqlicheck,"m15");
+                    
                     
 
 
-                    $sql = "UPDATE gro_title SET gro_title_m1='$m1',gro_title_m2='$m2',gro_title_m3='$m3',gro_title_m4='$m4',gro_title_m5='$m5', gro_title_m6='$m6',gro_title_m7='$m7',gro_title_m8='$m8',gro_title_m9='$m9',gro_title_m10='$m10', gro_title_m11='$m11',gro_title_m12='$m12',gro_title_m13='$m13',gro_title_m14='$m14', gro_title_m15='$m15'";
+                    $sql = "UPDATE gro_title SET gro_title_m1='$m1',gro_title_m2='$m2',gro_title_m3='$m3',gro_title_m4='$m4',gro_title_m5='$m5', gro_title_m6='$m6',gro_title_m7='$m7',gro_title_m8='$m8',gro_title_m9='$m9',gro_title_m10='$m10', gro_title_m11='$m11'";
 
                     $result = $mysqlicheck->query($sql);
                     if (!$result) {
@@ -142,25 +132,21 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     $mm9 = $rows['gro_title_m9'];
                     $mm10 = $rows['gro_title_m10'];
                     $mm11 = $rows['gro_title_m11'];
-                    $mm12 = $rows['gro_title_m12'];
-                    $mm13 = $rows['gro_title_m13'];
-                    $mm14 = $rows['gro_title_m14'];
-                    $mm15 = $rows['gro_title_m15'];
-
+                    
                     $datachange = '
                     <hr>
                     <div class="row content-group-lg">
                         <div class="col-md-6">
                             <div class="col-md-8">
-                                <label>کد کالا :</label>
-                                <input type="text" class="form-control col-md-10" disable placeholder="نام این فیلد قابل تغییر نیست" value="نام این فیلد قابل تغییر نیست">
+                                <label>'. $mm1.' :</label>
+                                <input type="text" class="form-control col-md-10" name="m1" placeholder="کد کالا" value="'. $mm1.'">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="col-md-8">
                                 <label>نام کالا :</label>
-                                <input type="text" name="m1" class="form-control col-md-6" value="نام این فیلد قابل تغییر نیست" placeholder="نام این فیلد قابل تغییر نیست ">
+                                <input type="text" name="" class="form-control col-md-6" value="نام این فیلد قابل تغییر نیست" placeholder="نام این فیلد قابل تغییر نیست " disabled>
                             </div>
                         </div>
                     </div>
@@ -236,36 +222,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                             <div class="col-md-8">
                                 <label>'. $mm11.' :</label>
                                 <input type="text" name="m11" class="form-control" value="'. $mm11.'" placeholder="مشخصه 4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row content-group-lg">
-                        <div class="col-md-6">
-                            <div class="col-md-8">
-                                <label>'. $mm12.' :</label>
-                                <input type="text" name="m12" class="form-control" value="'. $mm12.'" placeholder="مشخصه 5">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-8">
-                                <label>'. $mm13.' :</label>
-                                <input type="text" name="m13" class="form-control" value="'. $mm13.'" placeholder="مشخصه 6">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row content-group-lg">
-                        <div class="col-md-6">
-                            <div class="col-md-8">
-                                <label>'. $mm14.' :</label>
-                                <input type="text" name="m14" class="form-control" value="'. $mm14.'" placeholder="مشخصه 7">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-8">
-                                <label>'. $mm15.' :</label>
-                                <input type="text" name="m15" class="form-control" value="'. $mm15.'" placeholder="مشخصه 8">
                             </div>
                         </div>
                     </div>';

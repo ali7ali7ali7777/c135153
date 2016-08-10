@@ -78,7 +78,7 @@ echo $name;
  ]
 }
 ';*/
-$name .='{"name": "انبار","children": [';
+/*$name .='{"name": "انبار","children": [';
 $table1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 AND gro_status='1'");
 $numResults1 = $table1->num_rows;
 $counter1 = 0;
@@ -148,7 +148,44 @@ while($rows1=mysqli_fetch_assoc($table1))
         $name .= ']}'; // last row
     else
         $name .= ',';// not last row    
+}*/
+
+
+
+
+$name .='{"name": "انبار","children": ['; 
+$table1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' AND gro_status='1'");
+$numResults1 = $table1->num_rows;
+$counter1 = 0;
+while($rows1=mysqli_fetch_assoc($table1))
+{
+    if ($numResults1 == 0)
+	{
+        $name .='{"name": "'.$rows1['gro_name'].'"}'; // age bache nadashte bashe
+    }else
+	{
+        $name .='{"name": "'.$rows1['gro_name'].'","children": ['; // age bache dashte bashe
+		$table2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$rows1['gro_kod']."__' AND gro_status='1'");
+		$numResults2 = $table2->num_rows;
+    	$counter2 = 0;
+   		while($rows2=mysqli_fetch_assoc($table2))
+        {
+            $name .='{"name": "'.$rows2['gro_name'].'"}'; // age bache nadashte bashe
+            
+            if(++$counter2 == $numResults2)
+                $name .= ']}'; // last row
+            else
+                $name .= ',';// not last row 
+        }
+    }
+    if(++$counter1 == $numResults1)
+        $name .= ']}'; // last row
+    else
+        $name .= ',';// not last row    
 }
+
+
+
 
 /*
 $name .='{"name": "انبار","children": [';

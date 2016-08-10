@@ -59,13 +59,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
             <?php
 				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != "" && get_safe_post($mysqlicheck,"item") != "")
 				{
-					$sub = $_POST['sub'];
+					//$sub = $_POST['sub'];
 					$name_gp = get_safe_post($mysqlicheck,"name");
 					$id_gp = get_safe_post($mysqlicheck,"item");
                     $gro_status = get_safe_post($mysqlicheck,"status");
 					
 					
-					$sql="UPDATE gro SET gro_name='$name_gp',gro_status='$gro_status',gro_parent_id='$sub' WHERE gro_id='$id_gp'";
+					$sql="UPDATE gro SET gro_name='$name_gp',gro_status='$gro_status' WHERE gro_id='$id_gp'";
 					$result = $mysqlicheck->query($sql);
 					if (!$result) {
 						echo'
@@ -87,8 +87,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				while($rows2=mysqli_fetch_assoc($table2))
 				{
 					$gro_name = $rows2['gro_name'];
-					$gro_parent_id = $rows2['gro_parent_id'];
-                    $gro_status = $rows2['gro_status'];
+					$gro_status = $rows2['gro_status'];
 				}
                 if($gro_status == 1)
                     $btn = '<button id="demobtn" type="button" class="btn col-lg-5 bg-success-400 dropdown-toggle" data-toggle="dropdown">فعال</button>';
@@ -121,13 +120,13 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                     </div>
                                     <hr>
 
-                                    <div class="form-group">
+                          <!--           <div class="form-group">
                                         <label class="col-lg-3 control-label">انتخاب گروه اصلی</label>
                                         <div class="col-lg-9">
                                             <select class="select" name="sub">
-                                            	<option value="0">انتخاب گروه اصلی</option>
+                                            	<option value="0">انتخاب گروه اصلی</option>-->
                                                 <?php
-												$table = mysqli_query($mysqlicheck,"SELECT * FROM gro");
+											/*	$table = mysqli_query($mysqlicheck,"SELECT * FROM gro");
 												while($rows=mysqli_fetch_assoc($table))
 												{
 													
@@ -135,10 +134,10 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 														echo '<option selected value="'.$rows['gro_id'].'">'.$rows['gro_name'].'</option>';
 													else
 														echo '<option value="'.$rows['gro_id'].'">'.$rows['gro_name'].'</option>';
-												}
+												}*/
 												?>
                                                 
-                                            </select>
+                                   <!--         </select>
                                         </div>
                                     </div>
                                     
@@ -150,7 +149,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr>-->
                                     
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">وضعیت نمایش در سایت فروشگاه :</label>
