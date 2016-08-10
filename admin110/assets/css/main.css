@@ -3,5 +3,8 @@ body {
   color: #788288;
   }
 .borderB1{
-    direction: rtl;
+    margin-right: -5px;
+}
+.dt-button-collection.dropdown-menu {
+    z-index: 1050;
 }

@@ -54,6 +54,20 @@ if(get_safe_post($mysqlicheck,'object4')== 'object4'){
 	}
 	
 }
+//// object 1
+if(get_safe_post($mysqlicheck,'sendDATA')== 'sendDATA'){
+	
+	$IsendDATA = get_safe_post($mysqlicheck,'IsendDATA');
+
+    $table = mysqli_query($mysqlicheck,"SELECT object_gro_id,object_code,object_m1,object_m2,object_m3,object_m4,object_m5,object_m6,object_m7,object_m8,object_m9,object_m10 FROM object where object_id='$IsendDATA'");
+    $rows=mysqli_fetch_assoc($table);
+    $arr = array('code' => $rows['object_code'], 'gro_id' => $rows['object_gro_id'], 'm1' => $rows['object_m1'], 'm2' => $rows['object_m2']
+                 , 'm3' => $rows['object_m3'], 'm4' => $rows['object_m4'], 'm5' => $rows['object_m5']
+                , 'm6' => $rows['object_m6'], 'm7' => $rows['object_m7'], 'm8' => $rows['object_m8'], 'm9' => $rows['object_m9']);
+
+    echo json_encode($arr);
+	
+}
 
 
 ?>

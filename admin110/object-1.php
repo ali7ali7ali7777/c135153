@@ -107,32 +107,49 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                         <div class="col-md-12">
                             <form method="post" class="form-horizontal">
                                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_full"></button>
-                                <div class="panel panel-flat">
-                                    <table class="table datatable-colvis-basic">
-                                        <thead>
-                                            <tr>
-                                                <th>ردیف</th>
-                                                <th>نام کالا</th>
-                                                <th>تعداد </th>
-                                                <th>فی واحد</th>
-                                                <th>واحد</th>
-                                                <th>جمع</th>
-                                                <th>شرح کالا</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="text" class="form-control borderB1" value=""></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                                <td><input type="text" class="form-control borderB1"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">Striped rows</h5>
+                                            <div class="heading-elements">
+                                                <ul class="icons-list">
+                                                    <li><a data-action="collapse"></a></li>
+                                                    <li><a data-action="reload"></a></li>
+                                                    <li><a data-action="close"></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ردیف</th>
+                                                        <th>نام کالا</th>
+                                                        <th>تعداد </th>
+                                                        <th>فی واحد</th>
+                                                        <th>واحد</th>
+                                                        <th>جمع</th>
+                                                        <th>شرح کالا</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="myTable">
+                                                    <tr>
+                                                        <td><input id="STname" type="text" class="form-control borderB1"  data-toggle="modal" data-target="#modal_full" value=""></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                        <td><input type="text" class="form-control borderB1"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                             </form>
                         </div>
                     </div>
@@ -142,7 +159,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
 								<div class="modal-body">
                                     <div class="panel panel-flat">
-                                        <table class="table datatable-colvis-basic">
+                                        <table class="table datatable-colvis-basic table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>نام کالا</th>
@@ -168,7 +185,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                         $object_m4 = $rows['object_m4'];
 
                                                     ?>
-                                                <tr onclick="alert();">
+                                                <tr onclick="sendDATA(<?php echo $object_id ?>)">
                                                     <td><?php echo $object_m1 ?></td>
                                                     <td><?php echo $object_code ?></td>
                                                     <td><?php echo $object_m1 ?></a></td>
@@ -191,6 +208,41 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 		</div>
 
 	</div>
-
+	<script type="text/javascript">
+        
+        $(document).ready(function() {
+            var rowCount = $('#myTable tr').length;
+            
+            
+            $('#STname').focus(function(){
+                $('#STname').val("");
+                setTimeout(function(){$('#searchBTN').focus(); }, 1000);
+                //$("#searchBTN").val('123');
+                //setTimeout(function(){$("#searchBTN").val('123'),alert("ok1"); }, 1000);
+                //alert("ok1");
+            });
+                    
+                   
+                    
+        });
+        function sendDATA(valll) {
+            $.post('serv.php',{'sendDATA':'sendDATA','IsendDATA':valll},function(Iresult){
+                obj = jQuery.parseJSON( Iresult );
+                console.log(obj.m1);
+                
+                Fl = '<tr>'+
+                        '<td><input id="STname" type="text" class="form-control borderB1"  data-toggle="modal" data-target="#modal_full" value=""></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                        '<td><input type="text" class="form-control borderB1"></td>'+
+                    '</tr>';
+                $('#myTable tr:last').after('<tr>...</tr><tr>...</tr>');
+            });
+            
+        }
+    </script>
 </body>
 </html>

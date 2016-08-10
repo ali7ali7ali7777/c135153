@@ -131,6 +131,7 @@ $(function() {
 
 
     // Add placeholder to the datatable filter option
+    $('.dataTables_filter input[type=search]').attr('id', 'searchBTN');
     $('.dataTables_filter input[type=search]').attr('placeholder', 'در لیست زیر جستجو کنید ...');
 
 
