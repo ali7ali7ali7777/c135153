@@ -17,62 +17,50 @@ function clean($string) {
 $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en" dir="rtl">
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پنل ادمین</title>
+<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="assets/css/core.css" rel="stylesheet" type="text/css">
+<link href="assets/css/components.css" rel="stylesheet" type="text/css">
+<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+<link href="assets/css/yekan.css" rel="stylesheet" type="text/css">
+<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/uploaders/fileinput.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/validation/validate.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script type="text/javascript" src="assets/js/core/app.js"></script>
+<script type="text/javascript" src="assets/js/pages/form_validation.js"></script>
+<script type="text/javascript" src="assets/js/pages/uploader_bootstrap.js"></script>
+<script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+<script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
+</head>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>پنل ادمین</title>
-
-        <link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/yekan.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/main.css" rel="stylesheet" type="text/css">
-
-
-        <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-        <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-        
-        <script type="text/javascript" src="assets/js/plugins/uploaders/fileinput.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/validation/validate.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/inputs/touchspin.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/styling/switch.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
-
-        <script type="text/javascript" src="assets/js/core/app.js"></script>
-        <script type="text/javascript" src="assets/js/pages/form_validation.js"></script>
-    	<script type="text/javascript" src="assets/js/pages/uploader_bootstrap.js"></script>
-        <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
-        
-        <script type="text/javascript" src="assets/js/main.js"></script>
-
-    </head>
-
-    <body class="navbar-top">
-
-        <?php require_once "menu1.php"; ?>
-
-
-            <div class="page-container">
-
-                <div class="page-content">
-
-                    <?php require_once "menu2.php"; ?>
-
-                        <div class="content-wrapper">
-                            <?php 
+<body class="navbar-top">
+<?php require_once "menu1.php"; ?>
+<div class="page-container">
+  <div class="page-content">
+    <?php require_once "menu2.php"; ?>
+    <div class="content-wrapper">
+      <?php 
                             
                 if($_POST['m_g'] != "" && $_POST['m_n'] != ""){
 				if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"m_s") != "" &&  get_safe_post($mysqlicheck,"m_unit") != "" )
@@ -174,28 +162,26 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                 }
                 
 			?>
-                                <div class="content">
-                                        <form method="post" class="form-horizontal form-validate-jquery" enctype="multipart/form-data">
-                                            <div class="panel">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">ایجاد کالا جدید</h5>
-                                                </div>
-                                                <div class="panel-group panel-group-control panel-group-control-right content-group-lg" id="accordion-control-right">
-                                                    <div class="panel panel-white">
-                                                        <div class="panel-heading">
-                                                            <h6 class="panel-title">
-                                                                <a data-toggle="collapse" data-parent="#accordion-control-right" href="#accordion-control-right-group1">مشخصات اصلی</a>
-                                                            </h6>
-                                                        </div>
-                                                        <div id="accordion-control-right-group1" class="panel-collapse collapse in">
-                                                            <div class="panel-body">
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label>انتخاب گروه</label>
-                                                                            <select class="select" id="gp-edit-select" name="m_g">
-                                                                                <option value="">انتخاب گروه</option>
-                                                         <?php
+      <div class="content">
+        <form method="post" class="form-horizontal form-validate-jquery" enctype="multipart/form-data">
+          <div class="panel">
+            <div class="panel-heading">
+              <h5 class="panel-title">ایجاد کالا جدید</h5>
+            </div>
+            <div class="panel-group panel-group-control panel-group-control-right content-group-lg" id="accordion-control-right">
+              <div class="panel panel-white">
+                <div class="panel-heading">
+                  <h6 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion-control-right" href="#accordion-control-right-group1">مشخصات اصلی</a> </h6>
+                </div>
+                <div id="accordion-control-right-group1" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>انتخاب گروه</label>
+                          <select class="select" id="gp-edit-select" name="m_g">
+                            <option value="">انتخاب گروه</option>
+                            <?php
                 $table3 = mysqli_query($mysqlicheck,"SELECT * FROM gro  WHERE gro_kod like '_____'");
                 while($rows3=mysqli_fetch_assoc($table3))
                 {
@@ -203,190 +189,168 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                                            
                 }
                                          ?>
-                                                                            </select>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo $mm1 ?> :</label>
-                                                                            <input type="text" name="m1" class="form-control"  placeholder="<?php echo $mm1 ?> را وارد کنید" value="">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label>نام کالا :</label>
-                                                                            <input type="text" name="m_n" class="form-control" value="" required="required" placeholder="نام کالا را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-5">
-                                                                            <label>انتخاب واحد کالا</label>
-                                                                            <select class="select" id="gp-edit-select" name="m_unit">
-                                                                                <?php
-                                                                                $table3 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
-                                                                                while($rows3=mysqli_fetch_assoc($table3))
-                                                                                {
-                                                                                    echo '<option value="'.$rows3['unit_name'].'">'.$rows3['unit_name'].'</option>';
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <label>انتخاب واحد کالا</label>
-                                                                            <input type="text" value="" id="unit" class="form-control" aria-required="true" placeholder="تعداد" disabled>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label>تاریخ :</label>
-                                                                            <input type="text" name="m_date" value="<?php echo $datenow; ?>" required="required" class="form-control" aria-required="true" placeholder="تاریخ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label>قیمت فروش (ریال):</label>
-                                                                            <input type="text" name="m_s" id="prc" class="form-control" placeholder="قیمت فروش را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label>قیمت با تخفیف :</label>
-                                                                            <input type="text" class="form-control" name="m_s_d" id="prc2" placeholder="قیمت با تخفیف را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-12">
-                                                                        <div class="col-md-12">
-                                                                            <label>ارسال تصویر :</label>
-                                                                            <input type="file" name="pics[]" class="file-input" data-show-caption="false" multiple="multiple" data-show-upload="false" data-browse-class="btn btn-primary" data-remove-class="btn btn-default">
-                                                                            <span class="help-block">حجم کمتر از 2 مگابایت و فرمت قابل قبول jpg و png </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="panel panel-white">
-                                                        <div class="panel-heading">
-                                                            <h6 class="panel-title">
-                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-control-right" href="#accordion-control-right-group2">مشخصات تکمیلی</a>
-                                                            </h6>
-                                                        </div>
-                                                        <div id="accordion-control-right-group2" class="panel-collapse collapse">
-                                                            <div class="panel-body">
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm2; ?> :</label>
-                                                                            <input type="text" name="m2" class="form-control" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm3; ?> :</label>
-                                                                            <input type="text" name="m3" class="form-control" value="" placeholder="<?php echo  $mm3; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm4; ?> :</label>
-                                                                            <input type="text" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm5; ?> :</label>
-                                                                            <input type="text" name="m5" class="form-control" value="" placeholder="<?php echo  $mm5; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm6; ?> :</label>
-                                                                            <input type="text" name="m6" class="form-control" value="" placeholder="<?php echo  $mm6; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm7; ?> :</label>
-                                                                            <input type="text" name="m7" class="form-control" value="" placeholder="<?php echo  $mm7; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm8; ?> :</label>
-                                                                            <input type="text" name="m8" class="form-control" value="" placeholder="<?php echo  $mm8; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm9; ?> :</label>
-                                                                            <input type="text" name="m9" class="form-control" value="" placeholder="<?php echo  $mm9; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row content-group-lg">
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm10; ?> :</label>
-                                                                            <input type="text" name="m10" class="form-control" value="" placeholder="<?php echo  $mm10; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="col-md-8">
-                                                                            <label><?php echo  $mm11; ?> :</label>
-                                                                            <input type="text" name="m11" class="form-control" value="" placeholder="<?php echo  $mm11; ?> را وارد کنید">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                    <div class="panel-default">
-                                                        <div class="panel-body">
-                                                            <div class="text-right">
-                                                                <button type="submit" name="submit" value="save" class="btn btn-primary"> ایجاد و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
+                          </select>
                         </div>
-
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo $mm1 ?> :</label>
+                          <input type="text" name="m1" class="form-control"  placeholder="<?php echo $mm1 ?> را وارد کنید" value="">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>نام کالا :</label>
+                          <input type="text" name="m_n" class="form-control" value="" required="required" placeholder="نام کالا را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>انتخاب واحد کالا</label>
+                          <select class="bootstrap-select" data-width="100%" name="m_unit">
+                         <?php
+                  $table3 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
+                  while($rows3=mysqli_fetch_assoc($table3))
+                      {
+                          echo '<option data-subtext="  تعداد در این واحد '.$rows3['unit_single'].' می باشد" value="'.$rows3['unit_name'].'" >
+						  		'.$rows3['unit_name'].'</option>'; 
+					  }
+                       ?>
+                          </select>
+                        </div>
+                        
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>تاریخ :</label>
+                          <input type="text" name="m_date" value="<?php echo $datenow; ?>" required="required" class="form-control" aria-required="true" placeholder="تاریخ">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>قیمت فروش (ریال):</label>
+                          <input type="text" name="m_s" id="prc" class="form-control" placeholder="قیمت فروش را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label>قیمت با تخفیف :</label>
+                          <input type="text" class="form-control" name="m_s_d" id="prc2" placeholder="قیمت با تخفیف را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-12">
+                        <div class="col-md-12">
+                          <label>ارسال تصویر :</label>
+                          <input type="file" name="pics[]" class="file-input" data-show-caption="false" multiple data-show-upload="false" data-browse-class="btn btn-primary" data-remove-class="btn btn-default">
+                          <span class="help-block">حجم کمتر از 2 مگابایت و فرمت قابل قبول jpg و png </span> </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
+              </div>
+              <div class="panel panel-white">
+                <div class="panel-heading">
+                  <h6 class="panel-title"> <a class="collapsed" data-toggle="collapse" data-parent="#accordion-control-right" href="#accordion-control-right-group2">مشخصات تکمیلی</a> </h6>
+                </div>
+                <div id="accordion-control-right-group2" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm2; ?> :</label>
+                          <input type="text" name="m2" class="form-control" value="" placeholder="<?php echo  $mm2; ?> را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm3; ?> :</label>
+                          <input type="text" name="m3" class="form-control" value="" placeholder="<?php echo  $mm3; ?> را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm4; ?> :</label>
+                          <input type="text" name="m4" class="form-control" value="" placeholder="<?php echo  $mm4; ?> را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm5; ?> :</label>
+                          <input type="text" name="m5" class="form-control" value="" placeholder="<?php echo  $mm5; ?> را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm6; ?> :</label>
+                          <input type="text" name="m6" class="form-control" value="" placeholder="<?php echo  $mm6; ?> را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm7; ?> :</label>
+                          <input type="text" name="m7" class="form-control" value="" placeholder="<?php echo  $mm7; ?> را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm8; ?> :</label>
+                          <input type="text" name="m8" class="form-control" value="" placeholder="<?php echo  $mm8; ?> را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm9; ?> :</label>
+                          <input type="text" name="m9" class="form-control" value="" placeholder="<?php echo  $mm9; ?> را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row content-group-lg">
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm10; ?> :</label>
+                          <input type="text" name="m10" class="form-control" value="" placeholder="<?php echo  $mm10; ?> را وارد کنید">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-md-8">
+                          <label><?php echo  $mm11; ?> :</label>
+                          <input type="text" name="m11" class="form-control" value="" placeholder="<?php echo  $mm11; ?> را وارد کنید">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-default">
+                <div class="panel-body">
+                  <div class="text-right">
+                    <button type="submit" name="submit" value="save" class="btn btn-primary"> ایجاد و ذخیره <i class="icon-arrow-left13 position-right"></i></button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <script type="text/javascript">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
             /*    $(document).ready(function () {
                     $.post('serv.php', {
                         'change2': 'change2',
@@ -440,13 +404,9 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
                         //alert(numval);
                          $("#prc2").val(ToRial(numval));
                     });
-					/*$("#gp-edit-select").onclick(function () {
-                       unitid = $("#gp-edit-select").val();
-						 
-                    });*/
+					
                 });
 
             </script>
-    </body>
-
-    </html>
+</body>
+</html>

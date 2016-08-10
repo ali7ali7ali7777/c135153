@@ -82,7 +82,8 @@ function clean($string) {
     <script type="text/javascript" src="assets/js/pages/layout_fixed_custom.js"></script>
 	<script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
 	<script type="text/javascript" src="assets/js/main.js"></script>
-
+<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+<script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
 </head>
 
 <body class="navbar-top">
@@ -281,25 +282,20 @@ function clean($string) {
                                     <hr>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" >انتخاب واحد کالا</label>
-                                        <div class="col-lg-5">
-                                            <label>واحد</label>
-                                            <select class="select" id="gp-edit-select" name="m_unit">
+                                        <div class="col-lg-9">
+                                        <select class="bootstrap-select" data-width="100%" name="m_unit">
                 <?php
                     $table32 = mysqli_query($mysqlicheck,"SELECT * FROM unit");
                     while($rows32=mysqli_fetch_assoc($table32))
                     {
                        if($rows32['unit_name'] == $object_unit )
-                       echo '<option selected value="'.$rows32['unit_name'].'"> '.$rows32['unit_name'].'</option>';
+                       echo '<option selected data-subtext="  تعداد در این واحد '.$rows32['unit_single'].' می باشد" value="'.$rows32['unit_name'].'"> '.$rows32['unit_name'].'</option>';
                        else
-                       echo '<option value="'.$rows32['unit_name'].'"> '.$rows32['unit_name'].'</option>';
+                       echo '<option data-subtext="  تعداد در این واحد '.$rows32['unit_single'].' می باشد" value="'.$rows32['unit_name'].'"> '.$rows32['unit_name'].'</option>';
                     }
                  ?>
                                             </select>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <label>تعداد</label>
-                                            <input type="text"  class="form-control" value="" placeholder="تعداد">
-                                        </div>
+                                            </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
