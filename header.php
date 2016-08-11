@@ -59,7 +59,7 @@
 			
 			
 			
-	$rant_h1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
+	$rant_h1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
 		if (mysqli_num_rows($rant_h1) > 0) {	
 			while($row_h1=mysqli_fetch_assoc($rant_h1))
 			{
@@ -68,7 +68,7 @@
               <div class="dropdown-menu c-menu-type-mega c-menu-type-fullwidth" style="min-width: auto">
                 <div class="row">
                   <?php
-				$rant_h2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=".$row_h1['gro_id']." and gro_status =1");
+				$rant_h2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$row_h1['gro_kod']."__' and gro_status =1");
 				if (mysqli_num_rows($rant_h2) > 0) {		
 				while($row_h2=mysqli_fetch_assoc($rant_h2))
 				{

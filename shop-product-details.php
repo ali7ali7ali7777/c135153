@@ -53,6 +53,21 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <?php require_once "header.php"; ?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
+<?php
+$object_id =get_safe_post($mysqlicheck,"id");
+$rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $object_id ');
+				if (mysqli_num_rows($rant_d1) > 0)
+				{
+					$row_d1=mysqli_fetch_assoc($rant_d1);
+					
+
+
+
+
+
+
+?>
+
 
             <!-- BEGIN: PAGE CONTENT -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-PRODUCT-DETAILS-2 -->
@@ -91,8 +106,8 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                         <div class="c-line-left"></div>
                                     </div>
                                     <div class="c-product-badge">
-                                        <div class="c-product-sale">Sale</div>
-                                        <div class="c-product-new">New</div>
+                                        <div class="c-product-sale">تخفیف</div>
+                                        <div class="c-product-new">جدید</div>
                                     </div>
                                     <div class="c-product-review">
                                         <div class="c-product-rating">
@@ -159,6 +174,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     </div>
                 </div>
             </div>
+            <?php 
+				}
+					?>
             <!-- END: CONTENT/SHOPS/SHOP-PRODUCT-DETAILS-2 -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-PRODUCT-TAB-1 -->
             <div class="c-content-box c-size-md c-no-padding">
@@ -512,14 +530,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <script src="assets/plugins/zoom-master/jquery.zoom.min.js" type="text/javascript"></script>
         <!-- END: PAGE SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-64667612-1', 'themehats.com');
-  ga('send', 'pageview');
-</script>
 </body>
 
 

@@ -138,69 +138,59 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     <div class="c-content-tab-5 c-bs-grid-reset-space c-theme">
                         <!-- Nav tabs -->
    						<ul class="nav nav-pills c-nav-tab c-arrow" role="tablist">
-     
-     
-     
 <?php 
-
- 
- 
-
- 
-     
-     
-     
-                           
-  	                    
-        $rant_i1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
-		if ( mysqli_num_rows($rant_i1) > 0)
-		{
-			$I_ac = "1";	
-			while($row_i1=mysqli_fetch_assoc($rant_i1))
-			{
-	  			echo     "<li role=\"presentation\"";
-				if ($I_ac == "1") echo "class=\"active\"";
-				echo	 "> <a class=\"c-font-uppercase\" href=\"#".$row_i1['gro_id']."\" aria-controls=\"watches\" role=\"tab\" data-toggle=\"tab\">".$row_i1['gro_name']."</a>
-                         </li>";
+$rant_i1 = mysqli_query($mysqlicheck,'SELECT * FROM gro where gro_kod like "___" and gro_status =1');
+if ( mysqli_num_rows($rant_i1) > 0)
+{
+	$I_ac = "1";	
+	while($row_i1=mysqli_fetch_assoc($rant_i1))
+	{
+		
+	  	echo '<li role="presentation"';
+				if ($I_ac == "1") echo 'class="active"';
+				echo	 '> <a class="c-font-uppercase" href="#'.$row_i1['gro_id'].'" aria-controls="watches" role="tab" data-toggle="tab">'.$row_i1['gro_name'].'</a>
+                         </li>';
 				$I_ac ++ ;
-			}
-		}
-     ?>		 
+	}
+}
+?>		 
 				   </ul>
                  <div class="tab-content">
       <?php 
 	  
   
 	                      
-        $rant_i3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_parent_id=0 and gro_status =1");
+        $rant_i3 = mysqli_query($mysqlicheck,'SELECT * FROM gro where gro_kod like "___" and gro_status =1');
 		if ( mysqli_num_rows($rant_i3) > 0)
 		{
 			$I_ac = "1";
 			while($row_i3=mysqli_fetch_assoc($rant_i3))
 			{  
-        		echo  "<div role=\"tabpanel\" class=\"tab-pane fade";
-				if ($I_ac == "1") echo " "."in active";
-				echo "\"id=\"".$row_i3['gro_id']."\">
-                           <div class=\"row\">";
-				$rant_i4 = mysqli_query($mysqlicheck,"SELECT * 
-										FROM object 
-										where object_gro_id	in (select ) and object_status =1 limit 3 ");
+        		echo  '<div role="tabpanel" class="tab-pane fade';
+				if ($I_ac == "1") echo " in active";
+				echo '"id="'.$row_i3['gro_id'].'">
+                           <div class="row">';
+				$rant_i4 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_code like "'.$row_i3['gro_kod'].'_____" and object_status = 1 limit 3 ');
 				if (mysqli_num_rows($rant_i4) > 0)
 				{
 					while($row_i4=mysqli_fetch_assoc($rant_i4))
-					{	
-						echo	"<div class=\"col-sm-4\">
-                                        <div class=\"c-content c-content-overlay\">
-                                            <div class=\"c-overlay-wrapper c-overlay-padding\">
-                                                <div class=\"c-overlay-content\">
-                                                    <a href=\"shop-product-details.php?id=".$row_i4['object_id']."\" class=\"btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square\">توضیحات بیشتر</a>
+					{
+						$src = "images/object/".$row_i4['object_id']."/".$row_i4['object_id'].".jpg";
+						if (!file_exists($src))
+						$src = "images/none.jpg";
+	?>
+							<div class="col-sm-4">
+                                        <div class="c-content c-content-overlay">
+                                            <div class="c-overlay-wrapper c-overlay-padding">
+                                                <div class="c-overlay-content">
+                                                    <a href="shop-product-details.php?id=<?php echo $row_i4['object_id'] ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">توضیحات بیشتر</a>
                                                 </div>
                                             </div>
-                                            <div class=\"c-bg-img-center c-overlay-object\" data-height=\"height\" style=\"height: 270px; background-image: url(assets/base/img/content/shop2/69.jpg);\"></div>
-                                            <div class=\"c-overlay-border\"></div>
+                                            <div class="c-bg-img-center c-overlay-object" data-height="height" style="height:270px; background-image:url(<?php echo $src; ?>);"></div>
+                                            <div class="c-overlay-border"></div>
                                         </div>
-                                    </div>";
-					}
+                                    </div>
+			<?php		}
 				}
                        echo   "</div>
                             </div>";
@@ -223,43 +213,47 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                         </h3>
                     </div>
      <?php
-		$rant_i5 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m15 DESC limit 8");
+		$rant_i5 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_visit DESC limit 8");
 		if (mysqli_num_rows($rant_i5) > 0)
 		{
 			$I_ac = "1";
 			while($row_i5=mysqli_fetch_assoc($rant_i5))
-			{             
+			{    
+				$src_v = "images/object/".$row_i5['object_id']."/".$row_i5['object_id'].".jpg";
+				if (!file_exists($src_v))
+				$src_v = "images/none.jpg";         
                 if ($I_ac == "1" || $I_ac == "5") echo   "<div class=\"row\">";
-                 echo   "<div class=\"col-md-3 col-sm-6 c-margin-b-20\">
-                            <div class=\"c-content-product-2 c-bg-white\">
-                                <div class=\"c-content-overlay\">
-                                    <div class=\"c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold\">تخفیف</div>
-                                    <div class=\"c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold\">جدید</div>
-                                    <div class=\"c-overlay-wrapper\">
-                                        <div class=\"c-overlay-content\">
-                                            <a href=\"shop-product-details.php?id=".$row_i5['object_id']."\" class=\"btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square\">جزئیات</a>
+	?>
+                	<div class="col-md-3 col-sm-6 c-margin-b-20">
+                            <div class="c-content-product-2 c-bg-white">
+                                <div class="c-content-overlay">
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
+                                    <div class="c-overlay-wrapper">
+                                        <div class="c-overlay-content">
+                                            <a href="shop-product-details.php?id=<?php echo $row_i5['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
                                         </div>
                                     </div>
-                                    <div class=\"c-bg-img-center c-overlay-object\" data-height=\"height\" style=\"height: 270px; background-image: url(assets/base/img/content/shop2/93.jpg);\"></div>
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src_v; ?>);"></div>
                                 </div>
-                                <div class=\"c-info\">
-                                    <p class=\"c-title c-font-18 c-font-slim\">".$row_i5['object_m1']."</p>
-                                    <p class=\"c-price c-font-16 c-font-slim\">ريال ".$row_i5['object_m7']." &nbsp;
-                                        <span class=\"c-font-16 c-font-line-through c-font-red\">ريال ".$row_i5['object_m6']."</span>
+                                <div class"c-info">
+                                    <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name'] ; ?></p>
+                                    <p class="c-price c-font-16 c-font-slim"><?php echo $row_i5['object_sale_di']; ?> ريال  &nbsp;
+                                        <span class="c-font-16 c-font-line-through c-font-red"><?php echo $row_i5['object_sale']; ?> ريال </span>
                                     </p>
                                 </div>
-                                <div class=\"btn-group btn-group-justified\" role=\"group\">
-                                    <div class=\"btn-group c-border-top\" role=\"group\">
-                                        <a href=\"shop-product-wishlist.php?id=".$row_i5['object_id']."\" class=\"btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product\">علاقه مندیها</a>
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <div class="btn-group c-border-top" role="group">
+                                        <a href="shop-product-wishlist.php?id=<?php echo $row_i5['object_id']; ?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a>
                                     </div>
-                                    <div class=\"btn-group c-border-left c-border-top\" role=\"group\">
-                                        <a href=\"shop-cart.php?id=".$row_i5['object_id']."\" class=\"btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product\">سبد خرید</a>
+                                    <div class="btn-group c-border-left c-border-top" role="group">
+                                        <a href="shop-cart.php?id=<?php echo $row_i5['object_id'];?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">سبد خرید</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>";
+                        </div>
                         
-                        
+     <?php                   
                         
   if ($I_ac == "4" || $I_ac == "8") echo "</div>";
        $I_ac ++;              
@@ -281,39 +275,44 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                         
                         
                           <?php
-		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_m14 DESC limit 4");
+		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_pupolar DESC limit 4");
 		if (mysqli_num_rows($rant_i5) > 0)
 		{
 			while($row_i6=mysqli_fetch_assoc($rant_i6))
-			{             
-                echo   "<div class=\"col-md-3 col-sm-6 c-margin-b-20\">
-                            <div class=\"c-content-product-2 c-bg-white\">
-                                <div class=\"c-content-overlay\">
-                                    <div class=\"c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold\">تخفیف</div>
-                                    <div class=\"c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold\">جدید</div>
-                                    <div class=\"c-overlay-wrapper\">
-                                        <div class=\"c-overlay-content\">
-                                            <a href=\"shop-product-details.php?id=".$row_i6['object_id']."\" class=\"btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square\">جزئیات</a>
+			{   
+				$src_p = "images/object/".$row_i6['object_id']."/".$row_i6['object_id'].".jpg";
+				if (!file_exists($src_p))
+				$src_p = "images/none.jpg"; 
+		?>         
+                	<div class="col-md-3 col-sm-6 c-margin-b-20">
+                            <div class="c-content-product-2 c-bg-white">
+                                <div class="c-content-overlay">
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
+                                    <div class="c-overlay-wrapper">
+                                        <div class="c-overlay-content">
+                                            <a href="shop-product-details.php?id=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
                                         </div>
                                     </div>
-                                    <div class=\"c-bg-img-center c-overlay-object\" data-height=\"height\" style=\"height: 270px; background-image: url(assets/base/img/content/shop2/93.jpg);\"></div>
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src_p ; ?>);"></div>
                                 </div>
-                                <div class=\"c-info\">
-                                    <p class=\"c-title c-font-18 c-font-slim\">".$row_i6['object_m1']."</p>
-                                    <p class=\"c-price c-font-16 c-font-slim\">ريال ".$row_i6['object_m7']." &nbsp;
-                                        <span class=\"c-font-16 c-font-line-through c-font-red\">ريال ".$row_i6['object_m6']."</span>
+                                <div class="c-info">
+                                    <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?></p>
+                                    <p class="c-price c-font-16 c-font-slim"><?php echo $row_i6['object_sale_di']; ?> ريال&nbsp;
+                                        <span class="c-font-16 c-font-line-through c-font-red"><?php echo $row_i6['object_sale_di']; ?> ريال</span>
                                     </p>
                                 </div>
-                                <div class=\"btn-group btn-group-justified\" role=\"group\">
-                                    <div class=\"btn-group c-border-top\" role=\"group\">
-                                        <a href=\"shop-product-wishlist.php?id=".$row_i6['object_id']."\" class=\"btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product\">علاقه مندیها</a>
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <div class="btn-group c-border-top\" role="group">
+                                        <a href="shop-product-wishlist.php?id=<?php echo $row_i6['object_id']; ?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a>
                                     </div>
-                                    <div class=\"btn-group c-border-left c-border-top\" role=\"group\">
-                                        <a href=\"shop-cart.php?id=".$row_i6['object_id']."\" class=\"btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product\">سبد خرید</a>
+                                    <div class="btn-group c-border-left c-border-top" role="group">
+                                        <a href="shop-cart.php?id=<?php echo $row_i6['object_id']; ?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">سبد خرید</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>";
+                        </div>
+               <?php
            }
 		}
                      
