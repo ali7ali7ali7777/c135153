@@ -1,52 +1,7 @@
-<?php
-include("inc_db.php");
 
-if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
-{
-	$url = 'login.php';
-	header( "Location: $url" );
-	die();
-}
-$rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
-		if (mysqli_num_rows($rant_c1) > 0)
-		{	
-		$row_c1=mysqli_fetch_assoc($rant_c1);
-		}
-		else
-		{
-			echo "الطفا ارتباط با ما را تکمیل نمائید.";
-		}
-		
+	
+	
 
-    if(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != "" )
-	{
-		$co_name = get_safe_post($mysqlicheck,"name");
-		$co_email = get_safe_post($mysqlicheck,"email");
-		$co_tel = get_safe_post($mysqlicheck,"tel");
-		$co_text = get_safe_post($mysqlicheck,"message");
-		$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
-		$user    ='1';				
-		$sql_c="INSERT INTO comment (comment_user_id, comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ('&user', '$co_text', '$co_name', '$co_email', '$co_tel', '3', '$co_date')";
-		$result_c = $mysqlicheck->query($sql_c);
-		$mas_c2 ='';
-		if (!$result_c)
-			{
-				$mas_c = "1";  
-			}
-			else 
-			{
-				$co_name ='';
-				$co_email = '';
-				$co_tel = '';
-				$co_text = '';
-				$mas_c = "2";
-			}
-	
-	}
-	
-	
-	
-?>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -89,7 +44,60 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 
     <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-         <?php require_once "header.php"; ?>
+         <?php require_once "header.php";
+		
+$rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
+		if (mysqli_num_rows($rant_c1) > 0)
+		{	
+		$row_c1=mysqli_fetch_assoc($rant_c1);
+		}
+		else
+		{
+			echo "الطفا ارتباط با ما را تکمیل نمائید.";
+		}
+	if(get_safe_post($mysqlicheck,"submit") == "save" && (get_safe_post($mysqlicheck,"name") == "" 
+	  || get_safe_post($mysqlicheck,"email") == "" || get_safe_post($mysqlicheck,"tel") == ""
+	  || get_safe_post($mysqlicheck,"message") == "" ))
+	{	$mas_c = "3";
+	 	$co_name = get_safe_post($mysqlicheck,"name");
+		$co_email = get_safe_post($mysqlicheck,"email");
+		$co_tel = get_safe_post($mysqlicheck,"tel");
+		$co_text = get_safe_post($mysqlicheck,"message");
+	}
+    elseif(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != ""
+		  && get_safe_post($mysqlicheck,"email") != "" && get_safe_post($mysqlicheck,"tel") != ""
+		  && get_safe_post($mysqlicheck,"message") != "" )
+	{
+		$co_name = get_safe_post($mysqlicheck,"name");
+		$co_email = get_safe_post($mysqlicheck,"email");
+		$co_tel = get_safe_post($mysqlicheck,"tel");
+		$co_text = get_safe_post($mysqlicheck,"message");
+		$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
+		$user    ='1';				
+		$sql_c="INSERT INTO comment (comment_user_id, comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ('&user', '$co_text', '$co_name', '$co_email', '$co_tel', '3', '$co_date')";
+		$result_c = $mysqlicheck->query($sql_c);
+		$mas_c2 ='';
+		if (!$result_c)
+			{
+				$mas_c = "1";  
+			}
+			else 
+			{
+				$co_name ='';
+				$co_email = '';
+				$co_tel = '';
+				$co_text = '';
+				$mas_c = "2";
+			}
+	
+	}
+	
+		
+		
+		
+		
+		
+		?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
 
@@ -116,6 +124,15 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                 </button>
                                 </div>";
 					}
+					else if ($mas_c =="3")
+					{
+                        echo   '<div class="alert alert-warning alert-dismissible" role="alert">
+								لطفا تمامی قسمتها را پر نمائید .
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';
+					}
 					?> 
                         </div>
                     
@@ -134,9 +151,9 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                             <strong>تلفن : </strong> <?php echo $row_c1['tel_1'].' - '. $row_c1['tel_2'].' - '.'0'.$row_c1['kod'];?>
                                             <br/>
                                             <strong>فکس : </strong> <?php echo $row_c1['fax']; ?>
-                                            </br>
+                                            <br/>
                                             <strong>موبایل : </strong> <?php echo '0'.$row_c1['mobile']; ?>
-                                            </br>
+                                            <br/>
                                             <strong>ایمیل : </strong> <?php echo $row_c1['email']; ?>
                                          </p>
                                     </div>

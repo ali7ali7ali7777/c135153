@@ -1,13 +1,4 @@
-<?php
-include("inc_db.php");
 
-if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
-{
-	$url = 'login.php';
-	header( "Location: $url" );
-	die();
-}
-?>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -17,7 +8,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 
     <head>
         <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
+        <title>صفحه جزئیات</title>
         <meta  http-equiv="Content-Language" content="fa">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -54,18 +45,43 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
 <?php
-$object_id =get_safe_post($mysqlicheck,"id");
-$rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $object_id ');
-				if (mysqli_num_rows($rant_d1) > 0)
+$src = "images/none.jpg";
+$object_id = get_safe_get($mysqlicheck,"selected");
+$rant_t1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = "'.$object_id.'" ');
+if (mysqli_num_rows($rant_t1) > 0)
+{
+	$row_t1=mysqli_fetch_assoc($rant_t1);
+	$dir = 'images/object/'.$row_t1['object_id'].'/';
+	// iterate
+	if(!$dir){
+	}
+	else
+	{
+		// image extensions
+		$extensions = array('jpg', 'jpeg', 'png');
+		// init result
+		$resultimg = array();
+		// directory to scan
+		$directory = new DirectoryIterator($dir);
+		foreach ($directory as $fileinfo)
+		{
+			// must be a file
+			if ($fileinfo->isFile())
+			{
+				// file extension
+				$extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
+				// check if extension match
+				if (in_array($extension, $extensions))
 				{
-					$row_d1=mysqli_fetch_assoc($rant_d1);
-					
+					// add to result
+					$resultimg[] = $fileinfo->getFilename();
+				}
+			}
+		}
 
-
-
-
-
-
+	}
+	
+}
 ?>
 
 
@@ -78,31 +94,48 @@ $rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $
                             <div class="col-md-6">
                                 <div class="c-product-gallery">
                                     <div class="c-product-gallery-content">
-                                        <div class="c-zoom">
-                                            <img src="assets/base/img/content/shop8/34.jpg"> </div>
-                                        <div class="c-zoom">
-                                            <img src="assets/base/img/content/shop8/35.jpg"> </div>
-                                        <div class="c-zoom">
-                                            <img src="assets/base/img/content/shop8/37.jpg"> </div>
-                                        <div class="c-zoom">
-                                            <img src="assets/base/img/content/shop8/29.jpg"> </div>
+                              <?php
+                               $i_d = 0 ;
+								foreach($resultimg as $image)
+								{
+									if ($i_d < 4)
+									{
+                                        echo '<div class="c-zoom">
+                                            	<img src="';
+												if($image != "")
+													echo "images/object/".$row_t1['object_id']."/".$image;
+												 else
+													echo $src ; 
+										echo '"></div>';
+									}
+									$i_d ++;
+								}
+								?>
                                     </div>
                                     <div class="row c-product-gallery-thumbnail">
-                                        <div class="col-xs-3 c-product-thumb">
-                                            <img src="assets/base/img/content/shop/91.jpg"> </div>
-                                        <div class="col-xs-3 c-product-thumb">
-                                            <img src="assets/base/img/content/shop/92.jpg"> </div>
-                                        <div class="col-xs-3 c-product-thumb">
-                                            <img src="assets/base/img/content/shop/02.jpg"> </div>
-                                        <div class="col-xs-3 c-product-thumb c-product-thumb-last">
-                                            <img src="assets/base/img/content/shop/80.jpg"> </div>
-                                    </div>
+                                <?php
+                               $i_d = 0 ;
+								foreach($resultimg as $image)
+								{
+									if ($i_d < 4)
+									{
+                                        echo '<div class="col-xs-3 c-product-thumb"><img src="';
+										if($image != "")
+													echo "images/object/".$row_t1['object_id']."/".$image;
+												 else
+													echo $src ;
+										echo '"> </div>';
+                                    }
+									$i_d ++;
+								}
+								?>      
+                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="c-product-meta">
                                     <div class="c-content-title-1">
-                                        <h3 class="c-font-uppercase c-font-bold">Warm Winter Jacket</h3>
+                                        <h3 class="c-font-uppercase c-font-bold"><?php echo $row_t1['object_name']; ?></h3>
                                         <div class="c-line-left"></div>
                                     </div>
                                     <div class="c-product-badge">
@@ -118,10 +151,10 @@ $rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $
                                             <i class="fa fa-star-half-o c-font-red"></i>
                                         </div>
                                         <div class="c-product-write-review">
-                                            <a class="c-font-red" href="#">Write a review</a>
+                                            <a class="c-font-red" href="#">نوشتن نظر </a>
                                         </div>
                                     </div>
-                                    <div class="c-product-price">$99.00</div>
+                                    <div class="c-product-price"><?php if ($row_t1['object_sale_di'] != "") echo $row_t1['object_sale_di']; else echo $row_t1['object_sale']; ?> </div>
                                     <div class="c-product-short-desc"> Lorem ipsum dolor ut sit ame dolore adipiscing elit, sed nonumy nibh sed euismod laoreet dolore magna aliquarm erat volutpat Nostrud duis molestie at dolore. </div>
                                     <div class="row c-product-variant">
                                         <div class="col-sm-12 col-xs-12">
@@ -164,7 +197,7 @@ $rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-xs-12 c-margin-t-20">
-                                                <button class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase">Add to Cart</button>
+                                                <button class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase">اضافه کردن به سبد خرید</button>
                                             </div>
                                         </div>
                                     </div>
@@ -174,9 +207,7 @@ $rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $
                     </div>
                 </div>
             </div>
-            <?php 
-				}
-					?>
+            
             <!-- END: CONTENT/SHOPS/SHOP-PRODUCT-DETAILS-2 -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-PRODUCT-TAB-1 -->
             <div class="c-content-box c-size-md c-no-padding">
@@ -184,13 +215,13 @@ $rant_d1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = $
                     <div class="container">
                         <ul class="nav nav-justified" role="tablist">
                             <li role="presentation" class="active">
-                                <a class="c-font-uppercase c-font-bold" href="#tab-1" role="tab" data-toggle="tab">Description</a>
+                                <a class="c-font-uppercase c-font-bold" href="#tab-1" role="tab" data-toggle="tab">شرح کالا</a>
                             </li>
                             <li role="presentation">
-                                <a class="c-font-uppercase c-font-bold" href="#tab-2" role="tab" data-toggle="tab">Additional Information</a>
+                                <a class="c-font-uppercase c-font-bold" href="#tab-2" role="tab" data-toggle="tab">اطلاعات اضافی</a>
                             </li>
                             <li role="presentation">
-                                <a class="c-font-uppercase c-font-bold" href="#tab-3" role="tab" data-toggle="tab">Reviews (3)</a>
+                                <a class="c-font-uppercase c-font-bold" href="#tab-3" role="tab" data-toggle="tab">بررسی (3)</a>
                             </li>
                         </ul>
                     </div>

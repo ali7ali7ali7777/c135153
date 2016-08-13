@@ -1,3 +1,11 @@
+<?php include("admin110/inc_db.php");
+if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
+{
+	$url ='' ;
+	die();
+}
+
+?>
 <!-- BEGIN: HEADER -->
 
 <header class="c-layout-header c-layout-header-6 c-navbar-fluid" data-minimize-offset="80">
@@ -7,9 +15,8 @@
         <ul class="c-links c-theme-ul">
           <li> <a href="index.php" class="c-font-uppercase c-font-bold">خانه</a> </li>
           <li class="c-divider"></li>
-          <li> <a href="page-contact.php" class="c-font-uppercase c-font-bold">ارتباط با ما</a> </li>
-          <li class="c-divider"></li>
-          <li> <a href="page-about.php" class="c-font-uppercase c-font-bold">درباره ما</a> </li>
+          <li> <a href="page-help.php" class="c-font-uppercase c-font-bold">راهنما</a> </li>
+          
           <li> <a href="javascript:;" data-toggle="modal" data-target="#login-form" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ورود</a> </li>
         </ul>
         <ul class="c-ext hide c-theme-ul">
@@ -59,36 +66,44 @@
 			
 			
 			
-	$rant_h1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
-		if (mysqli_num_rows($rant_h1) > 0) {	
-			while($row_h1=mysqli_fetch_assoc($rant_h1))
-			{
-	  ?>
+$rant_h1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
+if (mysqli_num_rows($rant_h1) > 0)
+{	
+	while($row_h1=mysqli_fetch_assoc($rant_h1))
+	{
+?>
             <li> <a href="shop-product-search.php?id=<?php echo $row_h1['gro_id'] ?>" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?> <span class="c-arrow c-toggler"></span> </a>
               <div class="dropdown-menu c-menu-type-mega c-menu-type-fullwidth" style="min-width: auto">
                 <div class="row">
                   <?php
-				$rant_h2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$row_h1['gro_kod']."__' and gro_status =1");
-				if (mysqli_num_rows($rant_h2) > 0) {		
-				while($row_h2=mysqli_fetch_assoc($rant_h2))
-				{
-         ?>
+		$rant_h2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$row_h1['gro_kod']."__' and gro_status =1");
+		if (mysqli_num_rows($rant_h2) > 0)
+		{		
+			while($row_h2=mysqli_fetch_assoc($rant_h2))
+			{
+?>
                   <div class="col-md-2">
                     <ul class="dropdown-menu c-menu-type-inline">
                       <li> <a href="shop-product-search.php?id=<?php echo $row_h2['gro_id'] ?>"><?php echo $row_h2['gro_name'] ?></a> </li>
                     </ul>
                   </div>
-                  <?php	}
-			} else {
-					echo "گروه تعریف نشده";
-				}
-		 ?>
+                  <?php
+			}
+		}
+		else
+		{
+			echo "گروه تعریف نشده";
+		}
+ ?>
                 </div>
               </div>
             </li>
-            <?php  }
-	} else {
-			echo "گروه تعریف نشده";
+            <?php
+	}
+}
+else
+{
+	echo "گروه تعریف نشده";
 }  ?>
             <li class="c-cart-toggler-wrapper c-quick-sidebar-toggler-wrapper"> <a href="#" class="c-btn-icon c-cart-toggler"> <i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">2</span> </a> </li>
             <!-- <li class="c-quick-sidebar-toggler-wrapper">

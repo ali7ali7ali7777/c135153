@@ -92,16 +92,16 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                     <div class="col-md-5 col-sm-6 col-xs-12">
                          <div class="c-content-title-1 c-title-md">
                             <h3 class="c-font-uppercase c-font-bold">
-                                <span class="c-theme-font">درباره ما</span>
+								<a href="page-about.php"><span class="c-theme-font">درباره ما</span></a>
                             </h3>
                             <div class="c-line-left hide"></div>
                         </div>
-                        <p class="c-text c-font-16 c-font-regular"><?php echo $row_f1['about_title_1']; ?></p>
+                        <p class="c-text c-font-16 c-font-regular" style="text-align:justify;"><?php echo $row_f1['about_title_1']; ?></p>
                     </div>
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="c-content-title-1 c-title-md">
                             <h3 class="c-title c-font-uppercase c-font-bold">
-                            	<span class="c-theme-font">ارتباط با ما</span>
+								<a href="page-contact.php"><span class="c-theme-font">ارتباط با ما</span></a>
                             </h3>
                             <div class="c-line-left hide"></div>
                         </div>

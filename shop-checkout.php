@@ -1,13 +1,4 @@
-<?php
-include("inc_db.php");
 
-if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
-{
-	$url = 'login.php';
-	header( "Location: $url" );
-	die();
-}
-?>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
