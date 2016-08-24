@@ -33,5 +33,5 @@
                         </li>
                     </ul>
                     <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
-                </div>
+</div>
                 

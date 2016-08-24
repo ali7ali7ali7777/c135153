@@ -157,3 +157,124 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
     <i class="icon-arrow-up"></i>
 </div>
 <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+          <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+        <!-- BEGIN: CORE PLUGINS -->
+        <!--[if lt IE 9]>
+	<script src="../assets/global/plugins/excanvas.min.js"></script>
+	<![endif]-->
+        <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery.easing.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/reveal-animate/wow.js" type="text/javascript"></script>
+        <script src="assets/base/js/scripts/reveal-animate/reveal-animate.js" type="text/javascript"></script>
+        <!-- END: CORE PLUGINS -->
+        <!-- BEGIN: LAYOUT PLUGINS -->
+        <script src="assets/plugins/revo-slider/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/revo-slider/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/revo-slider/js/extensions/revolution.extension.slideanims.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/revo-slider/js/extensions/revolution.extension.layeranimation.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/revo-slider/js/extensions/revolution.extension.navigation.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/revo-slider/js/extensions/revolution.extension.video.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+        <script src="assets/plugins/slider-for-bootstrap/js/bootstrap-slider.js" type="text/javascript"></script>
+        <!-- END: LAYOUT PLUGINS -->
+        <!-- BEGIN: THEME SCRIPTS -->
+        <script src="assets/base/js/components.js" type="text/javascript"></script>
+        <script src="assets/base/js/components-shop.js" type="text/javascript"></script>
+        <script src="assets/base/js/app.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function()
+            {
+                App.init(); // init core
+            });
+        </script>
+        <!-- END: THEME SCRIPTS -->
+        <!-- BEGIN: PAGE SCRIPTS -->
+        <script src="assets/plugins/zoom-master/jquery.zoom.min.js" type="text/javascript"></script>
+        <!-- END: PAGE SCRIPTS -->
+        <!-- BEGIN: PAGE SCRIPTS -->
+        <script>
+		
+		$('#button').click(function() {
+			var val1 = $('#text1').val();
+			$.ajax({
+				type: 'POST',
+				url: 'process.php',
+				data: { id: val1},
+				success: function(response) {
+					$('#result').html(response);
+				}
+			 });
+		});
+				
+		
+		
+            $(document).ready(function()
+            {
+                var slider = $('.c-layout-revo-slider .tp-banner');
+                var cont = $('.c-layout-revo-slider .tp-banner-container');
+                var api = slider.show().revolution(
+                {
+                    sliderType: "standard",
+                    sliderLayout: "fullscreen",
+                    responsiveLevels: [2048, 1024, 778, 320],
+                    gridwidth: [1240, 1024, 778, 320],
+                    gridheight: [868, 768, 960, 720],
+                    delay: 15000,
+                    startwidth: 1170,
+                    startheight: App.getViewPort().height,
+                    navigationType: "hide",
+                    navigationArrows: "solo",
+                    touchenabled: "on",
+                    navigation:
+                    {
+                        keyboardNavigation: "off",
+                        keyboard_direction: "horizontal",
+                        mouseScrollNavigation: "off",
+                        onHoverStop: "on",
+                        arrows:
+                        {
+                            style: "circle",
+                            enable: true,
+                            hide_onmobile: false,
+                            hide_onleave: false,
+                            tmp: '',
+                            left:
+                            {
+                                h_align: "left",
+                                v_align: "center",
+                                h_offset: 30,
+                                v_offset: 0
+                            },
+                            right:
+                            {
+                                h_align: "right",
+                                v_align: "center",
+                                h_offset: 30,
+                                v_offset: 0
+                            }
+                        }
+                    },
+                    spinner: "spinner2",
+                    fullScreenOffsetContainer: '.c-layout-header',
+                    shadow: 0,
+                    disableProgressBar: "on",
+                    hideThumbsOnMobile: "on",
+                    hideNavDelayOnMobile: 1500,
+                    hideBulletsOnMobile: "on",
+                    hideArrowsOnMobile: "on",
+                    hideThumbsUnderResolution: 0
+                });
+            }); //ready
+        </script>
+        <!-- END: PAGE SCRIPTS -->
+        <!-- END: LAYOUT/BASE/BOTTOM -->
+</body>
+
+
+</html>

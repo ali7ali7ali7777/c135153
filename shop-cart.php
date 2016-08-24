@@ -1,50 +1,69 @@
+<?php require_once "header.php"; ?>
 
-<!DOCTYPE html>
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!-->
-<html dir="rtl">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-
-    <head>
-        <meta charset="utf-8" />
-        <title>JANGO | Ultimate Multipurpose Bootstrap HTML Theme - Shop Home 1</title>
-        <meta  http-equiv="Content-Language" content="fa">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&amp;subset=all' rel='stylesheet' type='text/css'>
-        <link href="assets/plugins/socicon/socicon.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/bootstrap-social/bootstrap-social.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/animate/animate.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN: BASE PLUGINS  -->
-        <link href="assets/plugins/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/slider-for-bootstrap/css/slider.css" rel="stylesheet" type="text/css" />
-        <!-- END: BASE PLUGINS -->
-        <!-- BEGIN THEME STYLES -->
-        <link href="assets/base/css/plugins.css" rel="stylesheet" type="text/css" />
-        <link href="assets/base/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
-        <link href="assets/base/css/themes/default.css" rel="stylesheet" id="style_theme" type="text/css" />
-        <link href="assets/base/css/custom.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
-
-    <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
-        <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php require_once "header.php"; ?>
-        <!-- BEGIN: PAGE CONTAINER -->
+  <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            
+<?php
+session_start();
+		
+$productByCode = array();
+			
+//if(empty($_SESSION["cart_item"])) 
+//header("location:shop-cart-empty.php");
+if(!empty($_GET["action"])) {
+switch($_GET["action"]) {
+	case "add":
+		if($_POST["add_ob"]== "add_ob" && !empty($_POST["quantity"])) {
+			
+			
+			$product = mysqli_fetch_assoc(mysqli_query($mysqlicheck,'SELECT * FROM object where  object_code = "'.$_GET["code"].'" '));
+			
+			if ($product["object_sale_di"] != "")
+				$price = $product["object_sale_di"];
+			else
+				$price = $product["object_sale"];
+			$itemArray = array($product["object_code"]=>array('name'=>$product["object_name"], 'code'=>$product["object_code"], 'quantity'=>$_POST["quantity"], 'price'=>$price));
+			
+			
+			if(!empty($_SESSION["cart_item"])) {
+				if(in_array($product["object_code"],$_SESSION["cart_item"])) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+							if($product["object_code"] == $k)
+								$_SESSION["cart_item"][$k]["quantity"] = $_POST["quantity"];
+								//header("location:shop-product-details.php");
+					}
+				} else {
+					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+					//header("location:shop-product-details.php");
+				}
+			} else {
+				$_SESSION["cart_item"] = $itemArray;
+				//header("location:shop-product-details.php");
+			}
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["code"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
+}
+}
+?>
+
+        
+      
+        <?php
+if(isset($_SESSION["cart_item"])){
+    $item_total = 0;
+?>    
             <!-- BEGIN: PAGE CONTENT -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-CART-1 -->
             <div class="c-content-box c-size-lg">
@@ -58,7 +77,7 @@
                                 <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">شرح کالا</h3>
                             </div>
                             <div class="col-md-1 c-cart-ref">
-                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">SKU</h3>
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">کد کالا</h3>
                             </div>
                             <div class="col-md-1 c-cart-qty">
                                 <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">تعداد</h3>
@@ -72,30 +91,38 @@
                             <div class="col-md-1 c-cart-remove"></div>
                         </div>
                         <!-- BEGIN: SHOPPING CART ITEM ROW -->
-                        <div class="row c-cart-table-row">
-                            <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
+                        
+                        
+   <?php
+	$it = 1 ;
+	foreach ($_SESSION["cart_item"] as $c_item){
+		?>
+			
+				
+				<div class="row c-cart-table-row">
+                            <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item <?php echo $it ; ?></h2>
                             <div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
                                 <img src="assets/base/img/content/shop2/24.jpg" /> </div>
                             <div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
                                 <h3>
-                                    <a href="shop-product-details.php" class="c-font-bold c-theme-link c-font-22 c-font-dark">Winter Jacket</a>
+                                    <a href="shop-product-details.php" class="c-font-bold c-theme-link c-font-22 c-font-dark"><?php echo $c_item["name"]; ?></a>
                                 </h3>
                                 <p>رنگ: Blue</p>
                                 <p>سایز: S</p>
                             </div>
                             <div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">کد کالا</p>
-                                <p>120715</p>
+                                <p><?php echo $c_item["code"]; ?></p>
                             </div>
                             <div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">تعداد</p>
                                 <div class="c-input-group c-spinner">
-                                    <input type="text" class="form-control c-item-1" value="1">
+                                    <input type="text" class="form-control c-item-<?php echo $it ; ?>" value="<?php echo $c_item["quantity"]; ?>">
                                     <div class="c-input-group-btn-vertical">
-                                        <button class="btn btn-default" type="button" data_input="c-item-1">
+                                        <button class="btn btn-default" type="button" data_input="c-item-<?php echo $it ; ?>">
                                             <i class="fa fa-caret-up"></i>
                                         </button>
-                                        <button class="btn btn-default" type="button" data_input="c-item-1">
+                                        <button class="btn btn-default" type="button" data_input="c-item-<?php echo $it ; ?>">
                                             <i class="fa fa-caret-down"></i>
                                         </button>
                                     </div>
@@ -103,17 +130,32 @@
                             </div>
                             <div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">قیمت واحد</p>
-                                <p class="c-cart-price c-font-bold">$147.00</p>
+                                <p class="c-cart-price c-font-bold"><?php echo "ريال".$c_item["price"]; ?></p>
                             </div>
+                            <?php $to_item = ($c_item["price"]*$c_item["quantity"]); ?>
                             <div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">جمع</p>
-                                <p class="c-cart-price c-font-bold">$147.00</p>
+                                <p class="c-cart-price c-font-bold"><?php echo $to_item ;  ?></p>
                             </div>
                             <div class="col-md-1 col-sm-12 c-cart-remove">
-                                <a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-                                <a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">حذف کردن از کارت</a>
+                                <a href="shop-cart.php?action=remove&code=<?php echo $c_item["code"]; ?>" class="c-theme-link c-cart-remove-desktop">×</a>
+                                <a href="shop-cart.php?action=remove&code=<?php echo $c_item["code"]; ?>" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">حذف کردن از کارت</a>
                             </div>
                         </div>
+				
+			
+			
+				
+				<?php
+		$it ++ ;
+        $item_total += ($c_item["price"]*$c_item["quantity"]);
+		}
+		?>
+                        
+                        
+                        
+                        
+                        
                         <!-- END: SHOPPING CART ITEM ROW -->
                       
                         <!-- BEGIN: SUBTOTAL ITEM ROW -->
@@ -123,7 +165,7 @@
                                     <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2 shop-cart-table">جمع فاکتور</h3>
                                 </div>
                                 <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-bold c-font-16">$246.00</h3>
+                                    <h3 class="c-font-bold c-font-16"><?php echo $item_total;  ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +177,7 @@
                                     <h3 class="c-font-uppercase c-font-bold c-left c-font-16 c-font-grey-2 shop-cart-table" >هزینه ارسال</h3>
                                 </div>
                                 <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-bold c-font-16">$15.00</h3>
+                                    <h3 class="c-font-bold c-font-16">150.000 ريال</h3>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +188,9 @@
                                 <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
                                     <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2 shop-cart-table">جمع کل</h3>
                                 </div>
+                                <?php $total_end = $item_total + 150000 ;  ?>
                                 <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-bold c-font-16">$261.00</h3>
+                                    <h3 class="c-font-bold c-font-16"><?php echo $total_end ;  ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -159,6 +202,9 @@
                     </div>
                 </div>
             </div>
+              <?php
+}
+?>
             <!-- END: CONTENT/SHOPS/SHOP-CART-1 -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-2-2 -->
             <div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
@@ -337,84 +383,9 @@
                 </div>
             </div>
             <!-- END: CONTENT/SHOPS/SHOP-2-2 -->
-            <!-- BEGIN: CONTENT/STEPS/STEPS-3 -->
-            <div class="c-content-box c-size-md c-theme-bg">
-                <div class="container">
-                    <div class="c-content-step-3 c-font-white">
-                        <div class="row">
-                            <div class="col-md-4 c-steps-3-block">
-                                <i class="fa fa-truck"></i>
-                                <div class="c-steps-3-title">
-                                    <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">Free shipping</h2>
-                                    <em>Express delivery withing 3 days</em>
-                                </div>
-                                <span>&nbsp;</span>
-                            </div>
-                            <div class="col-md-4 c-steps-3-block">
-                                <i class="fa fa-gift"></i>
-                                <div class="c-steps-3-title">
-                                    <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">Daily Gifts</h2>
-                                    <em>3 Gifts daily for lucky customers</em>
-                                </div>
-                                <span>&nbsp;</span>
-                            </div>
-                            <div class="col-md-4 c-steps-3-block">
-                                <i class="fa fa-phone"></i>
-                                <div class="c-steps-3-title">
-                                    <h2 class="c-font-white c-font-uppercase c-font-30 c-font-thin">477 505 8877</h2>
-                                    <em>24/7 customer care available</em>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END: CONTENT/STEPS/STEPS-3 -->
+         
             <!-- END: PAGE CONTENT -->
         </div>
         <!-- END: PAGE CONTAINER -->
         <?php require_once "footer.php"; ?>
-        <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
-        <!-- BEGIN: CORE PLUGINS -->
-        <!--[if lt IE 9]>
-	<script src="../assets/global/plugins/excanvas.min.js"></script>
-	<![endif]-->
-        <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/jquery.easing.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/reveal-animate/wow.js" type="text/javascript"></script>
-        <script src="assets/base/js/scripts/reveal-animate/reveal-animate.js" type="text/javascript"></script>
-        <!-- END: CORE PLUGINS -->
-        <!-- BEGIN: LAYOUT PLUGINS -->
-        <script src="assets/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
-        <script src="assets/plugins/slider-for-bootstrap/js/bootstrap-slider.js" type="text/javascript"></script>
-        <!-- END: LAYOUT PLUGINS -->
-        <!-- BEGIN: THEME SCRIPTS -->
-        <script src="assets/base/js/components.js" type="text/javascript"></script>
-        <script src="assets/base/js/components-shop.js" type="text/javascript"></script>
-        <script src="assets/base/js/app.js" type="text/javascript"></script>
-        <script>
-            $(document).ready(function()
-            {
-                App.init(); // init core
-            });
-        </script>
-        <!-- END: THEME SCRIPTS -->
-        <!-- END: LAYOUT/BASE/BOTTOM -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-64667612-1', 'themehats.com');
-  ga('send', 'pageview');
-</script>
-</body>
-
-
-</html>
+ 

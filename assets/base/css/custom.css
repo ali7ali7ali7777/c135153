@@ -28,3 +28,35 @@
   right: 10px;
   left: auto;
 }
+.wrapper {
+  display: inline-block;
+      margin-bottom: -30px;
+}
+.wrapper * {
+  float: left;
+}
+.wrapper input {
+  display: none;
+}
+.wrapper label {
+  font-size: 30px;
+}
+
+.wrapper input:checked ~ label {
+  color: #eb5d68;
+}
+
+.wrapper label:hover,
+.wrapper label:hover ~ label {
+  color: #eb5d68;
+}
+
+
+.wrapper .em
+	{
+		padding-top: 7px;
+		width: 50px;
+		float: right;
+	}
+	
+	
