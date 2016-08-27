@@ -5,6 +5,72 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 	die();
 }
 
+$send = get_safe_post($mysqlicheck,"send");
+
+if(!empty($send))
+{
+	switch($send)
+	{
+		case "forget":
+			
+				
+			
+		break;
+		case "create":
+			$e_name_c = trim(get_safe_post($mysqlicheck,"e_name_c"));
+			$u_name_c = trim(get_safe_post($mysqlicheck,"u_name_c"));
+			$f_name_c = trim(get_safe_post($mysqlicheck,"f_name_c"));
+			$p_name_c = get_safe_post($mysqlicheck,"p_name_c");
+			if ($e_name_c != "" || $u_name_c != "" ||$f_name_c != "" ||$p_name_c != "" )
+			{
+				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_name` ='".$u_name_c."' or `user_email` = '".$e_name_c."'");
+				if ($result_c->num_rows > 0)
+				{
+					$mas_c = 'کاربری با این نام یا ایمیل قبلاً ثبت شده است';
+				}
+				else
+				{
+					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`,  `user_pass`) VALUES ("'.$u_name_c.'","'.$f_name_c.'","'.$e_name_c.'", "'.md5($p_name_c).'")';
+					$result_c1 = $mysqlicheck->query($sql_c);
+                    if (!$result_c1)
+					{
+						$mas_c = 'ثبت اطلاعات با خطا مواجه گردید ';	
+					}
+					else
+					{
+						$mas_c = 'ثبت شد';
+					}
+				}
+			}
+			else
+			{
+				$mas_c = "پر کردن همه فیلدها  الزامیست";
+			}
+		break;
+		case "login":
+			$e_name_v = htmlspecialchars(trim(get_safe_post($mysqlicheck,"e_name_v")));
+			$p_name_v = htmlspecialchars(get_safe_post($mysqlicheck,"p_name_v"));
+			if ($e_name_v != "" || $p_name_v != "")
+			{
+				$result_l = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` ='".$e_name_v."' and `user_pass` = '".md5($p_name_v)."'");
+				if ($result_l->num_rows > 0)
+				{
+					session_start();
+					$_SESSION['login'] = "user";
+					$_SESSION['login_user']=$result_l['user_id'];
+				}
+				else
+				{
+					$mas_l = 'کاربری با این مشخصات وجود ندارد';
+				}
+			}
+			else
+			{
+				$mas_l = 'پر کردن همه فیلدها الزامیست';
+			}
+		break;
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -229,6 +295,7 @@ if(isset($_SESSION["cart_item"])){
 </header>
 <!-- END: HEADER --> 
 <!-- END: LAYOUT/HEADERS/HEADER-1 --> 
+
 <!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
 <div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
   <div class="modal-dialog">
@@ -239,13 +306,13 @@ if(isset($_SESSION["cart_item"])){
       <div class="modal-body">
         <h3 class="c-font-24 c-font-sbold">بازیابی رمز عبور</h3>
         <p>برای بازیابی رمز عبور آدرس ایمیل خود را وارد نمائید .</p>
-        <form>
+        <form method="post">
           <div class="form-group">
             <label for="forget-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="forget-email" placeholder="ایمیل">
+            <input type="email" class="form-control input-lg c-square" id="forget-email" placeholder="ایمیل" name="forget-email">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">ارسال</button>
+            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="forget">ارسال</button>
             <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">بازگشت به صفحه ورود</a> </div>
         </form>
       </div>
@@ -264,27 +331,25 @@ if(isset($_SESSION["cart_item"])){
       <div class="modal-body">
         <h3 class="c-font-24 c-font-sbold">ایجاد یک حساب کاربری</h3>
         <p>لطفا با پر کردن فرم زیر در ایجاد حساب کاربری ما را یاری فرمائید .</p>
-        <form>
+        <form method="post">
           <div class="form-group">
             <label for="signup-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-email" placeholder="ایمیل">
+            <input type="email" class="form-control input-lg c-square" id="signup-email" placeholder="ایمیل" name="e_name_c">
           </div>
           <div class="form-group">
             <label for="signup-username" class="hide">نام کاربری</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-username" placeholder="نام کاربری">
+            <input type="email" class="form-control input-lg c-square" id="signup-username" placeholder="نام کاربری" name="u_name_c">
           </div>
           <div class="form-group">
             <label for="signup-fullname" class="hide">نام خانوادگی</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-fullname" placeholder="نام خانوادگی">
+            <input type="email" class="form-control input-lg c-square" id="signup-fullname" placeholder="نام خانوادگی" name="f_name_c">
           </div>
           <div class="form-group">
-            <label for="signup-country" class="hide">کشور</label>
-            <select class="form-control input-lg c-square" id="signup-country">
-              <option value="1">کشور</option>
-            </select>
+          	<label for="signup-password" class="hide">پسورد</label>
+          	<input type="password" class="form-control input-lg c-square" id="signup-password" placeholder="پسورد" name="p_name_c">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">ورود</button>
+            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="create">ورود</button>
             <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">بازگشت به صفحه ورود</a> </div>
         </form>
       </div>
@@ -302,23 +367,23 @@ if(isset($_SESSION["cart_item"])){
       <div class="modal-body">
         <h3 class="c-font-24 c-font-sbold">وقت بخیر !</h3>
         <p>امروز یک روز عالی بسازید !</p>
-        <form>
+        <form method="post">
           <div class="form-group">
             <label for="login-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="login-email" placeholder="ایمیل">
+            <input type="email" class="form-control input-lg c-square" id="login-email" placeholder="ایمیل" name="e_name_v">
           </div>
           <div class="form-group">
             <label for="login-password" class="hide">رمز عبور</label>
-            <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="رمز عبور">
+            <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="رمز عبور" name="p_name_v">
           </div>
           <div class="form-group">
             <div class="c-checkbox">
-              <input type="checkbox" id="login-rememberme" class="c-check">
+              <input type="checkbox" id="login-rememberme" class="c-check" name="co_mem">
               <label for="login-rememberme" class="c-font-thin c-font-17"> <span></span> <span class="check"></span> <span class="box"></span> مرا به خاطر بسپار </label>
             </div>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">ورود</button>
+            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="login">ورود</button>
             <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">رمز عبور خود را فراموش نموده اید ؟</a> </div>
         </form>
       </div>
