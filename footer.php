@@ -187,6 +187,7 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
         <script src="assets/base/js/components.js" type="text/javascript"></script>
         <script src="assets/base/js/components-shop.js" type="text/javascript"></script>
         <script src="assets/base/js/app.js" type="text/javascript"></script>
+        <script src="assets/base/js/object-post.js" type="text/javascript"></script>
         <script>
             $(document).ready(function()
             {
@@ -194,10 +195,10 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
             });
         </script>
         <!-- END: THEME SCRIPTS -->
-        <!-- BEGIN: PAGE SCRIPTS -->
+       <!-- BEGIN: PAGE SCRIPTS -->
         <script src="assets/plugins/zoom-master/jquery.zoom.min.js" type="text/javascript"></script>
         <!-- END: PAGE SCRIPTS -->
-        <!-- BEGIN: PAGE SCRIPTS -->
+         <!-- BEGIN: PAGE SCRIPTS -->
         <script>
 		
 		$('#button').click(function() {

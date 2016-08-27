@@ -11305,7 +11305,8 @@ h1 {
   /* 480px */
   .c-shop-cart-page-1 > .c-cart-buttons > a {
     display: block;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+	margin-right: 0; }
     .c-shop-cart-page-1 > .c-cart-buttons > a:last-child {
       margin: 0; }
   .c-shop-cart-page-1 > .c-cart-buttons > .c-cart-float-l {

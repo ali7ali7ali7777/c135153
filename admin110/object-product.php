@@ -125,7 +125,7 @@ function clean($string) {
 					$m9 = get_safe_post($mysqlicheck,"m9");
 					$m10 = get_safe_post($mysqlicheck,"m10");
 					$m11 = get_safe_post($mysqlicheck,"m11");
-					$m_s = clean(get_safe_post($mysqlicheck,"m_s"));
+					$m_s = get_safe_post($mysqlicheck,"m_s");
 					$m_s_d = get_safe_post($mysqlicheck,"m_s_d");
 					$unit = get_safe_post($mysqlicheck,"m_unit");
 					$status = get_safe_post($mysqlicheck,"status");
@@ -276,7 +276,7 @@ function clean($string) {
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">قیمت با تخفیف :</label>
                                         <div class="col-lg-9">
-                                            <input type="text" name="m_s_d" class="form-control" value="<?php  echo $object_sale_di; ?>" placeholder="قیمت فروش با تخفیف">
+                                            <input type="text" name="m_s_d" class="form-control" value="<?php  echo $object_sale_di; ?>" placeholder="قیمت فروش با تخفیف" id="prc2">
                                         </div>
                                     </div>
                                     <hr>
@@ -463,6 +463,11 @@ function clean($string) {
                numval = $("#prc").val();
                 //alert(numval);
                  $("#prc").val(ToRial(numval));
+            });
+			$("#prc2").change(function () {
+               numval = $("#prc2").val();
+                //alert(numval);
+                 $("#prc2").val(ToRial(numval));
             });
         });
     </script>

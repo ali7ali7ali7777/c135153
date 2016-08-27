@@ -148,8 +148,19 @@ if (mysqli_num_rows($rant_h1) > 0)
 else
 {
 	echo "گروه تعریف نشده";
-}  ?>
-            <li class="c-cart-toggler-wrapper c-quick-sidebar-toggler-wrapper"> <a href="#" class="c-btn-icon c-cart-toggler"> <i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">2</span> </a> </li>
+} 
+			   $it = 0 ;
+ foreach ($_SESSION["cart_item"] as $c_item){
+  $it ++ ;
+        $item_total += (str_replace(",","",$c_item["price"])*$c_item["quantity"]); 
+  
+ }?>
+            <li class="c-cart-toggler-wrapper c-quick-sidebar-toggler-wrapper">
+            	<a href="shop-cart.php" class="c-btn-icon c-cart-toggler">
+            		<i class="icon-handbag c-cart-icon"></i>
+            		<span class="c-cart-number c-theme-bg"><?php echo $it ; ?></span>
+            	</a>
+            </li>
             <!-- <li class="c-quick-sidebar-toggler-wrapper">
                                     <a href="#" class="c-quick-sidebar-toggler">
                                         <span class="c-line"></span>
@@ -165,31 +176,53 @@ else
         <!-- END: HOR NAV --> 
       </div>
       <!-- BEGIN: LAYOUT/HEADERS/QUICK-CART --> 
+     <?php
+session_start();
+if(isset($_SESSION["cart_item"])){
+    
+
+  ?>
+
       <!-- BEGIN: CART MENU -->
       <div class="c-cart-menu">
         <div class="c-cart-menu-title">
-          <p class="c-cart-menu-float-l c-font-sbold">2 مورد</p>
-          <p class="c-cart-menu-float-r c-theme-font c-font-sbold">$79.00</p>
+          <p class="c-cart-menu-float-l c-font-sbold"><?php echo $it ; ?> مورد</p>
+          <p class="c-cart-menu-float-r c-theme-font c-font-sbold"><?php echo number_format($item_total) ; ?></p>
         </div>
         <ul class="c-cart-menu-items">
+      <?php 
+   foreach ($_SESSION["cart_item"] as $c_item){
+    ?> 
           <li>
-            <div class="c-cart-menu-close"> <a href="#" class="c-theme-link">×</a> </div>
-            <img src="assets/base/img/content/shop2/24.jpg" />
+            <div class="c-cart-menu-close"> <a href="" class="c-theme-link" id="remove" code="<?php echo $c_item["code"]; ?>">×</a> </div>
+            <img src="<?php echo $c_item["img"] ; ?>" />
             <div class="c-cart-menu-content">
-              <p>1 x <span class="c-item-price c-theme-font">$30</span> </p>
-              <a href="shop-product-details.php?id=" class="c-item-name c-font-sbold">Winter Coat</a> </div>
+              <p><?php echo $c_item["quantity"]; ?> x <span class="c-item-price c-theme-font"><?php echo number_format($c_item["price"]); ?></span> </p>
+              <a href="shop-product-details.php?code=<?php echo $c_item["code"]; ?>" class="c-item-name c-font-sbold"><?php echo $c_item["name"]; ?></a> </div>
           </li>
-          <li>
-            <div class="c-cart-menu-close"> <a href="#" class="c-theme-link">×</a> </div>
-            <img src="assets/base/img/content/shop2/12.jpg" />
-            <div class="c-cart-menu-content">
-              <p>1 x <span class="c-item-price c-theme-font">$30</span> </p>
-              <a href="shop-product-details.php?id=" class="c-item-name c-font-sbold">Sports Wear</a> </div>
-          </li>
-        </ul>
+          <?php
+       }
+
+    ?>  
+       </ul>
         <div class="c-cart-menu-footer"> <a href="shop-cart.php" class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">مشاهده سبد خرید</a> <a href="shop-checkout.php" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase">پرداخت</a> </div>
       </div>
       <!-- END: CART MENU --> 
+      <?php
+   }
+		else { 
+		
+		?>
+		<!-- BEGIN: CART MENU -->
+      <div class="c-cart-menu">
+        <div class="c-cart-menu-footer"> <a class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">سبد خرید خالی است</a>
+        </div>
+      </div>
+      <!-- END: CART MENU --> 
+		<?php
+		
+		}
+   ?>
       <!-- END: LAYOUT/HEADERS/QUICK-CART --> 
     </div>
   </div>

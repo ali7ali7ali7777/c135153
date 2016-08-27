@@ -15,7 +15,7 @@ var LayoutQtySpinner = function () {
 
 			$('.c-spinner .btn:last-of-type').on('click', function () {
 				var data_input = $(this).attr('data_input');
-				if ($('.c-spinner input.' + data_input).val() != 0) {
+				if ($('.c-spinner input.' + data_input).val() != 1) {
 					$('.c-spinner input.' + data_input).val(parseInt($('.c-spinner input.' + data_input).val(), 10) - 1);
 				}
 			});

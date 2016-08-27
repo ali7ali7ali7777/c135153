@@ -4,7 +4,8 @@
   <?php
 $src = "images/none.jpg";
 $object_id = get_safe_get($mysqlicheck,"selected");
-$rant_t1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = "'.$object_id.'" ');
+$object_code = get_safe_get($mysqlicheck,"code");	
+$rant_t1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = "'.$object_id.'" or object_code = "'.$object_code.'"');
 if (mysqli_num_rows($rant_t1) > 0)
 {
 	$row_t1=mysqli_fetch_assoc($rant_t1);
@@ -153,53 +154,51 @@ if (mysqli_num_rows($rant_t1) > 0)
                       <?php if ($row_t1['object_sale_di'] != "") echo $row_t1['object_sale_di']; else echo $row_t1['object_sale']; ?>
                     </div>
         			<div class="c-product-short-desc"> توضیح کوتاه کالا. </div>
-                    <form method="post" action="shop-cart.php?action=add&code=<?php echo $row_t1['object_code'] ?>">
-                     <div class="c-shop-product-details-2">
-                    	<div class="c-product-meta" >  
-                        <div class="row c-product-variant">
-                          <div class="col-sm-12 col-xs-12">
-                            <p class="c-product-meta-label c-product-margin-1 c-font-uppercase c-font-bold">Size:</p>
-                            <div class="c-product-size">
-                              <select name="size">
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                              </select>
+                 	<input name="code" value="<?php echo $row_t1['object_code'] ?>" type="hidden">
+					<input name="pic1" value="<?php echo "images/object/".$row_t1['object_id']."/".$resultimg[0]; ?>" type="hidden">
+                  	<input name="pic2" value="<?php echo $resultimg[0]; ?>" type="hidden">
+                  	<input name="id" value="<?php echo $row_t1['object_id']; ?>" type="hidden">
+                   	<div class="row c-product-variant">
+                        <div class="col-sm-12 col-xs-12">
+                          <p class="c-product-meta-label c-product-margin-1 c-font-uppercase c-font-bold">Size:</p>
+                          <div class="c-product-size">
+                            <select name="size">
+                              <option value="S">S</option>
+                              <option value="M">M</option>
+                              <option value="L">L</option>
+                              <option value="XL">XL</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 c-margin-t-20">
+                          <div class="c-product-color">
+                            <p class="c-product-meta-label c-font-uppercase c-font-bold">Color:</p>
+                            <select name="color">
+                              <option value="Red">Red</option>
+                              <option value="Black">Black</option>
+                              <option value="Beige">Beige</option>
+                              <option value="White">White</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="c-product-add-cart c-margin-t-20">
+                        <div class="row">
+                          <div class="col-sm-4 col-xs-12">
+                            <div class="c-input-group c-spinner">
+                              <p class="c-product-meta-label c-product-margin-2 c-font-uppercase c-font-bold">QTY:</p>
+                              <input type="text" class="form-control c-item-1" value="1" name="quantity">
+                              <div class="c-input-group-btn-vertical">
+                                <button class="btn btn-default" type="button" data_input="c-item-1"> <i class="fa fa-caret-up"></i> </button>
+                                <button class="btn btn-default" type="button" data_input="c-item-1"> <i class="fa fa-caret-down"></i> </button>
+                              </div>
                             </div>
                           </div>
                           <div class="col-sm-12 col-xs-12 c-margin-t-20">
-                            <div class="c-product-color">
-                              <p class="c-product-meta-label c-font-uppercase c-font-bold">Color:</p>
-                              <select name="color">
-                                <option value="Red">Red</option>
-                                <option value="Black">Black</option>
-                                <option value="Beige">Beige</option>
-                                <option value="White">White</option>
-                              </select>
-                            </div>
+                            <button  class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase" id="add">اضافه کردن به سبد خرید</button>
                           </div>
                         </div>
-                        <div class="c-product-add-cart c-margin-t-20">
-                          <div class="row">
-                            <div class="col-sm-4 col-xs-12">
-                              <div class="c-input-group c-spinner">
-                                <p class="c-product-meta-label c-product-margin-2 c-font-uppercase c-font-bold">QTY:</p>
-                                <input type="text" class="form-control c-item-1" value="1" name="quantity">
-                                <div class="c-input-group-btn-vertical">
-                                  <button class="btn btn-default" type="button" data_input="c-item-1"> <i class="fa fa-caret-up"></i> </button>
-                                  <button class="btn btn-default" type="button" data_input="c-item-1"> <i class="fa fa-caret-down"></i> </button>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-xs-12 c-margin-t-20">
-                              <button class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase" name="add_ob" value="add_ob">اضافه کردن به سبد خرید</button>
-                            </div>
-                          </div>
-                        </div>
-						 </div>
-						 </div>
-					</form>
+                      </div>
 				</div>
             </div>
           </div>
