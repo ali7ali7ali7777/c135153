@@ -26,29 +26,29 @@ if(!empty($send))
 				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_name` ='".$u_name_c."' or `user_email` = '".$e_name_c."'");
 				if ($result_c->num_rows > 0)
 				{
-					$mas_c = 'کاربری با این نام یا ایمیل قبلاً ثبت شده است';
+					$mas_c = 2;
 				}
 				else
 				{
-					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`,  `user_pass`) VALUES ("'.$u_name_c.'","'.$f_name_c.'","'.$e_name_c.'", "'.md5($p_name_c).'")';
+					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`,  `user_pass`, `user_type`) VALUES ("'.$u_name_c.'","'.$f_name_c.'","'.$e_name_c.'", "'.md5($p_name_c).'", 2 )';
 					$result_c1 = $mysqlicheck->query($sql_c);
                     if (!$result_c1)
 					{
-						$mas_c = 'ثبت اطلاعات با خطا مواجه گردید ';	
+						$mas_c = 3;	
 					}
 					else
 					{
-						$mas_c = 'ثبت شد';
+						$mas_c = 4;
 					}
 				}
 			}
 			else
 			{
-				$mas_c = "پر کردن همه فیلدها  الزامیست";
+				$mas_c = 1;
 			}
 		break;
 		case "login":
-			$e_name_v = htmlspecialchars(trim(get_safe_post($mysqlicheck,"e_name_v")));
+			$e_name_v = mysql_real_sescape_string(trim(get_safe_post($mysqlicheck,"e_name_v")));
 			$p_name_v = htmlspecialchars(get_safe_post($mysqlicheck,"p_name_v"));
 			if ($e_name_v != "" || $p_name_v != "")
 			{
@@ -56,17 +56,20 @@ if(!empty($send))
 				if ($result_l->num_rows > 0)
 				{
 					session_start();
-					$_SESSION['login'] = "user";
+					if ($result_l['user_type'] == 2)
+					$_SESSION['login'] = 'user';
 					$_SESSION['login_user']=$result_l['user_id'];
+					
+					$mas_l = 2 ;
 				}
 				else
 				{
-					$mas_l = 'کاربری با این مشخصات وجود ندارد';
+					$mas_l = 3 ;
 				}
 			}
 			else
 			{
-				$mas_l = 'پر کردن همه فیلدها الزامیست';
+				$mas_l = 1 ;
 			}
 		break;
 	}
@@ -338,20 +341,38 @@ if(isset($_SESSION["cart_item"])){
           </div>
           <div class="form-group">
             <label for="signup-username" class="hide">نام کاربری</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-username" placeholder="نام کاربری" name="u_name_c">
+            <input type="text" class="form-control input-lg c-square" id="signup-username" placeholder="نام کاربری" name="u_name_c">
           </div>
           <div class="form-group">
             <label for="signup-fullname" class="hide">نام خانوادگی</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-fullname" placeholder="نام خانوادگی" name="f_name_c">
+            <input type="text" class="form-control input-lg c-square" id="signup-fullname" placeholder="نام خانوادگی" name="f_name_c">
           </div>
           <div class="form-group">
           	<label for="signup-password" class="hide">پسورد</label>
           	<input type="password" class="form-control input-lg c-square" id="signup-password" placeholder="پسورد" name="p_name_c">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="create">ورود</button>
+            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="create">ثبت نام</button>
             <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">بازگشت به صفحه ورود</a> </div>
         </form>
+        <?php
+		if ($mas_c == 1)
+		{
+			echo 'پر کردن همه فیلدها الزامیست';	
+		}
+		else if ($mas_c == 2)
+		{
+			echo  'کاربری با این نام یا ایمیل قبلاً ثبت شده است';
+		}
+		else if ($mas_c == 3)
+		{
+			echo 'ثبت اطلاعات با خطا مواجه گردید ';
+		}
+		else if ($mas_c == 4)
+		{
+			echo 'ثبت شد';
+		}
+		 ?>
       </div>
     </div>
   </div>
@@ -386,6 +407,21 @@ if(isset($_SESSION["cart_item"])){
             <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="login">ورود</button>
             <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">رمز عبور خود را فراموش نموده اید ؟</a> </div>
         </form>
+        
+         <?php
+		if ($mas_l == 1)
+		{
+			echo 'پر کردن همه فیلدها الزامیست';	
+		}
+		else if ($mas_l == 2)
+		{
+			echo  'خوش آمدید';
+		}
+		else if ($mas_l == 3)
+		{
+			echo 'کاربری با این مشخصات وجود ندارد';
+		}
+		 ?>
       </div>
       <div class="modal-footer c-no-border"> <span class="c-text-account">حساب کاربری ندارید ؟</span> <a href="javascript:;" data-toggle="modal" data-target="#signup-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">ثبت نام !</a> </div>
     </div>
