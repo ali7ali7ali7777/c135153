@@ -1,10 +1,8 @@
 $(document).ready(function() {
-	
 	$("a#empty").click(function(){
 		$.post('shop-cart.php',
 		{'action':'empty'});
 	});
-				
 	$("a#remove").click(function(){
 		var j_cod = $(this).attr("code");
 		$.post('shop-cart.php',
@@ -38,6 +36,9 @@ $(document).ready(function() {
 		   'code' : j_code
 		   });
 		$(location).attr('href', j_href);
-   });
-
+    });
+	$("#out").click(function(){
+		$.post('header.php',
+		{'send':'out'});
+	});
 });

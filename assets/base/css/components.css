@@ -11011,7 +11011,8 @@ h1 {
 @media (max-width: 991px) {
   /* 991px */
   .c-content-login-form {
-    top: 0px; }
+    top: 0px;
+	margin-left: -34px; }
     .c-content-login-form .modal-dialog .modal-content .modal-body {
       padding: 10px 20px 10px 20px; }
       .c-content-login-form .modal-dialog .modal-content .modal-body .form-group {

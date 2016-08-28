@@ -1,79 +1,12 @@
-<?php include("admin110/inc_db.php");
-if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
-{
-	$url ='' ;
-	die();
-}
+<?php include("inc_db.php");
 
-$send = get_safe_post($mysqlicheck,"send");
 
-if(!empty($send))
-{
-	switch($send)
-	{
-		case "forget":
-			
-				
-			
-		break;
-		case "create":
-			$e_name_c = trim(get_safe_post($mysqlicheck,"e_name_c"));
-			$u_name_c = trim(get_safe_post($mysqlicheck,"u_name_c"));
-			$f_name_c = trim(get_safe_post($mysqlicheck,"f_name_c"));
-			$p_name_c = get_safe_post($mysqlicheck,"p_name_c");
-			if ($e_name_c != "" || $u_name_c != "" ||$f_name_c != "" ||$p_name_c != "" )
-			{
-				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_name` ='".$u_name_c."' or `user_email` = '".$e_name_c."'");
-				if ($result_c->num_rows > 0)
-				{
-					$mas_c = 2;
-				}
-				else
-				{
-					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`,  `user_pass`, `user_type`) VALUES ("'.$u_name_c.'","'.$f_name_c.'","'.$e_name_c.'", "'.md5($p_name_c).'", 2 )';
-					$result_c1 = $mysqlicheck->query($sql_c);
-                    if (!$result_c1)
-					{
-						$mas_c = 3;	
-					}
-					else
-					{
-						$mas_c = 4;
-					}
-				}
-			}
-			else
-			{
-				$mas_c = 1;
-			}
-		break;
-		case "login":
-			$e_name_v = mysql_real_sescape_string(trim(get_safe_post($mysqlicheck,"e_name_v")));
-			$p_name_v = htmlspecialchars(get_safe_post($mysqlicheck,"p_name_v"));
-			if ($e_name_v != "" || $p_name_v != "")
-			{
-				$result_l = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` ='".$e_name_v."' and `user_pass` = '".md5($p_name_v)."'");
-				if ($result_l->num_rows > 0)
-				{
-					session_start();
-					if ($result_l['user_type'] == 2)
-					$_SESSION['login'] = 'user';
-					$_SESSION['login_user']=$result_l['user_id'];
-					
-					$mas_l = 2 ;
-				}
-				else
-				{
-					$mas_l = 3 ;
-				}
-			}
-			else
-			{
-				$mas_l = 1 ;
-			}
-		break;
-	}
-}
+ $it = 0 ;
+ foreach ($_SESSION["cart_item"] as $c_item){
+ $it ++ ;
+        $item_total += (str_replace(",","",$c_item["price"])*$c_item["quantity"]); 
+  
+ }
 ?>
 
 <!DOCTYPE html>
@@ -129,8 +62,11 @@ if(!empty($send))
           <li> <a href="index.php" class="c-font-uppercase c-font-bold">خانه</a> </li>
           <li class="c-divider"></li>
           <li> <a href="page-help.php" class="c-font-uppercase c-font-bold">راهنما</a> </li>
-          
-          <li> <a href="javascript:;" data-toggle="modal" data-target="#login-form" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ورود</a> </li>
+          <?php if ($_SESSION["login"]["type"] ==  "user") {?>
+          <li> <a href="login.php?send=out"  class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" >خروج</a> </li>
+          <?php }else{ ?>
+          <li> <a href="login.php" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" >ورود</a> </li>
+          <?php }  ?>
         </ul>
         <ul class="c-ext hide c-theme-ul">
           <li class="c-search hide"> 
@@ -152,7 +88,7 @@ if(!empty($send))
         <button class="c-topbar-toggler" type="button"> <i class="fa fa-ellipsis-v"></i> </button>
         <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu"> <span class="c-line"></span> <span class="c-line"></span> <span class="c-line"></span> </button>
         <button class="c-search-toggler" type="button"> <i class="fa fa-search"></i> </button>
-        <button class="c-cart-toggler" type="button"> <i class="icon-handbag"></i> <span class="c-cart-number c-theme-bg">2</span> </button>
+        <button class="c-cart-toggler" type="button"> <i class="icon-handbag"></i> <span class="c-cart-number c-theme-bg"><?php echo $it ; ?></span> </button>
       </div>
     </div>
   </div>
@@ -218,12 +154,8 @@ else
 {
 	echo "گروه تعریف نشده";
 } 
-			   $it = 0 ;
- foreach ($_SESSION["cart_item"] as $c_item){
-  $it ++ ;
-        $item_total += (str_replace(",","",$c_item["price"])*$c_item["quantity"]); 
-  
- }?>
+
+?>
             <li class="c-cart-toggler-wrapper c-quick-sidebar-toggler-wrapper">
             	<a href="shop-cart.php" class="c-btn-icon c-cart-toggler">
             		<i class="icon-handbag c-cart-icon"></i>
@@ -299,132 +231,3 @@ if(isset($_SESSION["cart_item"])){
 <!-- END: HEADER --> 
 <!-- END: LAYOUT/HEADERS/HEADER-1 --> 
 
-<!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
-<div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content c-square">
-      <div class="modal-header c-no-border">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
-      </div>
-      <div class="modal-body">
-        <h3 class="c-font-24 c-font-sbold">بازیابی رمز عبور</h3>
-        <p>برای بازیابی رمز عبور آدرس ایمیل خود را وارد نمائید .</p>
-        <form method="post">
-          <div class="form-group">
-            <label for="forget-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="forget-email" placeholder="ایمیل" name="forget-email">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="forget">ارسال</button>
-            <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">بازگشت به صفحه ورود</a> </div>
-        </form>
-      </div>
-      <div class="modal-footer c-no-border"> <span class="c-text-account">حساب کاربری ندارید ؟</span> <a href="javascript:;" data-toggle="modal" data-target="#signup-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">ثبت نام !</a> </div>
-    </div>
-  </div>
-</div>
-<!-- END: CONTENT/USER/FORGET-PASSWORD-FORM --> 
-<!-- BEGIN: CONTENT/USER/SIGNUP-FORM -->
-<div class="modal fade c-content-login-form" id="signup-form" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content c-square">
-      <div class="modal-header c-no-border">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-      </div>
-      <div class="modal-body">
-        <h3 class="c-font-24 c-font-sbold">ایجاد یک حساب کاربری</h3>
-        <p>لطفا با پر کردن فرم زیر در ایجاد حساب کاربری ما را یاری فرمائید .</p>
-        <form method="post">
-          <div class="form-group">
-            <label for="signup-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="signup-email" placeholder="ایمیل" name="e_name_c">
-          </div>
-          <div class="form-group">
-            <label for="signup-username" class="hide">نام کاربری</label>
-            <input type="text" class="form-control input-lg c-square" id="signup-username" placeholder="نام کاربری" name="u_name_c">
-          </div>
-          <div class="form-group">
-            <label for="signup-fullname" class="hide">نام خانوادگی</label>
-            <input type="text" class="form-control input-lg c-square" id="signup-fullname" placeholder="نام خانوادگی" name="f_name_c">
-          </div>
-          <div class="form-group">
-          	<label for="signup-password" class="hide">پسورد</label>
-          	<input type="password" class="form-control input-lg c-square" id="signup-password" placeholder="پسورد" name="p_name_c">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="create">ثبت نام</button>
-            <a href="javascript:;" class="c-btn-forgot" data-toggle="modal" data-target="#login-form" data-dismiss="modal">بازگشت به صفحه ورود</a> </div>
-        </form>
-        <?php
-		if ($mas_c == 1)
-		{
-			echo 'پر کردن همه فیلدها الزامیست';	
-		}
-		else if ($mas_c == 2)
-		{
-			echo  'کاربری با این نام یا ایمیل قبلاً ثبت شده است';
-		}
-		else if ($mas_c == 3)
-		{
-			echo 'ثبت اطلاعات با خطا مواجه گردید ';
-		}
-		else if ($mas_c == 4)
-		{
-			echo 'ثبت شد';
-		}
-		 ?>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END: CONTENT/USER/SIGNUP-FORM --> 
-<!-- BEGIN: CONTENT/USER/LOGIN-FORM -->
-<div class="modal fade c-content-login-form" id="login-form" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content c-square">
-      <div class="modal-header c-no-border">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-      </div>
-      <div class="modal-body">
-        <h3 class="c-font-24 c-font-sbold">وقت بخیر !</h3>
-        <p>امروز یک روز عالی بسازید !</p>
-        <form method="post">
-          <div class="form-group">
-            <label for="login-email" class="hide">ایمیل</label>
-            <input type="email" class="form-control input-lg c-square" id="login-email" placeholder="ایمیل" name="e_name_v">
-          </div>
-          <div class="form-group">
-            <label for="login-password" class="hide">رمز عبور</label>
-            <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="رمز عبور" name="p_name_v">
-          </div>
-          <div class="form-group">
-            <div class="c-checkbox">
-              <input type="checkbox" id="login-rememberme" class="c-check" name="co_mem">
-              <label for="login-rememberme" class="c-font-thin c-font-17"> <span></span> <span class="check"></span> <span class="box"></span> مرا به خاطر بسپار </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" name="send" value="login">ورود</button>
-            <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">رمز عبور خود را فراموش نموده اید ؟</a> </div>
-        </form>
-        
-         <?php
-		if ($mas_l == 1)
-		{
-			echo 'پر کردن همه فیلدها الزامیست';	
-		}
-		else if ($mas_l == 2)
-		{
-			echo  'خوش آمدید';
-		}
-		else if ($mas_l == 3)
-		{
-			echo 'کاربری با این مشخصات وجود ندارد';
-		}
-		 ?>
-      </div>
-      <div class="modal-footer c-no-border"> <span class="c-text-account">حساب کاربری ندارید ؟</span> <a href="javascript:;" data-toggle="modal" data-target="#signup-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">ثبت نام !</a> </div>
-    </div>
-  </div>
-</div>
-<!-- END: CONTENT/USER/LOGIN-FORM --> 

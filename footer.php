@@ -199,25 +199,18 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
         <script src="assets/plugins/zoom-master/jquery.zoom.min.js" type="text/javascript"></script>
         <!-- END: PAGE SCRIPTS -->
          <!-- BEGIN: PAGE SCRIPTS -->
+        
+
+         
+         
         <script>
 		
-		$('#button').click(function() {
-			var val1 = $('#text1').val();
-			$.ajax({
-				type: 'POST',
-				url: 'process.php',
-				data: { id: val1},
-				success: function(response) {
-					$('#result').html(response);
-				}
-			 });
-		});
-				
+			
 		
 		
             $(document).ready(function()
             {
-                var slider = $('.c-layout-revo-slider .tp-banner');
+				var slider = $('.c-layout-revo-slider .tp-banner');
                 var cont = $('.c-layout-revo-slider .tp-banner-container');
                 var api = slider.show().revolution(
                 {

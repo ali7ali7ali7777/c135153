@@ -123,6 +123,8 @@ if (mysqli_num_rows($rant_t1) > 0)
                                 <label for="r5">&#10038;</label>
                               </div>
                             </div>
+                            <?php
+							 if ($lg_user!="user"){?>
                             <div class="form-group">
                               <label for="recipient-name" class="control-label">نام شما :</label>
                               <input type="text" class="form-control c-square" id="recipient-name" name="name" >
@@ -135,6 +137,7 @@ if (mysqli_num_rows($rant_t1) > 0)
                               <label for="recipient-name" class="control-label">تلفن شما :</label>
                               <input type="text" class="form-control c-square" id="recipient-name" name="tel" >
                             </div>
+                            <?php } ?>
                             <div class="form-group">
                               <label for="message-text" class="control-label">پیام شما :</label>
                               <textarea class="form-control  c-square" id="message-text" name="text"></textarea>
