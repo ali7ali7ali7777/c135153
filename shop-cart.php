@@ -4,9 +4,6 @@
         <div class="c-layout-page">
 <?php
 			
-session_start();
-
-
 $code = get_safe_post($mysqlicheck,"code");
 $action = get_safe_post($mysqlicheck,"action");
 

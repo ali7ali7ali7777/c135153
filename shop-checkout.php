@@ -1,9 +1,8 @@
 
-        <?php require_once "header.php"; ?>
+        <?php require_once "header.php";?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-
-            <!-- BEGIN: PAGE CONTENT -->
+			<!-- BEGIN: PAGE CONTENT -->
             <div class="c-content-box c-size-lg">
                 <div class="container">
                     <form class="c-shop-form-1">

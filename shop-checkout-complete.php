@@ -3,8 +3,7 @@
         <?php require_once "header.php"; ?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            
-            <!-- BEGIN: PAGE CONTENT -->
+        	<!-- BEGIN: PAGE CONTENT -->
             <div class="c-content-box c-size-lg c-overflow-hide c-bg-white">
                 <div class="container">
                     <div class="c-shop-order-complete-1 c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">

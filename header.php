@@ -7,6 +7,10 @@
         $item_total += (str_replace(",","",$c_item["price"])*$c_item["quantity"]); 
   
  }
+
+$user_id = $_SESSION["login"]["id"];
+$user_ty = $_SESSION["login"]["type"];
+
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +66,10 @@
           <li> <a href="index.php" class="c-font-uppercase c-font-bold">خانه</a> </li>
           <li class="c-divider"></li>
           <li> <a href="page-help.php" class="c-font-uppercase c-font-bold">راهنما</a> </li>
-          <?php if ($_SESSION["login"]["type"] ==  "user") {?>
-          <li> <a href="login.php?send=out"  class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" >خروج</a> </li>
+          <?php if ($user_ty ==  "user" or $user_ty =="modir") {?>
+          <li class="c-divider"></li>
+          <li> <a href="shop-customer-dashboard.php" class="c-font-uppercase c-font-bold">ناحیه کاربری</a> </li>
+		  <li> <a href="login.php?o"  class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" id="out">خروج</a> </li>
           <?php }else{ ?>
           <li> <a href="login.php" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" >ورود</a> </li>
           <?php }  ?>
@@ -178,7 +184,7 @@ else
       </div>
       <!-- BEGIN: LAYOUT/HEADERS/QUICK-CART --> 
      <?php
-session_start();
+
 if(isset($_SESSION["cart_item"])){
     
 

@@ -1,21 +1,25 @@
 <?php
 $requst_from = substr($_SERVER['SCRIPT_FILENAME'],(strripos($_SERVER['SCRIPT_FILENAME'],'/')+1));
-/*
-if ($requst_from == ('shop-customer-addresses.php' ||
-					'shop-customer-dashboard.php' || 
-					'shop-customer-profile.php' ||  
-					'shop-order-history.php' ||  
-					'shop-product-wishlist.php'
-   ))
+
+$no_page = array('shop-customer-addresses.php','shop-customer-dashboard.php','shop-customer-profile.php','shop-order-history.php','shop-product-wishlist.php');
+
+
+
+if (in_array($requst_from, $no_page))
 {
-	if($_SESSION["login"]["type"]!="modir" || $_SESSION["login"]["type"]!= "user" )
+	if($_SESSION["login"]["type"]!="modir" && $_SESSION["login"]["type"]!= "user" )
 	{
 		$url = 'login.php';
 		header( "Location: $url" );
 		die();
 	}
+}
+/*if($requst_from == 'login.php' &&  $_SESSION["login"]["type"] == "user")
+{
+	$url = 'index.php';
+	header( "Location: $url" );
+	die();
 }*/
-
 	
 
 

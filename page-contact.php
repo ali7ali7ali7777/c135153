@@ -1,6 +1,11 @@
 
-         <?php require_once "header.php";
-		
+         <?php require_once "header.php";?>
+
+<!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+
+<?php 
+			
 $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 		if (mysqli_num_rows($rant_c1) > 0)
 		{	
@@ -51,11 +56,14 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 		
 		
 		
-		
-		?>
-        <!-- BEGIN: PAGE CONTAINER -->
-        <div class="c-layout-page">
-
+					
+			
+			
+			
+?>           
+           
+           
+           
             <!-- BEGIN: PAGE CONTENT -->
            <!-- BEGIN: CONTENT/CONTACT/FEEDBACK-1 -->
             <div class="c-content-box c-size-md c-bg-white">

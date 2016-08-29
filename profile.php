@@ -14,19 +14,19 @@
                                 <span class="c-arrow"></span>
                             </a>
                             <ul class="c-dropdown-menu">
-                                <li class="c-active">
+                                <li <?php if ($requst_from == "shop-customer-dashboard.php" ) echo 'class="c-active"'; ?>>
                                     <a href="shop-customer-dashboard.php">داشبورد من</a>
                                 </li>
-                                <li class="">
+                                <li <?php if ($requst_from == "shop-customer-profile.php" ) echo 'class="c-active"'; ?>>
                                     <a href="shop-customer-profile.php">ویرایش پروفایل</a>
                                 </li>
-                                <li class="">
+                                <li <?php if ($requst_from == "shop-order-history.php" ) echo 'class="c-active"'; ?>>
                                     <a href="shop-order-history.php">تاریخچه سفارشها</a>
                                 </li>
-                                <li class="">
+                                <li <?php if ($requst_from == "shop-customer-addresses.php" ) echo 'class="c-active"'; ?>>
                                     <a href="shop-customer-addresses.php">آدرسهای من</a>
                                 </li>
-                                <li class="">
+                                <li <?php if ($requst_from == "shop-product-wishlist.php" ) echo 'class="c-active"'; ?>>
                                     <a href="shop-product-wishlist.php">لیست علاقه مندی های من</a>
                                 </li>
                             </ul>

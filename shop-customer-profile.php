@@ -1,9 +1,8 @@
 
-        <?php require_once "header.php"; ?>
+        <?php require_once "header.php";?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-
-            <div class="container">
+			<div class="container">
                 
                    <?php require_once "profile.php"; ?>
                    

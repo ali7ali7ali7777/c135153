@@ -38,7 +38,8 @@ $(document).ready(function() {
 		$(location).attr('href', j_href);
     });
 	$("#out").click(function(){
-		$.post('header.php',
+		$.post('login.php',
 		{'send':'out'});
+		
 	});
 });

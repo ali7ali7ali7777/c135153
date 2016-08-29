@@ -1,9 +1,8 @@
 
-        <?php require_once "header.php"; ?>
+        <?php require_once "header.php";?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-
-            <div class="container">
+			<div class="container">
                 <div class="c-layout-sidebar-menu c-theme ">
                     <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
                     <div class="c-sidebar-menu-toggler">

@@ -87,7 +87,6 @@
                         <!-- Nav tabs -->
    						<ul class="nav nav-pills c-nav-tab c-arrow" role="tablist">
 <?php 
-							
 $rant_i1 = mysqli_query($mysqlicheck,'SELECT * FROM gro where gro_kod like "___" and gro_status =1');
 if ( mysqli_num_rows($rant_i1) > 0)
 {

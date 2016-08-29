@@ -1,6 +1,11 @@
 
-        <?php require_once "header.php";
-		$rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
+        <?php require_once "header.php";?>
+        <!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+
+   <?php 
+			
+$rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 		if (mysqli_num_rows($rant_a1) > 0) {	
 			$row_a1=mysqli_fetch_assoc($rant_a1);
 			}
@@ -12,10 +17,8 @@
 		
 		
 		
-		?>
-        <!-- BEGIN: PAGE CONTAINER -->
-        <div class="c-layout-page">
-
+		?>         
+           
             <!-- BEGIN: PAGE CONTENT -->
 
             <!-- BEGIN: CONTENT/FEATURES/FEATURES-13-1 -->

@@ -2,9 +2,17 @@
         <?php require_once "header.php"; ?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-
-            <div class="container">
-                
+			<div class="container">
+      
+        <?php        
+                          
+               $sel_l = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
+				if ($sel_l->num_rows > 0)
+				{
+					$row_l=mysqli_fetch_assoc($sel_l);
+					$row_l["user_type"] 
+				}
+             ?>                                      
                 <?php require_once "profile.php"; ?>
                 
                 <div class="c-layout-sidebar-content ">

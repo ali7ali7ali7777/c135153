@@ -1,7 +1,7 @@
 <?php require_once "header.php"; ?>
 <!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
-  <?php
+  <?php 
 $src = "images/none.jpg";
 $object_id = get_safe_get($mysqlicheck,"selected");
 $object_code = get_safe_get($mysqlicheck,"code");	
@@ -123,8 +123,7 @@ if (mysqli_num_rows($rant_t1) > 0)
                                 <label for="r5">&#10038;</label>
                               </div>
                             </div>
-                            <?php
-							 if ($lg_user!="user"){?>
+                            <?php if ($user_ty !=  "user") {?>
                             <div class="form-group">
                               <label for="recipient-name" class="control-label">نام شما :</label>
                               <input type="text" class="form-control c-square" id="recipient-name" name="name" >
