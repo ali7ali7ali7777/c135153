@@ -71,7 +71,7 @@ if(!empty($send))
 			$ci_c = get_safe_post($mysqlicheck,"ci_c");
 			$t_c = get_safe_post($mysqlicheck,"t_c");
 			$ad_c = $ad1_c." ".$ad2_c;
-			if ($e_c!=""||$f_c!=""||$u_c!=""||$ad1_c!=""||$ad2_c!=""||$ca_c!=""||$ci_c!=""||$t_c!="" )
+			if ($e_c!=""&&$f_c!=""&&$u_c!=""&&$ad1_c!=""&&$ad2_c!=""&&$ca_c!=""&&$ci_c!=""&&$t_c!="" )
 			{
 				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
 				if ($result_c->num_rows > 0)
@@ -134,7 +134,7 @@ if(!empty($send))
 						$type = "modir";
 					}
 					
-					$user = array('type'=> $type , 'id' => $row_l["user_id"]);
+					$user = array('type'=> $type , 'id' => $row_l["user_id"] , 'name' => $row_l["user_name"].' '.$row_l["user_family"]);
 					$_SESSION["login"] = $user;
 					$mas_l = 2 ;
 					echo "<script>

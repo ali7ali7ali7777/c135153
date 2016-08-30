@@ -10,7 +10,7 @@
 
 $user_id = $_SESSION["login"]["id"];
 $user_ty = $_SESSION["login"]["type"];
-
+$user_name = $_SESSION["login"]["name"];
 ?>
 
 <!DOCTYPE html>

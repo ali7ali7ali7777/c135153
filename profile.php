@@ -34,4 +34,12 @@
                     </ul>
                     <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-DASHBOARD -->
 </div>
-                
+   
+<?php   
+              
+               $sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
+				if ($sel_p->num_rows > 0)
+				{
+					$row_p=mysqli_fetch_assoc($sel_p);
+				}
+             ?>              

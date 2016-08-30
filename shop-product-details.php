@@ -197,7 +197,7 @@ if (mysqli_num_rows($rant_t1) > 0)
                             </div>
                           </div>
                           <div class="col-sm-12 col-xs-12 c-margin-t-20">
-                            <button  class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase" id="add">اضافه کردن به سبد خرید</button>
+                            <button  class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase" id="ad_s">اضافه کردن به سبد خرید</button>
                           </div>
                         </div>
                       </div>

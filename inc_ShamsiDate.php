@@ -1,7 +1,7 @@
 <?php
 $requst_from = substr($_SERVER['SCRIPT_FILENAME'],(strripos($_SERVER['SCRIPT_FILENAME'],'/')+1));
 
-$no_page = array('shop-customer-addresses.php','shop-customer-dashboard.php','shop-customer-profile.php','shop-order-history.php','shop-product-wishlist.php');
+$no_page = array('shop-customer-addresses.php','shop-customer-dashboard.php','shop-customer-profile.php','shop-order-history.php','shop-product-wishlist.php','shop-customer-e-a.php');
 
 
 

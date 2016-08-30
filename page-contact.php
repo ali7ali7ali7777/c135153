@@ -15,51 +15,70 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
 		{
 			echo "الطفا ارتباط با ما را تکمیل نمائید.";
 		}
-	if(get_safe_post($mysqlicheck,"submit") == "save" && (get_safe_post($mysqlicheck,"name") == "" 
-	  || get_safe_post($mysqlicheck,"email") == "" || get_safe_post($mysqlicheck,"tel") == ""
-	  || get_safe_post($mysqlicheck,"message") == "" ))
-	{	$mas_c = "3";
-	 	$co_name = get_safe_post($mysqlicheck,"name");
-		$co_email = get_safe_post($mysqlicheck,"email");
-		$co_tel = get_safe_post($mysqlicheck,"tel");
-		$co_text = get_safe_post($mysqlicheck,"message");
-	}
-    elseif(get_safe_post($mysqlicheck,"submit") == "save" && get_safe_post($mysqlicheck,"name") != ""
-		  && get_safe_post($mysqlicheck,"email") != "" && get_safe_post($mysqlicheck,"tel") != ""
-		  && get_safe_post($mysqlicheck,"message") != "" )
+if(isset($_POST['submit'])){
+		
+$co_name = get_safe_post($mysqlicheck,"name");
+$co_email = get_safe_post($mysqlicheck,"email");
+$co_tel = get_safe_post($mysqlicheck,"tel");
+$co_text = get_safe_post($mysqlicheck,"message");
+$seve = get_safe_post($mysqlicheck,"submit");
+$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
+			
+	if ($user_id == "")
 	{
-		$co_name = get_safe_post($mysqlicheck,"name");
-		$co_email = get_safe_post($mysqlicheck,"email");
-		$co_tel = get_safe_post($mysqlicheck,"tel");
-		$co_text = get_safe_post($mysqlicheck,"message");
-		$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
-		$user    ='1';				
-		$sql_c="INSERT INTO comment (comment_user_id, comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ('&user', '$co_text', '$co_name', '$co_email', '$co_tel', '3', '$co_date')";
-		$result_c = $mysqlicheck->query($sql_c);
-		$mas_c2 ='';
-		if (!$result_c)
+		if( $seve == "save" && ($co_name == ""  || $co_email == "" || $co_tel == "" || $co_text == "" ))
+		{	
+			$mas_c = 3;
+		}
+		elseif($seve == "save" && $co_name != "" && $co_email != "" && $co_tel != "" && $co_text != "" )
+		{
+			$sql_c="INSERT INTO comment ( comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ( '".$co_text."', '".$co_name."', '".$co_email."', '".$co_tel."', 3 , '".$co_date."')";
+			$result_c = $mysqlicheck->query($sql_c);
+			if (!$result_c)
 			{
-				$mas_c = "1";  
+					$mas_c = 1;  
 			}
 			else 
 			{
+				echo "<script>setTimeout(function(){window.location.href='page-contact.php';}, 3000); 
+				</script>";
 				$co_name ='';
 				$co_email = '';
 				$co_tel = '';
 				$co_text = '';
-				$mas_c = "2";
+				$mas_c = 2;
 			}
-	
+
+		}
 	}
-	
-		
-		
-		
-		
-					
-			
-			
-			
+	elseif($user_id != "")
+	{
+		if( $seve == "save" && $co_text == "" )
+		{	
+			$mas_c = 3;
+		}
+		elseif($seve == "save" && $co_text != "" )
+		{
+			$sql_c1="INSERT INTO comment ( comment_user_id,comment_text, comment_status, comment_data) VALUES ('".$user_id."', '".$co_text."', 3 , '".$co_date."')";
+			$result_c1 = $mysqlicheck->query($sql_c1);
+			if (!$result_c1)
+			{
+					$mas_c = 1 ;  
+			}
+			else 
+			{
+				echo "<script>setTimeout(function(){window.location.href='page-contact.php';}, 3000); 
+				</script>";
+				$co_name ='';
+				$co_email = '';
+				$co_tel = '';
+				$co_text = '';
+				$mas_c = 2;
+			}
+
+		}
+	}
+}
 ?>           
            
            
@@ -71,7 +90,7 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                     <div class="c-content-contact-1 c-option-1">
                    		<div class="c-body">
                    <?php 
-                   if ($mas_c =="2")
+                   if ($mas_c == 2)
 					{
                         echo    "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"> نظر شما با موفقیت ارسال شد.
                                 <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
@@ -79,7 +98,7 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                 </button>
                                 </div>";
 					}
-					else if ($mas_c =="1")
+					else if ($mas_c == 1 )
 					{
                         echo   "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"> ارسال نظر با خطا مواجه گردید ، لطفاً دوباره سعی نمائید .
                                 <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
@@ -87,7 +106,7 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                 </button>
                                 </div>";
 					}
-					else if ($mas_c =="3")
+					else if ($mas_c == 3 )
 					{
                         echo   '<div class="alert alert-warning alert-dismissible" role="alert">
 								لطفا تمامی قسمتها را پر نمائید .
@@ -156,15 +175,18 @@ $rant_c1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                             <div class="col-md-6">
                                 <div class="c-contact">
                                     <div class="c-content-title-1">
-                                        <p class="c-font-lowercase">از طریق فرم زیر می توانید با ما در تماس باشید.</p>
+                                        <p class="c-font-lowercase"><?php if ($user_name != "") echo '<span class="c-theme-font">'.$user_name.'</span> عزیز ';?>
+                                        از طریق فرم زیر می توانید با ما در تماس باشید.</p>
                                     </div>
                                     <form method="post">
+                                       <?php if ($user_id == "") {?>
                                         <div class="form-group">
                                             <input type="text" placeholder="نام شما" class="form-control c-square c-theme input-lg" value="<?php echo $co_name; ?>" name="name"> </div>
                                         <div class="form-group">
-                                            <input type="text" placeholder="ایمیل شما" class="form-control c-square c-theme input-lg" value="<?php echo $co_email; ?>" name="email"> </div>
+                                            <input type="email" placeholder="ایمیل شما" class="form-control c-square c-theme input-lg" value="<?php echo $co_email; ?>" name="email"> </div>
                                         <div class="form-group">
                                             <input type="text" placeholder="تلفن تماس" class="form-control c-square c-theme input-lg" value="<?php echo $co_tel; ?>" name="tel"> </div>
+                                            <?php }?>
                                         <div class="form-group">
                                             <textarea rows="8" name="message" placeholder="نوشتن نظر در اینجا ..." class="form-control c-theme c-square input-lg" name="text"><?php echo $co_text ?></textarea>
                                         </div>

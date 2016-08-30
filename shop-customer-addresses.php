@@ -18,24 +18,30 @@
                         <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
                             <h3 class="c-font-uppercase c-font-bold">آدرس قبض</h3>
                             <ul class="list-unstyled">
-                                <li>Drake Hiro</li>
-                                <li>25, Lorem Lis Street, Orange C, California, US</li>
-                                <li>Phone: 800 123 3456</li>
-                                <li>Fax: 800 123 3456</li>
+                                <li><?php echo $user_name .  "</li>
+                                <li>".$row_p['user_country']." - ".$row_p['user_city']."</li>
+                                <li>".$row_p['user_address1']."</li>
+                                <li>تلفن: ".$row_p['user_tell1']; ?></li>
                             </ul>
-                            <a href="shop-customer-profile.php" class="btn c-theme-btn btn-xs">
-                                <i class="fa fa-edit"></i> ویرایش</a>
+                            <form action="shop-customer-e-a.php" method="post">
+                            	<input type="hidden" value="1" name="nu">
+                           		<button class="btn c-theme-btn c-btn-square " name="send" value="edit">
+                                <i class="fa fa-edit"></i> ویرایش</button>
+                            </form>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 c-margin-b-20">
                             <h3 class="c-font-uppercase c-font-bold">آدرس ارسال</h3>
                             <ul class="list-unstyled">
-                                <li>Drake Hiro</li>
-                                <li>25, Lorem Lis Street, Orange C, California, US</li>
-                                <li>Phone: 800 123 3456</li>
-                                <li>Fax: 800 123 3456</li>
+                                <li><?php echo $user_name .  "</li>
+                                <li>".$row_p['user_country']." - ".$row_p['user_city']."</li>
+                                <li>".$row_p['user_address2']."</li>
+                                <li>تلفن: ".$row_p['user_tell2']; ?></li>
                             </ul>
-                            <a href="shop-customer-profile.php" class="btn c-theme-btn btn-xs">
-                                <i class="fa fa-edit"></i> ویرایش</a>
+                            <form action="shop-customer-e-a.php" method="post">
+                            	<input type="hidden" value="2" name="nu">
+                           		<button class="btn c-theme-btn  c-btn-square" name="send" value="edit">
+                                <i class="fa fa-edit"></i> ویرایش</button>
+                            </form>
                         </div>
                     </div>
                     <!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->

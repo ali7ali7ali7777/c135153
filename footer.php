@@ -191,7 +191,7 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
         <script>
             $(document).ready(function()
             {
-                App.init(); // init core
+				App.init(); // init core
             });
         </script>
         <!-- END: THEME SCRIPTS -->
