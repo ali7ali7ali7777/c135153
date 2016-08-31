@@ -106,9 +106,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                  <div class="tab-content">
       <?php 
 	  
-  $src = "images/none.jpg";
-	                      
-        $rant_i3 = mysqli_query($mysqlicheck,'SELECT * FROM gro where gro_kod like "___" and gro_status =1');
+ $rant_i3 = mysqli_query($mysqlicheck,'SELECT * FROM gro where gro_kod like "___" and gro_status =1');
 		if ( mysqli_num_rows($rant_i3) > 0)
 		{
 			$I_ac = "1";
@@ -126,8 +124,8 @@ if ( mysqli_num_rows($rant_i1) > 0)
 						$dir = 'images/object/'.$row_i4['object_id'].'/';
 						// iterate
 						if(!$dir){
-
-						}else
+							 $src = "images/none.jpg";
+	                   }else
 						{
 							// image extensions
 							$extensions = array('jpg', 'jpeg', 'png');
@@ -150,12 +148,15 @@ if ( mysqli_num_rows($rant_i1) > 0)
 										// add to result
 										$resultimg[] = $fileinfo->getFilename();
 									}
-									
+								$src = "images/object/".$row_i4['object_id']."/".$resultimg[0] ;	
 								}
 							}
 
 						}
-						
+						if ($resultimg[0] == "")
+						{
+							$src = "images/none.jpg";
+						}
 						
 	?>
 							<div class="col-sm-4">
@@ -165,10 +166,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                                     <a href="shop-product-details.php?selected=<?php echo $row_i4['object_id'] ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">توضیحات بیشتر</a>
                                                 </div>
                                             </div>
-                                            <div class="c-bg-img-center c-overlay-object" data-height="height" style="height:270px; background-image:url(<?php if($resultimg[0] != "")
-														echo "images/object/".$row_i4['object_id']."/".$resultimg[0] ;
-														else
-														echo $src; ?>);"></div>
+                                            <div class="c-bg-img-center c-overlay-object" data-height="height" style="height:270px; background-image:url(<?php echo $src; ?>);"></div>
                                             <div class="c-overlay-border"></div>
                                         </div>
                                     </div>
@@ -204,6 +202,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
 				$dir = 'images/object/'.$row_i5['object_id'].'/';
 				// iterate
 				if(!$dir){
+					 $src = "images/none.jpg";			
 				}
 				else
 				{
@@ -226,12 +225,15 @@ if ( mysqli_num_rows($rant_i1) > 0)
 								// add to result
 								$resultimg[] = $fileinfo->getFilename();
 							}
-							
+						$src = "images/object/".$row_i5['object_id']."/".$resultimg[0] ;	
 						}
 					}
 
 				}
-				
+				if ($resultimg[0] == "")
+				{
+					$src = "images/none.jpg";
+				}
 				
 				
 				if ($I_ac == "1" || $I_ac == "5") echo   '<div class="row">';
@@ -247,10 +249,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                             <a href="shop-product-details.php?selected=<?php echo $row_i5['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
                                         </div>
                                     </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php if($resultimg[0] != "")
-														echo "images/object/".$row_i5['object_id']."/".$resultimg[0] ;
-														else
-														echo $src; ?>);">
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src; ?>);">
                                     </div>
                                 </div>
                                 <div class"c-info">
@@ -307,6 +306,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
 				$dir = 'images/object/'.$row_i6['object_id'].'/';
 				// iterate
 				if(!$dir){
+					 $src = "images/none.jpg";
 				}
 				else
 				{
@@ -329,12 +329,15 @@ if ( mysqli_num_rows($rant_i1) > 0)
 								// add to result
 								$resultimg[] = $fileinfo->getFilename();
 							}
-							
+						$src = "images/object/".$row_i6['object_id']."/".$resultimg[0] ;	
 						}
 					}
 
 				}
-				
+				if ($resultimg[0] == "")
+				{
+					$src = "images/none.jpg";
+				}
 		?>         
                 	<div class="col-md-3 col-sm-6 c-margin-b-20">
                             <div class="c-content-product-2 c-bg-white">
@@ -346,10 +349,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                             <a href="shop-product-details.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
                                         </div>
                                     </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php if($resultimg[0] != "")
-														echo "images/object/".$row_i6['object_id']."/".$resultimg[0] ;
-														else
-														echo $src; ?>);"></div>
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src; ?>);"></div>
                                 </div>
                                 <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?></p>

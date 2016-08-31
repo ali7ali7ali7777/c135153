@@ -5,10 +5,22 @@
 $src = "images/none.jpg";
 $object_id = get_safe_get($mysqlicheck,"selected");
 $object_code = get_safe_get($mysqlicheck,"code");	
+
+	
+	
+	
 $rant_t1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = "'.$object_id.'" or object_code = "'.$object_code.'"');
 if (mysqli_num_rows($rant_t1) > 0)
 {
 	$row_t1=mysqli_fetch_assoc($rant_t1);
+	
+	$res_aw = mysqli_query($mysqlicheck,"SELECT * FROM wishlist WHERE wish_user_id = ".$user_id." and wish_object_code = ".$row_t1['object_code']);
+	if ($res_aw->num_rows == 0)
+		echo '<input name="ch_1" value="11" type="hidden">'; 
+	
+	if(!array_key_exists($row_t1['object_code'],$_SESSION["cart_item"]))
+		echo '<input name="ch_2" value="11" type="hidden">';
+	
 	$dir = 'images/object/'.$row_t1['object_id'].'/';
 	// iterate
 	if(!$dir){
@@ -160,6 +172,7 @@ if (mysqli_num_rows($rant_t1) > 0)
 					<input name="pic1" value="<?php echo "images/object/".$row_t1['object_id']."/".$resultimg[0]; ?>" type="hidden">
                   	<input name="pic2" value="<?php echo $resultimg[0]; ?>" type="hidden">
                   	<input name="id" value="<?php echo $row_t1['object_id']; ?>" type="hidden">
+                  	<input name="user_id" value="<?php echo $user_id; ?>" type="hidden">
                    	<div class="row c-product-variant">
                         <div class="col-sm-12 col-xs-12">
                           <p class="c-product-meta-label c-product-margin-1 c-font-uppercase c-font-bold">Size:</p>
@@ -196,9 +209,10 @@ if (mysqli_num_rows($rant_t1) > 0)
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm-12 col-xs-12 c-margin-t-20">
-                            <button  class="btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase" id="ad_s">اضافه کردن به سبد خرید</button>
-                          </div>
+                          <div class="col-sm-12 col-xs-12 c-margin-t-20" id="ad_t">
+                            <button  class="fix btn c-btn btn-lg c-font-bold c-font-white c-theme-btn c-btn-square c-font-uppercase " id="ad_s">اضافه کردن به سبد خرید</button>
+                            <button  class="fix btn c-btn btn-lg c-font-bold c-font-white c-btn-red c-btn-square c-font-uppercase" id="ad_w">اضافه کردن به علاقه مندیها</button>
+                         </div>
                         </div>
                       </div>
 				</div>
@@ -287,6 +301,59 @@ if (mysqli_num_rows($rant_t2) > 0)
   </div>
 </div>
 <!-- END: CONTENT/SHOPS/SHOP-PRODUCT-TAB-1 --> 
+ <div class="c-body">
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="bast">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">جهت اضافه به علاقه مندیها</h4>
+                </div>
+                <div class="modal-body">
+                   <?php if ($user_id == ""){?>
+                    <p>کاربر گرامی جهت استفاده از این امکان باید وارد سایت شده و سپس سعی نمائید .<br /><br />
+						در صورتی که هنوز ثبت نام نکرده اید از <a href="login.php"><span class="c-theme-font">ثبت نام جدید </span></a>می توانید این کار را انجام دهید . </p>
+               		<?php } elseif ($user_id != ""){?>
+					<p class="3"><span class="c-theme-font"><?php echo $user_name; ?></span> عزیز <span class="c-theme-font"><?php echo $row_t1['object_name']; ?></span> به لیست علاقه مندیهای شما اضافه گردید . </p>
+              		<p class="2"><span class="c-theme-font"><?php echo $user_name; ?></span> عزیز <span class="c-theme-font"><?php echo $row_t1['object_name']; ?></span> قبلاً به لیست علاقه مندیهای شما اضافه گردیده است  . </p>
+               		<?php }?>
+                </div>
+                <div class="modal-footer" >
+                    <button type="button" class="btn c-theme-btn c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase" data-dismiss="modal" style="float: left;" id="bast">بستن</button><?php if ($user_id != ""){?>
+                    <button type="button" class="btn c-btn-red c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase" data-dismiss="modal" style="float: left;" id="sh_wi">لیست علاقه مندیها</button><?php }?>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<div class="c-body">
+    <div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="bast">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">اضافه شدن به سبد خرید</h4>
+                </div>
+                <div class="modal-body">
+					<p class="3">کاربر گرامی <span class="c-theme-font"><?php echo $row_t1['object_name']; ?></span> به سبد خرید شما اضافه گردید . </p>
+					<p class="2">کاربر گرامی <span class="c-theme-font"><?php echo $row_t1['object_name']; ?></span> قبلا به سبد خرید شما اضافه گردیده می توانید از صفحه <a href="shop-cart.php"><span class="c-theme-font">سبد خرید</span></a> آنرا ویرایش نمائید . </p>
+                </div>
+                <div class="modal-footer" >
+                    <button type="button" class="btn c-theme-btn c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase" data-dismiss="modal" style="float: left;" id="bast">بستن</button>
+                    <button type="button" class="btn c-btn-red c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase"  style="float: left;"  id="edame">ادامه خرید </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
 <!-- BEGIN: CONTENT/SHOPS/SHOP-2-2 -->
 <div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
   <div class="container">

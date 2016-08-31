@@ -7,7 +7,15 @@
                  <?php require_once "profile.php"; ?>
                 
                 <div class="c-layout-sidebar-content ">
-                    <!-- BEGIN: PAGE CONTENT -->
+                   
+<?php                   
+$code = get_safe_post($mysqlicheck,"code");
+$action = get_safe_post($mysqlicheck,"action");
+					
+
+					
+?>
+               <!-- BEGIN: PAGE CONTENT -->
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
                     <div class="c-content-title-1">
                         <h3 class="c-font-uppercase c-font-bold">آدرسهای من</h3>

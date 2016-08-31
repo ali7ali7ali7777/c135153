@@ -11304,10 +11304,13 @@ h1 {
 
 @media (max-width: 480px) {
   /* 480px */
+	
+  .c-product-add-cart  .row .fix,
   .c-shop-cart-page-1 > .c-cart-buttons > a {
     display: block;
     margin-bottom: 20px;
-	margin-right: 0; }
+	margin-right: 0;
+	width: 100%}
     .c-shop-cart-page-1 > .c-cart-buttons > a:last-child {
       margin: 0; }
   .c-shop-cart-page-1 > .c-cart-buttons > .c-cart-float-l {

@@ -100,7 +100,7 @@ if(isset($_SESSION["cart_item"])){
 			
 				
 				<div class="row c-cart-table-row">
-                            <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item <?php echo $it ; ?></h2>
+                            <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">مورد <?php echo $it ; ?></h2>
                             <div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
                                 <img src="<?php echo $c_item["img"] ; ?>" /> </div>
                             <div class="col-md-3 col-sm-9 col-xs-7 c-cart-desc">
