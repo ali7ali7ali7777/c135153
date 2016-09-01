@@ -54,7 +54,9 @@ $user_name = $_SESSION["login"]["name"];
         <link href="assets/base/css/themes/default.css" rel="stylesheet" id="style_theme" type="text/css" />
         <link href="assets/base/css/custom.css" rel="stylesheet" type="text/css" />
         <!-- END THEME STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="assets/base/fonts/font.css" />
+         </head>
 <!--<body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">-->
     <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->

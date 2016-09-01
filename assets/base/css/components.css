@@ -6,9 +6,11 @@ General reset
 ***/
 /* Set default body */
 
+
+
 body {
   color: #5c6873;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "BYekan" , sans-serif !important;
   padding: 0px !important;
   margin: 0px !important;
   font-weight: 300;
