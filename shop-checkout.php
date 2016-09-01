@@ -9,83 +9,154 @@
                         <div class="row">
                             <!-- BEGIN: ADDRESS FORM -->
                             <div class="col-md-7 c-padding-20">
+<?php                              
+ $sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
+				if ($sel_p->num_rows > 0)
+				{
+					$row_p=mysqli_fetch_assoc($sel_p);
+				}                              
+                               
+$e_c = $row_p["user_email"];	   
+$u_c = $row_p["user_name"];	
+$f_c = $row_p["user_family"];						   
+$ca_c = $row_p["user_country"];	
+$ci_c = $row_p["user_city"];	
+					   
+if (isset($_POST['send']))
+{
+	$send = get_safe_post($mysqlicheck,"send");
+	if ($send == "cancel")
+	{
+		echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 1); 
+			</script>";
+		exit();
+	}
+	elseif($send == "change")
+	{
+			$e_c = get_safe_post($mysqlicheck,"e_c");
+			$f_c = get_safe_post($mysqlicheck,"f_c");
+			$u_c = get_safe_post($mysqlicheck,"u_c");
+			$ca_c = get_safe_post($mysqlicheck,"ca_c");
+			$ci_c = get_safe_post($mysqlicheck,"ci_c");
+			$p1_c = get_safe_post($mysqlicheck,"p1_c");
+			$p2_c = get_safe_post($mysqlicheck,"p2_c");
+		
+			if ($e_c != "" && $f_c != "" && $u_c != "" && $ca_c != "" && $ci_c != "")
+			{
+				if(($p1_c != "" && $p2_c != "" && $p1_c != $p2_c) || ($p1_c == "" && $p2_c != "") || ($p2_c == "" && $p1_c != ""))
+				{
+					echo  '<div class="alert alert-warning" role="alert">جهت تغییر رمز عبور باید هر دوخانه پر و یکسان باشد . </div>';
+				}
+				elseif (($p1_c != "" && $p2_c != "" && $p1_c == $p2_c) || ($p1_c == "" && $p2_c == ""))
+				{
+					if($e_c != $row_p["user_email"])
+					{
+						$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
+						if ($result_c->num_rows > 0)
+						{
+							echo  '<div class="alert alert-warning" role="alert">کاربری با این ایمیل قبلاً ثبت شده است . </div>';
+							$che = 1 ;
+						}
+						else
+						{
+							$che = 2 ;
+						}
+					}
+					else
+					{
+						$che = 2 ;
+					}
+					if($p1_c != "" && $p2_c != "" && $p1_c == $p2_c && $che = 2)
+					{
+							$s_ch1 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_pass`="'.md5($p1_c).'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
+							$r_ch1 = $mysqlicheck->query($s_ch1);
+							if (!$r_ch1)
+							{
+								echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
+							}
+							else
+							{
+								echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما و همچنین تغییر پسورد با موفقیت صورت پذیرفت .</div>';
+								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
+									  </script>";
+							}
+						}
+						elseif($p1_c == "" && $p2_c == "" && $che = 2)
+						{
+							$s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
+							$r_ch2 = $mysqlicheck->query($s_ch2);
+							if (!$r_ch2)
+							{
+								echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
+							}
+							else
+							{
+								echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما با موفقیت صورت پذیرفت .</div>';
+								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
+									  </script>";
+							}
+					}
+				}
+			}
+			else
+			{
+				echo '<div class="alert alert-warning" role="alert">در صورتی که رمز عبور خود را نمی خواهید تغییر دهید پر نمودن بقیه فیلدها الزامیست .</div>';
+			}
+	}
+}
+           ?>       
+                               
                                 <!-- BEGIN: BILLING ADDRESS -->
-                                <h3 class="c-font-bold c-font-uppercase c-font-24">Billing Address</h3>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Country</label>
-                                        <select class="form-control c-square c-theme">
-                                            <option value="1">Malaysia</option>
-                                            <option value="2">Singapore</option>
-                                            <option value="3">Indonesia</option>
-                                            <option value="4">Thailand</option>
-                                            <option value="5">China</option>
-                                        </select>
-                                    </div>
+                                <h3 class="c-font-bold c-font-uppercase c-font-24">مشخصات پروفایل</h3>
+                                <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">نام</label>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">First Name</label>
-                                                <input type="text" class="form-control c-square c-theme" placeholder="First Name"> </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">Last Name</label>
-                                                <input type="text" class="form-control c-square c-theme" placeholder="Last Name"> </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">نام خانوادگی</label>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>">
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Company Name</label>
-                                        <input type="text" class="form-control c-square c-theme" placeholder="Company Name"> </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Address</label>
-                                        <input type="text" class="form-control c-square c-theme" placeholder="Street Address"> </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <input type="text" class="form-control c-square c-theme" placeholder="Apartment, suite, unit etc. (optional)"> </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Town / City</label>
-                                        <input type="text" class="form-control c-square c-theme" placeholder="Town / City"> </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">State / County</label>
-                                                <select class="form-control c-square c-theme">
-                                                    <option value="0">Select an option...</option>
-                                                    <option value="1">Malaysia</option>
-                                                    <option value="2">Singapore</option>
-                                                    <option value="3">Indonesia</option>
-                                                    <option value="4">Thailand</option>
-                                                    <option value="5">China</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">Postcode / Zip</label>
-                                                <input type="text" class="form-control c-square c-theme" placeholder="Postcode / Zip"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="control-label">Email Address</label>
-                                                <input type="email" class="form-control c-square c-theme" placeholder="Email Address"> </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">Phone</label>
-                                                <input type="tel" class="form-control c-square c-theme" placeholder="Phone"> </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="col-md-6">
+									<label class="control-label">آدرس ایمیل </label>
+									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>">
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="control-label">استان </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="استان" name="ca_c" value="<?php echo $ca_c; ?>">
+								</div>
+								<div class="col-md-6">
+									<label class="control-label">شهر </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="شهر" name="ci_c" value="<?php echo $ci_c; ?>">
+								</div>
+							</div>
+				       </div>
+                               <h3 class="c-font-bold c-font-uppercase c-font-24">آدرس قبض</h3>
+                         <div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label class="control-label">آدرس </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad_e; ?>">
+								</div>
+						   </div>
+						</div>
+					<div class="form-group">
+							<div class="row">
+								<div class="col-md-6" >
+									<label class="control-label">ادامه آدرس </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="ad2_e" value="<?php echo $t_e; ?>">
+								</div>
+								<div class="col-md-6" >
+									<label class="control-label">تلفن </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t_e" value="<?php echo $t_e; ?>">
+								</div>
+							</div>
+				       </div>
                                 <div class="row c-margin-t-15">
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox c-toggle-hide" data-object-selector="c-account" data-animation-speed="600">
@@ -93,7 +164,7 @@
                                             <label for="checkbox1-77">
                                                 <span class="inc"></span>
                                                 <span class="check"></span>
-                                                <span class="box"></span> Create an account? </label>
+                                                <span class="box"></span> ایجاد یک حساب کاربری ؟ </label>
                                         </div>
                                         <p class="help-block">Create an account by entering the information below. If you are a returning customer please login.</p>
                                     </div>
@@ -105,7 +176,7 @@
                                 </div>
                                 <!-- BILLING ADDRESS -->
                                 <!-- SHIPPING ADDRESS -->
-                                <h3 class="c-font-bold c-font-uppercase c-font-24">Shipping Address</h3>
+                                <h3 class="c-font-bold c-font-uppercase c-font-24">آدرس ارسال</h3>
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox-inline">
@@ -114,87 +185,32 @@
                                                 <label for="checkbox6-444">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
-                                                    <span class="box"></span> Ship to different address? </label>
+                                                    <span class="box"></span> آدرس ارسال تفاوت دارد ؟ </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="c-shipping-address">
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Country</label>
-                                            <select class="form-control c-square c-theme">
-                                                <option value="1">Malaysia</option>
-                                                <option value="2">Singapore</option>
-                                                <option value="3">Indonesia</option>
-                                                <option value="4">Thailand</option>
-                                                <option value="5">China</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label">First Name</label>
-                                                    <input type="text" class="form-control c-square c-theme" placeholder="First Name"> </div>
-                                                <div class="col-md-6">
-                                                    <label class="control-label">Last Name</label>
-                                                    <input type="text" class="form-control c-square c-theme" placeholder="Last Name"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Company Name</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Company Name"> </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Address</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Street Address"> </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Apartment, suite, unit etc. (optional)"> </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Town / City</label>
-                                            <input type="text" class="form-control c-square c-theme" placeholder="Town / City"> </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label">State / County</label>
-                                                    <select class="form-control c-square c-theme">
-                                                        <option value="0">Select an option...</option>
-                                                        <option value="1">Malaysia</option>
-                                                        <option value="2">Singapore</option>
-                                                        <option value="3">Indonesia</option>
-                                                        <option value="4">Thailand</option>
-                                                        <option value="5">China</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="control-label">Postcode / Zip</label>
-                                                    <input type="text" class="form-control c-square c-theme" placeholder="Postcode / Zip"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label">Email Address</label>
-                                                    <input type="email" class="form-control c-square c-theme" placeholder="Email Address"> </div>
-                                                <div class="col-md-6">
-                                                    <label class="control-label">Phone</label>
-                                                    <input type="tel" class="form-control c-square c-theme" placeholder="Phone"> </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                       <div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label class="control-label">آدرس </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad_e; ?>">
+								</div>
+						   </div>
+						</div>
+					<div class="form-group">
+							<div class="row">
+								<div class="col-md-6" >
+									<label class="control-label">ادامه آدرس </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="ad2_e" value="<?php echo $t_e; ?>">
+								</div>
+								<div class="col-md-6" >
+									<label class="control-label">تلفن </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t_e" value="<?php echo $t_e; ?>">
+								</div>
+							</div>
+				       </div>
                                 </div>
                                 <!-- SHIPPING ADDRESS -->
                                 <div class="row">
