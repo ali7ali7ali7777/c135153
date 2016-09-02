@@ -1,4 +1,4 @@
-
+2
         <?php require_once "header.php";?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
@@ -21,7 +21,11 @@ $u_c = $row_p["user_name"];
 $f_c = $row_p["user_family"];						   
 $ca_c = $row_p["user_country"];	
 $ci_c = $row_p["user_city"];	
-					   
+$ad1_e = $row_p["user_address1"];
+$t1_e = $row_p["user_tell1"];
+$ad2_e = $row_p["user_address2"];
+$t2_e = $row_p["user_tell2"];
+                                
 if (isset($_POST['send']))
 {
 	$send = get_safe_post($mysqlicheck,"send");
@@ -141,7 +145,7 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-12">
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>">
 								</div>
 						   </div>
 						</div>
@@ -149,30 +153,25 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-6" >
 									<label class="control-label">ادامه آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="ad2_e" value="<?php echo $t_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead1_e" value="<?php echo $ead1_e; ?>">
 								</div>
 								<div class="col-md-6" >
 									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t_e" value="<?php echo $t_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t_e; ?>">
 								</div>
 							</div>
 				       </div>
                                 <div class="row c-margin-t-15">
                                     <div class="form-group col-md-12">
-                                        <div class="c-checkbox c-toggle-hide" data-object-selector="c-account" data-animation-speed="600">
+                                        <div class="c-checkbox c-toggle-hide">
                                             <input type="checkbox" id="checkbox1-77" class="c-check">
                                             <label for="checkbox1-77">
                                                 <span class="inc"></span>
                                                 <span class="check"></span>
                                                 <span class="box"></span> ایجاد یک حساب کاربری ؟ </label>
                                         </div>
-                                        <p class="help-block">Create an account by entering the information below. If you are a returning customer please login.</p>
+                                        <p class="help-block">با وارد نمودن اطلاعات بالا و انتخاب (ایجاد یک حساب کاربری ؟) یک حساب کاربری برای خود ایجاد نمائید .<br />اگر شما مشتری گذشته هستید لطفاً  وارد سیستم شوید .</p>
                                     </div>
-                                </div>
-                                <div class="row c-account">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Account Password</label>
-                                        <input type="password" class="form-control c-square c-theme" placeholder="Password"> </div>
                                 </div>
                                 <!-- BILLING ADDRESS -->
                                 <!-- SHIPPING ADDRESS -->
@@ -195,7 +194,7 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-12">
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad2_e" value="<?php echo $ad2_e; ?>">
 								</div>
 						   </div>
 						</div>
@@ -203,11 +202,11 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-6" >
 									<label class="control-label">ادامه آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="ad2_e" value="<?php echo $t_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead2_e" value="<?php echo $ead2_e; ?>">
 								</div>
 								<div class="col-md-6" >
 									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t_e" value="<?php echo $t_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t2_e" value="<?php echo $t2_e; ?>">
 								</div>
 							</div>
 				       </div>
@@ -215,8 +214,8 @@ if (isset($_POST['send']))
                                 <!-- SHIPPING ADDRESS -->
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label class="control-label">Order Notes</label>
-                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="Note about your order, e.g. special notes for delivery."></textarea>
+                                        <label class="control-label">یادداشت برای سفارش شما</label>
+                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="در مورد سفارش خود توجه داشته باشید ، به عنوان مثال، یادداشت ویژه برای تحویل."></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -224,14 +223,14 @@ if (isset($_POST['send']))
                             <!-- BEGIN: ORDER FORM -->
                             <div class="col-md-5">
                                 <div class="c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
-                                    <h1 class="c-font-bold c-font-uppercase c-font-24">Your Order</h1>
+                                    <h1 class="c-font-bold c-font-uppercase c-font-24">سفارش شما</h1>
                                     <ul class="c-order list-unstyled">
                                         <li class="row c-margin-b-15">
                                             <div class="col-md-6 c-font-20">
-                                                <h2>Product</h2>
+                                                <h2>محصول</h2>
                                             </div>
                                             <div class="col-md-6 c-font-20">
-                                                <h2>Total</h2>
+                                                <h2>جمع</h2>
                                             </div>
                                         </li>
                                         <li class="row c-border-bottom"></li>
@@ -240,7 +239,7 @@ if (isset($_POST['send']))
                                                 <a href="shop-product-details.html" class="c-theme-link">1x Winter Coat</a>
                                             </div>
                                             <div class="col-md-6 c-font-20">
-                                                <p class="">$30.99</p>
+                                                <p class=""> 2000 ريال</p>
                                             </div>
                                         </li>
                                         <li class="row c-margin-b-15 c-margin-t-15">
@@ -248,20 +247,20 @@ if (isset($_POST['send']))
                                                 <a href="shop-product-details-2.html" class="c-theme-link">Sports Wear x 1</a>
                                             </div>
                                             <div class="col-md-6 c-font-20">
-                                                <p class="">$30.99</p>
+                                                <p class="">50000 ريال</p>
                                             </div>
                                         </li>
                                         <li class="row c-margin-b-15 c-margin-t-15">
-                                            <div class="col-md-6 c-font-20">Subtotal</div>
+                                            <div class="col-md-6 c-font-20">جمع جزء</div>
                                             <div class="col-md-6 c-font-20">
-                                                <p class="">$
-                                                    <span class="c-subtotal">61.98</span>
+                                                <p class="">
+                                                   <span class="c-subtotal">61.98</span> ريال
                                                 </p>
                                             </div>
                                         </li>
                                         <li class="row c-border-top c-margin-b-15"></li>
                                         <li class="row">
-                                            <div class="col-md-6 c-font-20">Shipping</div>
+                                            <div class="col-md-6 c-font-20">حمل</div>
                                             <div class="col-md-6">
                                                 <div class="c-radio-list c-shipping-calculator" data-name="shipping_price" data-subtotal-selector="c-subtotal" data-total-selector="c-shipping-total">
                                                     <div class="c-radio">
@@ -269,34 +268,34 @@ if (isset($_POST['send']))
                                                         <label for="radio11">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Flat Rate </label>
-                                                        <p class="c-shipping-price c-font-bold c-font-20">$20.00</p>
+                                                            <span class="box"></span>پیشتاز  </label>
+                                                        <p class="c-shipping-price c-font-bold c-font-20">80000 ريال</p>
                                                     </div>
                                                     <div class="c-radio">
                                                         <input type="radio" value="10" id="radio12" class="c-radio" name="shipping_price">
                                                         <label for="radio12">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Local Delivery </label>
-                                                        <p class="c-shipping-price c-font-bold c-font-20">$10.00</p>
+                                                            <span class="box"></span> تحویل در محل </label>
+                                                        <p class="c-shipping-price c-font-bold c-font-20">50000 ريال</p>
                                                     </div>
                                                     <div class="c-radio">
                                                         <input type="radio" value="0" id="radio13" class="c-radio" name="shipping_price">
                                                         <label for="radio13">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Local Pickup </label>
+                                                            <span class="box"></span>ارسال عادی </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="row c-margin-b-15 c-margin-t-15">
-                                            <div class="col-md-6 c-font-20">
-                                                <p class="c-font-30">Total</p>
+                                            <div class="col-md-5 c-font-20">
+                                                <p class="c-font-30">جمع کل :</p>
                                             </div>
-                                            <div class="col-md-6 c-font-20">
-                                                <p class="c-font-bold c-font-30">$
-                                                    <span class="c-shipping-total">81.98</span>
+                                            <div class="col-md-7 c-font-20">
+                                                <p class="c-font-bold c-font-30">
+                                                    <span class="c-shipping-total">28900000</span> ريال
                                                 </p>
                                             </div>
                                         </li>
@@ -324,7 +323,7 @@ if (isset($_POST['send']))
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
                                                             <span class="box"></span> Paypal </label>
-                                                        <img class="img-responsive" width="250" src="https://www.paypalobjects.com/webstatic/mktg/Logo/AM_mc_vs_ms_ae_UK.png" /> </div>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -335,14 +334,14 @@ if (isset($_POST['send']))
                                                     <label for="checkbox1-11">
                                                         <span class="inc"></span>
                                                         <span class="check"></span>
-                                                        <span class="box"></span> I’ve read and accept the Terms & Conditions </label>
+                                                        <span class="box"></span>من مقررات را خوانده ام و این شرایط را قبول دارم </label>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="row">
                                             <div class="form-group col-md-12" role="group">
-                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
-                                                <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">Cancel</button>
+                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ارسال</button>
+                                                <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">صرفنظر</button>
                                             </div>
                                         </li>
                                     </ul>

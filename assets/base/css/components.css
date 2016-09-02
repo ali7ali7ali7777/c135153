@@ -6543,7 +6543,7 @@ h1 {
     visibility: hidden;
     position: absolute; }
   .c-radio label {
-    line-height: 1px;
+   /* line-height: 1px;*/
     cursor: pointer;
     padding-right: 30px; }
   .c-radio label > span {

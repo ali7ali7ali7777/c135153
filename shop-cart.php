@@ -66,7 +66,7 @@ if(isset($_SESSION["cart_item"])){
                     <div class="c-shop-cart-page-1">
                        <div class="c-cart-buttons">
                             <a href="index.php" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase ">ادامه خرید</a>
-                            <a href="#" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">پرداخت</a>
+                            <a href="shop-checkout.php" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">پرداخت</a>
                         </div>
 						<br>
                         <div class="row c-cart-table-title">
@@ -200,7 +200,7 @@ if(isset($_SESSION["cart_item"])){
                         <div class="c-cart-buttons">
                             <a href="index.php" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-r">ادامه خرید</a>
                             <a href="" class="btn c-btn btn-lg c-btn-yellow-1 c-btn-square c-font-white c-font-bold c-font-uppercase " id="empty">خالی کردن سبد</a>
-                            <a href="#" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">پرداخت</a>
+                            <a href="shop-checkout.php" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">پرداخت</a>
                         </div>
                     </div>
                 </div>

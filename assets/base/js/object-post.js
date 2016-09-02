@@ -28,7 +28,7 @@ $(document).ready(function() {
 		var j_user = $("input[name=user_id]").val();
 		var j_ch_1 = $("input[name=ch_1]").val();
 		var j_ch_2 = $("input[name=ch_2]").val();
-		if ( $( this ).attr("id") == 'ad_s' && j_ch_1 == 11 ){
+		if ( $( this ).attr("id") == 'ad_s' && j_ch_2 == 11 ){
 			$.post("shop-cart.php",
 			  {quantity : j_quan,
 			   pic1 : j_pic1,
@@ -41,14 +41,14 @@ $(document).ready(function() {
 			$("#myModal2 .2").css("display","none");
 			$("#myModal2").modal();
 		}
-		else if ( $( this ).attr("id") == 'ad_s' && j_ch_1 != 11 ){
+		else if ( $( this ).attr("id") == 'ad_s' && j_ch_2 != 11 ){
 			$("#myModal2 .3").css("display","none");
 			$('#myModal2').modal();
 		}
 		if ( $( this ).attr("id") == 'ad_w' ){
 			if(j_user != "")
 			{
-				if(j_ch_2 == 11 )
+				if(j_ch_1 == 11 )
 				{
 					$.post("shop-product-wishlist.php",
 						   {code: j_code,
@@ -56,7 +56,7 @@ $(document).ready(function() {
 					$("#myModal1 .2").css("display","none");
 					$("#myModal1").modal();
 				}
-				else if (j_ch_2 != 11 )
+				else if (j_ch_1 != 11 )
 				{
 					$("#myModal1 .3").css("display","none");
 					$("#myModal1").modal();	
