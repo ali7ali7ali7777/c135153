@@ -10,15 +10,15 @@ if(!empty($send))
 {
 	switch($send)
 	{
-		case "forget":
+		case 'forget':
 			$f_e = get_safe_post($mysqlicheck,"f_e");
 			if ($f_e != "")
 			{
 				$result_f = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$f_e."'");
 				if ($result_f->num_rows > 0)
 				{
-					$p_f = createRandomPassword(); 
-					$sql_f = mysqli_query($mysqlicheck,'UPDATE `user` SET `user_pass`= "'.md5($p_f).'" WHERE `user_email` = "'.$f_e.'" ');
+					$p_f = createRandomPassword();
+					$sql_f = "UPDATE user SET user_pass = '".md5($p_f)."' WHERE user_email = '".$f_e."'";
 					$result_f = $mysqlicheck->query($sql_f);
                     if (!$result_f)
 					{
@@ -60,7 +60,7 @@ if(!empty($send))
 				$mas_f = 1 ;
 			}
 		break;
-		case "create":
+		case 'create':
 			$e_c = get_safe_post($mysqlicheck,"e_c");
 			$f_c = get_safe_post($mysqlicheck,"f_c");
 			$p_c = createRandomPassword(); 
@@ -115,7 +115,7 @@ if(!empty($send))
 				$mas_c = 1;
 			}
 		break;
-		case "login":
+		case 'login':
 			$e_v = get_safe_post($mysqlicheck,"e_v");
 			$p_v = get_safe_post($mysqlicheck,"p_v");
 			if ($e_v != "" || $p_v != "")
@@ -153,7 +153,7 @@ if(!empty($send))
 				$mas_l = 1 ;
 			}
 		break;
-		case "out":
+		case 'out':
 			unset($_SESSION["login"]);
 		break;
 	}
@@ -230,7 +230,7 @@ function createRandomPassword($length = 8) {
 			{
 				echo '<div class="alert alert-warning" role="alert">کاربری با این مشخصات وجود ندارد . </div>';
 			}
-			if (isset($_GET['o']))
+			if ($_GET['o'] == 'o')
 			{
 				echo '<div class="alert alert-success" role="alert">خروج شما با موفقیت صورت پذیرفت .</div>';
 				echo "<script>
@@ -255,11 +255,11 @@ function createRandomPassword($length = 8) {
                                     <div class="panel-body c-panel-body">
                                         <form class="c-form-login" method="post">
                                             <div class="form-group has-feedback">
-                                                <input type="text" class="form-control c-square c-theme input-lg" placeholder=" ایمیل یا نام کاربری" name="e_v" value="<?php echo $e_v; ?>">
+                                                <input type="text" class="form-control c-square c-theme input-lg" placeholder=" لطفاً ایمیل خود را وارد نمائید ." name="e_v" value="<?php echo $e_v; ?>">
                                                 <span class="glyphicon glyphicon-user form-control-feedback c-font-grey"></span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <input type="password" class="form-control c-square c-theme input-lg" placeholder="پسورد" name="p_v" value="<?php echo $p_v; ?>">
+                                                <input type="password" class="form-control c-square c-theme input-lg" placeholder="لطفاً رمز عبور خود را وارد نمائید ." name="p_v" value="<?php echo $p_v; ?>">
                                                 <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
                                             </div>
                                             <div class="row c-margin-t-20">

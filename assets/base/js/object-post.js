@@ -70,7 +70,7 @@ $(document).ready(function() {
 		
 	});
 	$("#out").click(function(){
-		$.post('login.php',
+		$.post('login.php?o=o',
 		{send: 'out'});
 	});
 	$("#edame").click(function(){

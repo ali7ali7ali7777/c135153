@@ -46,7 +46,7 @@ if ($res_h1->num_rows > 0)
 
 	while($row_h1=mysqli_fetch_assoc($res_h1))
 	{
-		$res_h2 = mysqli_query($mysqlicheck,"SELECT * FROM `object` WHERE `object_id` = '".$row_h1['object_out_id']."'");
+		$res_h2 = mysqli_query($mysqlicheck,"SELECT * FROM `object` WHERE `object_code` = '".$row_h1['object_out_code']."'");
 		if ($res_h2->num_rows > 0)
 		{
 			$it = 1 ;
@@ -100,7 +100,7 @@ if ($res_h1->num_rows > 0)
                             <div class="col-md-2 col-sm-6 col-xs-6 c-cart-desc">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">نام کالا</p>
                                 <p>
-                                    <a href="shop-product-details-2.html" class="c-font-bold c-theme-link c-font-dark"><?php echo $row_h2['object_out_factor']; ?></a>
+                                    <a href="shop-product-details.php?code=<?php echo $row_h2['object_code']; ?>" class="c-font-bold c-theme-link c-font-dark"><?php echo $row_h2['object_name']; ?></a>
                                 </p>
                             </div>
                             <div class="clearfix col-md-2 col-sm-3 col-xs-6 c-cart-price">

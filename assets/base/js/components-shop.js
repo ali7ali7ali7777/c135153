@@ -59,6 +59,7 @@ var LayoutCheckboxVisibilityToggle = function () {
 // BEGIN: Layout Shipping Calculator
 var LayoutShippingCalculator = function () {
 
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -66,12 +67,12 @@ var LayoutShippingCalculator = function () {
 				$radio_name = $($shipping_calculator).data('name'),
 				$total_placeholder = $($shipping_calculator).data('total-selector'),
 				$subtotal_placeholder = $($shipping_calculator).data('subtotal-selector'),
-				$subtotal = parseFloat($('.' + $subtotal_placeholder).text());
-
+				$subtotal = parseInt($('.' + $subtotal_placeholder).text().replace( /,/g, '' ));
+				
 			$('input[name=' + $radio_name + ']', $shipping_calculator).on('change', function () {
-				var $price = parseFloat($('input[name=' + $radio_name + ']:checked', $shipping_calculator).val()),
-					$overall_total = $subtotal + $price;
-				$('.' + $total_placeholder).text($overall_total.toFixed(2));
+				var $price = parseInt($('input[name=' + $radio_name + ']:checked', $shipping_calculator).val()),
+					$overall_total =($subtotal + $price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+				$('.' + $total_placeholder).text($overall_total);
 			});
 		}
 	};

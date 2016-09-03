@@ -71,7 +71,7 @@ $user_name = $_SESSION["login"]["name"];
           <?php if ($user_ty ==  "user" or $user_ty =="modir") {?>
           <li class="c-divider"></li>
           <li> <a href="shop-customer-dashboard.php" class="c-font-uppercase c-font-bold">ناحیه کاربری</a> </li>
-		  <li> <a href="login.php?o"  class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" id="out">خروج</a> </li>
+		  <li> <a href="login.php?o=o"  class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" id="out">خروج</a> </li>
           <?php }else{ ?>
           <li> <a href="login.php" class="btn c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" >ورود</a> </li>
           <?php }  ?>

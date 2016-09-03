@@ -10,45 +10,6 @@
                             <!-- BEGIN: ADDRESS FORM -->
                             <div class="col-md-7 c-padding-20">
 <?php                              
-
-                                
-if (isset($_POST['send']))
-{
-	$send = get_safe_post($mysqlicheck,"send");
-	if ($send == "cancel")
-	{
-		echo "<script>setTimeout(function(){window.location.href='shop-cart.php';}, 1); 
-			</script>";
-		exit();
-	}
-	elseif($send == "send")
-	{
-        $e_c = get_safe_post($mysqlicheck,"e_c");
-		$f_c = get_safe_post($mysqlicheck,"f_c");
-		$u_c = get_safe_post($mysqlicheck,"u_c");
-		$ca_c = get_safe_post($mysqlicheck,"ca_c");
-		$ci_c = get_safe_post($mysqlicheck,"ci_c");
-		$ad1_e = get_safe_post($mysqlicheck,"ad1_e");
-        $ead1_e = get_safe_post($mysqlicheck,"ead1_e");
-        $t1_e = get_safe_post($mysqlicheck,"t1_e");
-		$ad2_e = get_safe_pxost($mysqlicheck,"ad2_e");
-	    $ead2_e = get_safe_post($mysqlicheck,"ead2_e");
-        $t2_e = get_safe_post($mysqlicheck,"t2_e");
-        $note = get_safe_post($mysqlicheck,"note");
-        
-        if($user_id == "")
-        {
-			
-        }
-		elseif($user_id != "")
-        {
-            
-            
-        }
-	}
-}
-                                
-                                
                                 
 $sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
 if ($sel_p->num_rows > 0)
@@ -65,24 +26,158 @@ $ad1_e = $row_p["user_address1"];
 $t1_e = $row_p["user_tell1"];
 $ad2_e = $row_p["user_address2"];
 $t2_e = $row_p["user_tell2"];
+$note = get_safe_post($mysqlicheck,"note");
 
+								
+if (isset($_POST['send']))
+{
+	$send = get_safe_post($mysqlicheck,"send");
+	if ($send == "cancel")
+	{
+		echo "<script>setTimeout(function(){window.location.href='shop-cart.php';}, 1); 
+			</script>";
+		exit();
+	}
+	elseif($send == "send")
+	{
+        $ad2_e = get_safe_post($mysqlicheck,"ad2_e");
+	    $t2_e = get_safe_post($mysqlicheck,"t2_e");
+        $new_c = get_safe_post($mysqlicheck,"new_c");
+		$new_s = get_safe_post($mysqlicheck,"new_s");
+		
+		if($user_id == "")
+        {
+			$e_c = get_safe_post($mysqlicheck,"e_c");
+			$f_c = get_safe_post($mysqlicheck,"f_c");
+			$u_c = get_safe_post($mysqlicheck,"u_c");
+			$ca_c = get_safe_post($mysqlicheck,"ca_c");
+			$ci_c = get_safe_post($mysqlicheck,"ci_c");
+			$ad1_e = get_safe_post($mysqlicheck,"ad1_e");
+			$t1_e = get_safe_post($mysqlicheck,"t1_e");
+			$p_c = createRandomPassword();
+			
+			if ($new_c == 'yes' && $e_c!="" && $f_c!="" && $u_c!="" && $ad1_e!="" && $ca_c!="" && $ci_c!="" && $t1_e!="" )
+			{
+				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
+				if ($result_c->num_rows > 0)
+				{
+					echo  '<div class="alert alert-warning" role="alert">کاربری با این ایمیل قبلاً ثبت شده است . </div>';
+				}
+				else
+				{
+					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`, `user_pass`, `user_type`, `user_tell1`, `user_address1`,  `user_city`, `user_country`) VALUES ("'.$u_c.'","'.$f_c.'","'.$e_c.'","'.md5($p_c).'", 2 ,"'.$t1_e.'", "'.$ad1_e.'", "'.$ci_c.'", "'.$ca_c.'")';
+					$result_c1 = $mysqlicheck->query($sql_c);
+                    if (!$result_c1)
+					{
+						echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';	
+					}
+					else
+					{
+						$to = $e_c ;
+						$subject = 'ثبت نام شما کامل شد - رمز عبور ';
+						/* Let's Prepare The Message For The E-mail */
+						$message = "سلام  \n\n" .$u_c." ".$f_c." \n\n
+						ایمیل و پسورد شما به شرح زیر است :
+						ایمیل : ".$e_c."\n
+						پسورد شما : ".$p_c."\n\n
+						شما می توانید با ایمیل و پسورد بالا وارد شوید ." ;
+						/* Send The Message Using mail() Function */
+						if(mail($to, $subject, $message ))
+						{
+							echo '<div class="alert alert-success" role="alert">'.$u_c.' '.$f_c.' عزیز ثبت نام شما با موفقیت صورت پذیرفت و رمز عبور شما به ایمیل '.$e_c.' ارسال گردید . پس از مشاهده رمز عبور خود وارد سامانه شده و ادامه خرید خود را انجام دهید . </div>';
+							echo "<script>setTimeout(function(){window.location.href='login.php';}, 5000); 
+							  </script>";
+						}
+						else
+						{
+							echo '<div class="alert alert-info" role="alert">'.$u_c.' '.$f_c.' عزیز ثبت نام شما با موفقیت صورت پذیرفت ولی هنگام ارسال رمز عبور به ایمیل '.$e_c.' خطایی رخ داده است از صفحه <a href="page-about.php"><span class="c-theme-font">ارتباط با ما </span></a> مشکل خود را مطرح نمایید تا پیگیری شود .</div>';
+						}
+					}
+				}
+			}
+			else
+			{
+				echo '<div class="alert alert-warning" role="alert">جهت ثبت نام تیک (ایجاد یک حساب کاربری ؟ ) را زده و فیلدهای بالای آنرا تماماً پر نمائید .</div>';
+			}
+        }
+		elseif($user_id != "")
+        {
+			if($new_s == 'yes' && $t2_e != '' && $ad2_e != '')
+			{
+				$sql_f = 'UPDATE user SET user_tell2 = "'.$t2_e.'", user_address2 = "'.$ad2_e.'" WHERE user_id = "'.$user_id.'"';
+				$result_f = $mysqlicheck->query($sql_f);
+				if(!$result_f)
+				{
+					echo '<div class="alert alert-danger" role="alert">بروز رسانی آدرس با خطا مواجه گردید . </div>';
+				}
+				else
+				{
+					echo '<div class="alert alert-success" role="alert">آدرس ارسال شما با موفقیت بروز رسانی گردید .</div>';
+				}
+			}
+			else
+			{
+				echo '<div class="alert alert-warning" role="alert"> در صورتی که آدرس ارسال شما تفاوت دارد تیک (آدرس ارسال تفاوت دارد؟) را زده و هر دو فیلد را پر نمائید . در غیر این صورت بر روی نهایی نمودن خرید کلیک نمائید .</div>';
+			}
+        }
+	}
+	elseif($send == "end_s")
+	{
+		$result7 = mysqli_query($mysqlicheck,"SELECT MAX(object_out_factor) FROM object_out "); 
+		$max2=mysqli_fetch_row($result7);
+		if (!$max2[0])
+			$o_o_f = 1000 ;
+		
+		else
+			$o_o_f = $max2[0] + 1 ;
+		
+		
+		foreach ($_SESSION["cart_item"] as $c_item)
+		{
+			$sql_en = 'INSERT INTO `object_out`( `object_out_code`, `object_out_person_id`, `object_out_type`, `object_out_sales_price`, `object_out_preamble`, `object_out_factor`, `object_out_qun` ) VALUES ("'.$c_item["code"].'","'.$user_id.'", 2 ,"'.$c_item["price"].'","'.$note.'","'.$o_o_f.'" , "'.$c_item["quantity"].'" )';
+			$res_en = $mysqlicheck->query($sql_en);
+		}
+		if($res_en)
+		{
+			echo 'yes';
+			unset($_SESSION["cart_item"]);
+		}
+		else
+		{
+			echo 'no';
+		}
+	
+	}
+}
+
+                                
+function createRandomPassword($length = 8) {
+		$chars = "abcdefghijkmnopqrstuvwxyz023456789";
+		$max = strlen($chars) - 1;
+
+		$pass = '' ;
+		for ($i = 0; $i < $length; ++$i) {
+			$pass .= $chars[mt_rand(0, $max)];
+		}
+		return $pass;
+	}                                 
 ?>       
-                               
+                               <?php if ($user_id == "") { ?>
                                 <!-- BEGIN: BILLING ADDRESS -->
                                 <h3 class="c-font-bold c-font-uppercase c-font-24">مشخصات پروفایل</h3>
                                 <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="control-label">نام</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>"   <?php if ($user_id != "") echo "disabled"?>>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>" >
                                 </div>
                                 <div class="col-md-4">
                                     <label class="control-label">نام خانوادگی</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>"   <?php if ($user_id != "") echo "disabled"?>>
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>">
                                 </div>
                                 <div class="col-md-6">
 									<label class="control-label">آدرس ایمیل </label>
-									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>" >
 								</div>
                             </div>
                         </div>
@@ -90,39 +185,33 @@ $t2_e = $row_p["user_tell2"];
 							<div class="row">
 								<div class="col-md-6">
 									<label class="control-label">استان </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="استان" name="ca_c" value="<?php echo $ca_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="text" class="form-control c-square c-theme" placeholder="استان" name="ca_c" value="<?php echo $ca_c; ?>"  >
 								</div>
 								<div class="col-md-6">
 									<label class="control-label">شهر </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="شهر" name="ci_c" value="<?php echo $ci_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="text" class="form-control c-square c-theme" placeholder="شهر" name="ci_c" value="<?php echo $ci_c; ?>"  >
 								</div>
 							</div>
 				       </div>
+                           <?php  }?>
+                                  
                                <h3 class="c-font-bold c-font-uppercase c-font-24">آدرس قبض</h3>
-                         <div class="form-group">
+                      <div class="form-group">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-9" >
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
-						   </div>
-						</div>
-					<div class="form-group">
-							<div class="row">
-								<div class="col-md-6" >
-									<label class="control-label">ادامه آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead1_e" value="<?php echo $ead1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
-								</div>
-								<div class="col-md-6" >
+								<div class="col-md-3" >
 									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 							</div>
 				       </div>   <?php if ($user_id == "") { ?>
                                 <div class="row c-margin-t-15">
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox c-toggle-hide">
-                                            <input type="checkbox" id="checkbox1-77" class="c-check" name="new_c">
+                                            <input type="checkbox" id="checkbox1-77" class="c-check" name="new_c" value="yes">
                                             <label for="checkbox1-77">
                                                 <span class="inc"></span>
                                                 <span class="check"></span>
@@ -139,7 +228,7 @@ $t2_e = $row_p["user_tell2"];
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox-inline">
                                             <div class="c-checkbox c-toggle-hide" data-object-selector="c-shipping-address" data-animation-speed="600">
-                                                <input type="checkbox" id="checkbox6-444" class="c-check" name="new_s">
+                                                <input type="checkbox" id="checkbox6-444" class="c-check" name="new_s" value="yes">
                                                 <label for="checkbox6-444">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -149,21 +238,13 @@ $t2_e = $row_p["user_tell2"];
                                     </div>
                                 </div>
                                 <div class="c-shipping-address">
-                       <div class="form-group">
+                   <div class="form-group">
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-9" >
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad2_e" value="<?php echo $ad2_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ad2_e" value="<?php echo $ad2_e; ?>">
 								</div>
-						   </div>
-						</div>
-					<div class="form-group">
-							<div class="row">
-								<div class="col-md-6" >
-									<label class="control-label">ادامه آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead2_e" value="<?php echo $ead2_e; ?>">
-								</div>
-								<div class="col-md-6" >
+								<div class="col-md-3" >
 									<label class="control-label">تلفن </label>
 									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t2_e" value="<?php echo $t2_e; ?>">
 								</div>
@@ -174,9 +255,15 @@ $t2_e = $row_p["user_tell2"];
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label class="control-label">یادداشت برای سفارش شما</label>
-                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="در مورد سفارش خود توجه داشته باشید ، به عنوان مثال، یادداشت ویژه برای تحویل." name="note"></textarea>
+                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="در مورد سفارش خود توجه داشته باشید ، به عنوان مثال، یادداشت ویژه برای تحویل." name="note" ><?php echo $note ;?></textarea>
+                                        
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                               			 <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="send">ارسال</button>
+									</div>
+								</div>
                             </div>
                             <!-- END: ADDRESS FORM -->
                             <!-- BEGIN: ORDER FORM -->
@@ -193,27 +280,31 @@ $t2_e = $row_p["user_tell2"];
                                             </div>
                                         </li>
                                         <li class="row c-border-bottom"></li>
+                             <?php
+							
+						if(isset($_SESSION["cart_item"])){
+							$item_total = 0;			
+							
+							foreach ($_SESSION["cart_item"] as $c_item){
+							?>
                                         <li class="row c-margin-b-15 c-margin-t-15">
                                             <div class="col-md-6 c-font-20">
-                                                <a href="shop-product-details.html" class="c-theme-link">1x Winter Coat</a>
+                                                <a href="shop-product-details.php?code=<?php echo $c_item["code"]; ?>" class="c-theme-link"><?php echo $c_item["name"]; ?> &times; <?php echo $c_item["quantity"]; ?></a>
                                             </div>
                                             <div class="col-md-6 c-font-20">
-                                                <p class=""> 2000 ريال</p>
+                                                <p class=""> <?php echo number_format($c_item["price"]*$c_item["quantity"]) ;  ?> ريال</p>
                                             </div>
                                         </li>
-                                        <li class="row c-margin-b-15 c-margin-t-15">
-                                            <div class="col-md-6 c-font-20">
-                                                <a href="shop-product-details-2.html" class="c-theme-link">Sports Wear x 1</a>
-                                            </div>
-                                            <div class="col-md-6 c-font-20">
-                                                <p class="">50000 ريال</p>
-                                            </div>
-                                        </li>
+                                <?php
+								$item_total += ($c_item["price"]*$c_item["quantity"]) ;
+							}
+						}
+								?>
                                         <li class="row c-margin-b-15 c-margin-t-15">
                                             <div class="col-md-6 c-font-20">جمع جزء</div>
                                             <div class="col-md-6 c-font-20">
                                                 <p class="">
-                                                   <span class="c-subtotal">61.98</span> ريال
+                                                   <span class="c-subtotal"><?php echo number_format($item_total);  ?></span> ريال
                                                 </p>
                                             </div>
                                         </li>
@@ -223,20 +314,20 @@ $t2_e = $row_p["user_tell2"];
                                             <div class="col-md-6">
                                                 <div class="c-radio-list c-shipping-calculator" data-name="shipping_price" data-subtotal-selector="c-subtotal" data-total-selector="c-shipping-total">
                                                     <div class="c-radio">
-                                                        <input type="radio" value="20" id="radio11" class="c-radio" name="shipping_price" checked="">
+                                                        <input type="radio" value="80000" id="radio11" class="c-radio" name="shipping_price" checked="">
                                                         <label for="radio11">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
                                                             <span class="box"></span>پیشتاز  </label>
-                                                        <p class="c-shipping-price c-font-bold c-font-20">80000 ريال</p>
+                                                        <p class="c-shipping-price c-font-bold c-font-20">80,000 ريال</p>
                                                     </div>
                                                     <div class="c-radio">
-                                                        <input type="radio" value="10" id="radio12" class="c-radio" name="shipping_price">
+                                                        <input type="radio" value="50000" id="radio12" class="c-radio" name="shipping_price">
                                                         <label for="radio12">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
                                                             <span class="box"></span> تحویل در محل </label>
-                                                        <p class="c-shipping-price c-font-bold c-font-20">50000 ريال</p>
+                                                        <p class="c-shipping-price c-font-bold c-font-20">50,000 ريال</p>
                                                     </div>
                                                     <div class="c-radio">
                                                         <input type="radio" value="0" id="radio13" class="c-radio" name="shipping_price">
@@ -254,7 +345,7 @@ $t2_e = $row_p["user_tell2"];
                                             </div>
                                             <div class="col-md-7 c-font-20">
                                                 <p class="c-font-bold c-font-30">
-                                                    <span class="c-shipping-total">28900000</span> ريال
+                                                    <span class="c-shipping-total"><?php echo number_format($item_total+80000);  ?></span> ريال
                                                 </p>
                                             </div>
                                         </li>
@@ -266,7 +357,8 @@ $t2_e = $row_p["user_tell2"];
                                                         <label for="radio1" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Direct Bank Transfer </label>
+                                                            <span class="box"></span> Direct Bank Transfer 
+                                                        </label>
                                                         <p class="help-block">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
                                                     </div>
                                                     <div class="c-radio">
@@ -274,15 +366,17 @@ $t2_e = $row_p["user_tell2"];
                                                         <label for="radio2" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Cheque Payment </label>
+                                                            <span class="box"></span> Cheque Payment
+                                                        </label>
                                                     </div>
                                                     <div class="c-radio">
                                                         <input type="radio" id="radio3" class="c-radio" name="payment">
                                                         <label for="radio3" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Paypal </label>
-                                                        </div>
+                                                            <span class="box"></span> Paypal 
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -293,13 +387,14 @@ $t2_e = $row_p["user_tell2"];
                                                     <label for="checkbox1-11">
                                                         <span class="inc"></span>
                                                         <span class="check"></span>
-                                                        <span class="box"></span>من مقررات را خوانده ام و این شرایط را قبول دارم </label>
+                                                        <span class="box"></span>من شرایط را خوانده ام و این مقررات را قبول دارم 
+                                                    </label>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="row">
                                             <div class="form-group col-md-12" role="group">
-                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="send">ارسال</button>
+                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="end_s">نهایی نمودن خرید </button>
                                                 <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" name="send" value="cancel">صرفنظر</button>
                                             </div>
                                         </li>
