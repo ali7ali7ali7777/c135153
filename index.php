@@ -252,7 +252,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                     <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src; ?>);">
                                     </div>
                                 </div>
-                                <div class"c-info">
+                                <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name'] ; ?></p>
                            <?php
 							if ($row_i5['object_sale_di'] != "")
@@ -364,7 +364,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
 							?>
                                 </div>
                                 <div class="btn-group btn-group-justified" role="group">
-                                    <div class="btn-group c-border-top\" role="group">
+                                    <div class="btn-group c-border-top" role="group">
                                         <a href="shop-product-wishlist.php" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a>
                                     </div>
                                     <div class="btn-group c-border-left c-border-top" role="group">

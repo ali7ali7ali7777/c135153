@@ -5,16 +5,56 @@
 			<!-- BEGIN: PAGE CONTENT -->
             <div class="c-content-box c-size-lg">
                 <div class="container">
-                    <form class="c-shop-form-1">
+                    <form class="c-shop-form-1" method="post">
                         <div class="row">
                             <!-- BEGIN: ADDRESS FORM -->
                             <div class="col-md-7 c-padding-20">
 <?php                              
- $sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
-				if ($sel_p->num_rows > 0)
-				{
-					$row_p=mysqli_fetch_assoc($sel_p);
-				}                              
+
+                                
+if (isset($_POST['send']))
+{
+	$send = get_safe_post($mysqlicheck,"send");
+	if ($send == "cancel")
+	{
+		echo "<script>setTimeout(function(){window.location.href='shop-cart.php';}, 1); 
+			</script>";
+		exit();
+	}
+	elseif($send == "send")
+	{
+        $e_c = get_safe_post($mysqlicheck,"e_c");
+		$f_c = get_safe_post($mysqlicheck,"f_c");
+		$u_c = get_safe_post($mysqlicheck,"u_c");
+		$ca_c = get_safe_post($mysqlicheck,"ca_c");
+		$ci_c = get_safe_post($mysqlicheck,"ci_c");
+		$ad1_e = get_safe_post($mysqlicheck,"ad1_e");
+        $ead1_e = get_safe_post($mysqlicheck,"ead1_e");
+        $t1_e = get_safe_post($mysqlicheck,"t1_e");
+		$ad2_e = get_safe_pxost($mysqlicheck,"ad2_e");
+	    $ead2_e = get_safe_post($mysqlicheck,"ead2_e");
+        $t2_e = get_safe_post($mysqlicheck,"t2_e");
+        $note = get_safe_post($mysqlicheck,"note");
+        
+        if($user_id == "")
+        {
+			
+        }
+		elseif($user_id != "")
+        {
+            
+            
+        }
+	}
+}
+                                
+                                
+                                
+$sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
+if ($sel_p->num_rows > 0)
+{
+	$row_p=mysqli_fetch_assoc($sel_p);
+}                              
                                
 $e_c = $row_p["user_email"];	   
 $u_c = $row_p["user_name"];	
@@ -25,90 +65,8 @@ $ad1_e = $row_p["user_address1"];
 $t1_e = $row_p["user_tell1"];
 $ad2_e = $row_p["user_address2"];
 $t2_e = $row_p["user_tell2"];
-                                
-if (isset($_POST['send']))
-{
-	$send = get_safe_post($mysqlicheck,"send");
-	if ($send == "cancel")
-	{
-		echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 1); 
-			</script>";
-		exit();
-	}
-	elseif($send == "change")
-	{
-			$e_c = get_safe_post($mysqlicheck,"e_c");
-			$f_c = get_safe_post($mysqlicheck,"f_c");
-			$u_c = get_safe_post($mysqlicheck,"u_c");
-			$ca_c = get_safe_post($mysqlicheck,"ca_c");
-			$ci_c = get_safe_post($mysqlicheck,"ci_c");
-			$p1_c = get_safe_post($mysqlicheck,"p1_c");
-			$p2_c = get_safe_post($mysqlicheck,"p2_c");
-		
-			if ($e_c != "" && $f_c != "" && $u_c != "" && $ca_c != "" && $ci_c != "")
-			{
-				if(($p1_c != "" && $p2_c != "" && $p1_c != $p2_c) || ($p1_c == "" && $p2_c != "") || ($p2_c == "" && $p1_c != ""))
-				{
-					echo  '<div class="alert alert-warning" role="alert">جهت تغییر رمز عبور باید هر دوخانه پر و یکسان باشد . </div>';
-				}
-				elseif (($p1_c != "" && $p2_c != "" && $p1_c == $p2_c) || ($p1_c == "" && $p2_c == ""))
-				{
-					if($e_c != $row_p["user_email"])
-					{
-						$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
-						if ($result_c->num_rows > 0)
-						{
-							echo  '<div class="alert alert-warning" role="alert">کاربری با این ایمیل قبلاً ثبت شده است . </div>';
-							$che = 1 ;
-						}
-						else
-						{
-							$che = 2 ;
-						}
-					}
-					else
-					{
-						$che = 2 ;
-					}
-					if($p1_c != "" && $p2_c != "" && $p1_c == $p2_c && $che = 2)
-					{
-							$s_ch1 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_pass`="'.md5($p1_c).'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
-							$r_ch1 = $mysqlicheck->query($s_ch1);
-							if (!$r_ch1)
-							{
-								echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
-							}
-							else
-							{
-								echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما و همچنین تغییر پسورد با موفقیت صورت پذیرفت .</div>';
-								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
-									  </script>";
-							}
-						}
-						elseif($p1_c == "" && $p2_c == "" && $che = 2)
-						{
-							$s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
-							$r_ch2 = $mysqlicheck->query($s_ch2);
-							if (!$r_ch2)
-							{
-								echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
-							}
-							else
-							{
-								echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما با موفقیت صورت پذیرفت .</div>';
-								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
-									  </script>";
-							}
-					}
-				}
-			}
-			else
-			{
-				echo '<div class="alert alert-warning" role="alert">در صورتی که رمز عبور خود را نمی خواهید تغییر دهید پر نمودن بقیه فیلدها الزامیست .</div>';
-			}
-	}
-}
-           ?>       
+
+?>       
                                
                                 <!-- BEGIN: BILLING ADDRESS -->
                                 <h3 class="c-font-bold c-font-uppercase c-font-24">مشخصات پروفایل</h3>
@@ -116,15 +74,15 @@ if (isset($_POST['send']))
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="control-label">نام</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>">
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>"   <?php if ($user_id != "") echo "disabled"?>>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="control-label">نام خانوادگی</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>">
+                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>"   <?php if ($user_id != "") echo "disabled"?>>
                                 </div>
                                 <div class="col-md-6">
 									<label class="control-label">آدرس ایمیل </label>
-									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>">
+									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
                             </div>
                         </div>
@@ -132,11 +90,11 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-6">
 									<label class="control-label">استان </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="استان" name="ca_c" value="<?php echo $ca_c; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="استان" name="ca_c" value="<?php echo $ca_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 								<div class="col-md-6">
 									<label class="control-label">شهر </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="شهر" name="ci_c" value="<?php echo $ci_c; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="شهر" name="ci_c" value="<?php echo $ci_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 							</div>
 				       </div>
@@ -145,7 +103,7 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-12">
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 						   </div>
 						</div>
@@ -153,18 +111,18 @@ if (isset($_POST['send']))
 							<div class="row">
 								<div class="col-md-6" >
 									<label class="control-label">ادامه آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead1_e" value="<?php echo $ead1_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ead1_e" value="<?php echo $ead1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 								<div class="col-md-6" >
 									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 							</div>
-				       </div>
+				       </div>   <?php if ($user_id == "") { ?>
                                 <div class="row c-margin-t-15">
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox c-toggle-hide">
-                                            <input type="checkbox" id="checkbox1-77" class="c-check">
+                                            <input type="checkbox" id="checkbox1-77" class="c-check" name="new_c">
                                             <label for="checkbox1-77">
                                                 <span class="inc"></span>
                                                 <span class="check"></span>
@@ -173,6 +131,7 @@ if (isset($_POST['send']))
                                         <p class="help-block">با وارد نمودن اطلاعات بالا و انتخاب (ایجاد یک حساب کاربری ؟) یک حساب کاربری برای خود ایجاد نمائید .<br />اگر شما مشتری گذشته هستید لطفاً  وارد سیستم شوید .</p>
                                     </div>
                                 </div>
+                                <?php  }?>
                                 <!-- BILLING ADDRESS -->
                                 <!-- SHIPPING ADDRESS -->
                                 <h3 class="c-font-bold c-font-uppercase c-font-24">آدرس ارسال</h3>
@@ -180,7 +139,7 @@ if (isset($_POST['send']))
                                     <div class="form-group col-md-12">
                                         <div class="c-checkbox-inline">
                                             <div class="c-checkbox c-toggle-hide" data-object-selector="c-shipping-address" data-animation-speed="600">
-                                                <input type="checkbox" id="checkbox6-444" class="c-check">
+                                                <input type="checkbox" id="checkbox6-444" class="c-check" name="new_s">
                                                 <label for="checkbox6-444">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -215,7 +174,7 @@ if (isset($_POST['send']))
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label class="control-label">یادداشت برای سفارش شما</label>
-                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="در مورد سفارش خود توجه داشته باشید ، به عنوان مثال، یادداشت ویژه برای تحویل."></textarea>
+                                        <textarea class="form-control c-square c-theme" rows="3" placeholder="در مورد سفارش خود توجه داشته باشید ، به عنوان مثال، یادداشت ویژه برای تحویل." name="note"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -340,8 +299,8 @@ if (isset($_POST['send']))
                                         </li>
                                         <li class="row">
                                             <div class="form-group col-md-12" role="group">
-                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">ارسال</button>
-                                                <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">صرفنظر</button>
+                                                <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="send">ارسال</button>
+                                                <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" name="send" value="cancel">صرفنظر</button>
                                             </div>
                                         </li>
                                     </ul>
