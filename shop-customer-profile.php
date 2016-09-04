@@ -14,7 +14,10 @@ $e_c = $row_p["user_email"];
 $u_c = $row_p["user_name"];	
 $f_c = $row_p["user_family"];						   
 $ca_c = $row_p["user_country"];	
-$ci_c = $row_p["user_city"];	
+$ci_c = $row_p["user_city"];
+$t1_c = $row_p["user_tell1"];	
+$t2_c = $row_p["user_tell2"];	
+$m_c = $row_p["user_mobile"];
 					   
 if (isset($_POST['send']))
 {
@@ -32,10 +35,13 @@ if (isset($_POST['send']))
 			$u_c = get_safe_post($mysqlicheck,"u_c");
 			$ca_c = get_safe_post($mysqlicheck,"ca_c");
 			$ci_c = get_safe_post($mysqlicheck,"ci_c");
+			$t2_c = get_safe_post($mysqlicheck,"t2_c");
+			$m_c = get_safe_post($mysqlicheck,"m_c");
+			$t1_c = get_safe_post($mysqlicheck,"t1_c");
 			$p1_c = get_safe_post($mysqlicheck,"p1_c");
 			$p2_c = get_safe_post($mysqlicheck,"p2_c");
 		
-			if ($e_c != "" && $f_c != "" && $u_c != "" && $ca_c != "" && $ci_c != "")
+			if ($e_c != "" && $f_c != "" && $u_c != "" && $ca_c != "" && $ci_c != "" && $m_c != "")
 			{
 				if(($p1_c != "" && $p2_c != "" && $p1_c != $p2_c) || ($p1_c == "" && $p2_c != "") || ($p2_c == "" && $p1_c != ""))
 				{
@@ -62,7 +68,7 @@ if (isset($_POST['send']))
 					}
 					if($p1_c != "" && $p2_c != "" && $p1_c == $p2_c && $che = 2)
 					{
-							$s_ch1 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_pass`="'.md5($p1_c).'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
+							$s_ch1 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_pass`="'.md5($p1_c).'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'",`user_tell1`="'.$t1_c.'",`user_tell2`="'.$t2_c.'",`user_mobile`="'.$m_c.'" WHERE `user_id`= "'.$user_id.'"';
 							$r_ch1 = $mysqlicheck->query($s_ch1);
 							if (!$r_ch1)
 							{
@@ -77,7 +83,7 @@ if (isset($_POST['send']))
 						}
 						elseif($p1_c == "" && $p2_c == "" && $che = 2)
 						{
-							$s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'" WHERE `user_id`= "'.$user_id.'"';
+							$s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'",`user_tell1`="'.$t1_c.'",`user_tell2`="'.$t2_c.'",`user_mobile`="'.$m_c.'" WHERE `user_id`= "'.$user_id.'"';
 							$r_ch2 = $mysqlicheck->query($s_ch2);
 							if (!$r_ch2)
 							{
@@ -94,7 +100,7 @@ if (isset($_POST['send']))
 			}
 			else
 			{
-				echo '<div class="alert alert-warning" role="alert">در صورتی که رمز عبور خود را نمی خواهید تغییر دهید پر نمودن بقیه فیلدها الزامیست .</div>';
+				echo '<div class="alert alert-warning" role="alert">در صورتی که رمز عبور خود را نمی خواهید تغییر دهید پر نمودن بقیه فیلدها به جزء تلفن الزامیست .</div>';
 			}
 	}
 }
@@ -109,20 +115,40 @@ if (isset($_POST['send']))
                     <form class="c-shop-form-1" method="post" >
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-6">
                                     <label class="control-label">نام</label>
                                     <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="control-label">نام خانوادگی</label>
                                     <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>">
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
 									<label class="control-label">آدرس ایمیل </label>
 									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>">
 								</div>
-                            </div>
-                        </div>
+								<div class="col-md-6">
+									<label class="control-label">موبایل </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="موبایل" name="m_c" value="<?php echo $m_c; ?>">
+								</div>
+							</div>
+				       </div>
+                        <div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="control-label">تلفن 1 </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن یک" name="t1_c" value="<?php echo $t1_c; ?>">
+								</div>
+								<div class="col-md-6">
+									<label class="control-label">تلفن 2 </label>
+									<input type="text" class="form-control c-square c-theme" placeholder="تلفن دو" name="t2_c" value="<?php echo $t2_c; ?>">
+								</div>
+							</div>
+				       </div>
                         <div class="form-group">
 							<div class="row">
 								<div class="col-md-6">

@@ -10,22 +10,18 @@
                             <!-- BEGIN: ADDRESS FORM -->
                             <div class="col-md-7 c-padding-20">
 <?php                              
-                                
+
 $sel_p = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_id` = '".$user_id."' ");
 if ($sel_p->num_rows > 0)
 {
 	$row_p=mysqli_fetch_assoc($sel_p);
 }                              
                                
-$e_c = $row_p["user_email"];	   
-$u_c = $row_p["user_name"];	
-$f_c = $row_p["user_family"];						   
-$ca_c = $row_p["user_country"];	
-$ci_c = $row_p["user_city"];	
-$ad1_e = $row_p["user_address1"];
-$t1_e = $row_p["user_tell1"];
-$ad2_e = $row_p["user_address2"];
-$t2_e = $row_p["user_tell2"];
+
+$ad1_c = $row_p["user_address1"];
+
+$ad2_c = $row_p["user_address2"];
+
 $note = get_safe_post($mysqlicheck,"note");
 
 								
@@ -40,9 +36,8 @@ if (isset($_POST['send']))
 	}
 	elseif($send == "send")
 	{
-        $ad2_e = get_safe_post($mysqlicheck,"ad2_e");
-	    $t2_e = get_safe_post($mysqlicheck,"t2_e");
-        $new_c = get_safe_post($mysqlicheck,"new_c");
+        $ad2_c = get_safe_post($mysqlicheck,"ad2_c");
+	    $new_c = get_safe_post($mysqlicheck,"new_c");
 		$new_s = get_safe_post($mysqlicheck,"new_s");
 		
 		if($user_id == "")
@@ -52,11 +47,13 @@ if (isset($_POST['send']))
 			$u_c = get_safe_post($mysqlicheck,"u_c");
 			$ca_c = get_safe_post($mysqlicheck,"ca_c");
 			$ci_c = get_safe_post($mysqlicheck,"ci_c");
-			$ad1_e = get_safe_post($mysqlicheck,"ad1_e");
-			$t1_e = get_safe_post($mysqlicheck,"t1_e");
+			$ad1_c = get_safe_post($mysqlicheck,"ad1_c");
+			$t1_c = get_safe_post($mysqlicheck,"t1_c");
+			$m_c = get_safe_post($mysqlicheck,"m_c");
+			$t2_c = get_safe_post($mysqlicheck,"t2_c");
 			$p_c = createRandomPassword();
 			
-			if ($new_c == 'yes' && $e_c!="" && $f_c!="" && $u_c!="" && $ad1_e!="" && $ca_c!="" && $ci_c!="" && $t1_e!="" )
+			if ($new_c == 'yes' && $e_c!="" && $f_c!="" && $u_c!="" && $ad1_c!="" && $ca_c!="" && $ci_c!="" && $m_c!="" )
 			{
 				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
 				if ($result_c->num_rows > 0)
@@ -65,7 +62,7 @@ if (isset($_POST['send']))
 				}
 				else
 				{
-					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`, `user_pass`, `user_type`, `user_tell1`, `user_address1`,  `user_city`, `user_country`) VALUES ("'.$u_c.'","'.$f_c.'","'.$e_c.'","'.md5($p_c).'", 2 ,"'.$t1_e.'", "'.$ad1_e.'", "'.$ci_c.'", "'.$ca_c.'")';
+					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`, `user_pass`, `user_type`, `user_tell1`, `user_address1`,  `user_city`, `user_country`, `user_tell2` , `user_mobile`, `user_address2`) VALUES ("'.$u_c.'","'.$f_c.'","'.$e_c.'","'.md5($p_c).'", 2 ,"'.$t1_c.'","'.$ad1_c.'","'.$ci_c.'","'.$ca_c.'","'.$t2_c.'","'.$m_c.'","'.$ad2_c.'")';
 					$result_c1 = $mysqlicheck->query($sql_c);
                     if (!$result_c1)
 					{
@@ -97,14 +94,14 @@ if (isset($_POST['send']))
 			}
 			else
 			{
-				echo '<div class="alert alert-warning" role="alert">جهت ثبت نام تیک (ایجاد یک حساب کاربری ؟ ) را زده و فیلدهای بالای آنرا تماماً پر نمائید .</div>';
+				echo '<div class="alert alert-warning" role="alert">جهت ثبت نام تیک (ایجاد یک حساب کاربری ؟ ) را زده و فیلدهای بالای آنرا پر نمائید . تلفن می تواند خالی باشد .</div>';
 			}
         }
 		elseif($user_id != "")
         {
-			if($new_s == 'yes' && $t2_e != '' && $ad2_e != '')
+			if($new_s == 'yes' && $ad2_c != '')
 			{
-				$sql_f = 'UPDATE user SET user_tell2 = "'.$t2_e.'", user_address2 = "'.$ad2_e.'" WHERE user_id = "'.$user_id.'"';
+				$sql_f = 'UPDATE user SET user_address2 = "'.$ad2_c.'" WHERE user_id = "'.$user_id.'"';
 				$result_f = $mysqlicheck->query($sql_f);
 				if(!$result_f)
 				{
@@ -117,36 +114,66 @@ if (isset($_POST['send']))
 			}
 			else
 			{
-				echo '<div class="alert alert-warning" role="alert"> در صورتی که آدرس ارسال شما تفاوت دارد تیک (آدرس ارسال تفاوت دارد؟) را زده و هر دو فیلد را پر نمائید . در غیر این صورت بر روی نهایی نمودن خرید کلیک نمائید .</div>';
+				echo '<div class="alert alert-warning" role="alert"> در صورتی که آدرس ارسال شما تفاوت دارد تیک (آدرس ارسال تفاوت دارد؟) را زده فیلد را پر نمائید . در غیر این صورت بر روی نهایی نمودن خرید کلیک نمائید .</div>';
 			}
         }
 	}
-	elseif($send == "end_s")
+	elseif($send == "end_s" && $user_id != "")
 	{
-		$result7 = mysqli_query($mysqlicheck,"SELECT MAX(object_out_factor) FROM object_out "); 
-		$max2=mysqli_fetch_row($result7);
-		if (!$max2[0])
-			$o_o_f = 1000 ;
-		
+		$gh_sh = get_safe_post($mysqlicheck,"gh_sh");
+		if ($gh_sh == "yes")
+		{
+			$result7 = mysqli_query($mysqlicheck,"SELECT MAX(object_out_factor) FROM object_out "); 
+			$max2=mysqli_fetch_row($result7);
+			if (!$max2[0])
+				$o_o_f = 1000 ;
+			else
+				$o_o_f = $max2[0] + 1 ;
+			
+			if ($note == "")
+				$note = 'یادداشت ویژه ای ثبت نشد';
+			
+			$se_s = get_safe_post($mysqlicheck,"shipping_price");
+			$pm_s = get_safe_post($mysqlicheck,"payment"); 
+			
+			if ($se_s == 0)
+				$h_send = 2 ;
+			elseif ($se_s == 50000)
+				$h_send = 3 ;
+			elseif ($se_s == 80000)
+				$h_send = 4 ;
+			
+		//	if ('پرداخت اوکی شد ')
+		//	{
+				foreach ($_SESSION["cart_item"] as $c_item)
+				{
+					$sql_en = 'INSERT INTO `object_out`(`object_out_factor`, `object_out_person_id`, `object_out_code`, `object_out_qun`, `object_out_sales_price`, `object_out_status`, `object_out_type`, `object_out_preamble`, `object_out_date`, `object_out_time`, `object_out_ip`, `object_out_h_s`, `object_out_payment`) VALUES ("'.$o_o_f.'" ,"'.$user_id.'", "'.$c_item["code"].'", "'.$c_item["quantity"].'", "'.$c_item["price"].'", 2, 2, "'.$note.'", "'.$date.'", "'.$time.'", "'.$user_ip.'", "'.$h_send.'", "'.$pm_s.'")';
+					$res_en = $mysqlicheck->query($sql_en);
+				}
+				if($res_en)
+				{
+					$_SESSION["check"] = $o_o_f ;
+					unset($_SESSION["cart_item"]);
+					echo "<script>window.location.href='shop-checkout-complete.php';</script>";
+				}
+				else
+				{
+					echo '<div class="alert alert-danger" role="alert">ثبت فاکتور با خطا مواجه گردید . </div>';
+				}
+		/*	}
+			else
+			{
+				echo '<div class="alert alert-danger" role="alert">پرداخت با خطا مواجه گردید . </div>';
+			}*/
+		}
 		else
-			$o_o_f = $max2[0] + 1 ;
-		
-		
-		foreach ($_SESSION["cart_item"] as $c_item)
 		{
-			$sql_en = 'INSERT INTO `object_out`( `object_out_code`, `object_out_person_id`, `object_out_type`, `object_out_sales_price`, `object_out_preamble`, `object_out_factor`, `object_out_qun` ) VALUES ("'.$c_item["code"].'","'.$user_id.'", 2 ,"'.$c_item["price"].'","'.$note.'","'.$o_o_f.'" , "'.$c_item["quantity"].'" )';
-			$res_en = $mysqlicheck->query($sql_en);
+			echo '<div class="alert alert-warning" role="alert">جهت نهایی شدن سفارش ، شرایط را نپذیرفته اید .</div>';
 		}
-		if($res_en)
-		{
-			echo 'yes';
-			unset($_SESSION["cart_item"]);
-		}
-		else
-		{
-			echo 'no';
-		}
-	
+	}
+	else
+	{
+		echo '<div class="alert alert-warning" role="alert">قبل از نهایی شدن سفارش، در صورتی که قبلاً ثبت نام نموده اید وارد سامانه شوید و یا ثبت نام نمائید . <a href="login.php"><span class="c-theme-font">ورود به سامانه </span></a></div>';
 	}
 }
 
@@ -166,21 +193,37 @@ function createRandomPassword($length = 8) {
                                 <!-- BEGIN: BILLING ADDRESS -->
                                 <h3 class="c-font-bold c-font-uppercase c-font-24">مشخصات پروفایل</h3>
                                 <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label">نام</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>" >
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="control-label">نام خانوادگی</label>
-                                    <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>">
-                                </div>
-                                <div class="col-md-6">
-									<label class="control-label">آدرس ایمیل </label>
-									<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>" >
-								</div>
-                            </div>
-                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">نام</label>
+                                                        <input type="text" class="form-control c-square c-theme" placeholder="نام" name="u_c" value="<?php echo $u_c; ?>"> </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">نام خانوادگی</label>
+                                                        <input type="text" class="form-control c-square c-theme" placeholder="نام خانوادگی" name="f_c" value="<?php echo $f_c; ?>"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label class="control-label">آدرس ایمیل </label>
+														<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>"> </div>
+													<div class="col-md-6">
+														<label class="control-label">موبایل</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="موبایل" name="m_c" value="<?php echo $m_c; ?>"> </div>
+												</div>
+											</div>
+                                           <div class="form-group">
+												<div class="row">
+													<div class="col-md-6">
+														<label class="control-label">تلفن 1</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="تلفن یک" name="t1_c" value="<?php echo $t1_c; ?>">
+													</div>
+													<div class="col-md-6">
+														<label class="control-label">تلفن 2</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="تلفن دو یا فکس" name="t2_c" value="<?php echo $t2_c; ?>">
+													</div>
+												</div>
+											</div>
                         <div class="form-group">
 							<div class="row">
 								<div class="col-md-6">
@@ -198,13 +241,9 @@ function createRandomPassword($length = 8) {
                                <h3 class="c-font-bold c-font-uppercase c-font-24">آدرس قبض</h3>
                       <div class="form-group">
 							<div class="row">
-								<div class="col-md-9" >
+								<div class="col-md-12" >
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ad1_e" value="<?php echo $ad1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
-								</div>
-								<div class="col-md-3" >
-									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t1_e" value="<?php echo $t1_e; ?>"  <?php if ($user_id != "") echo "disabled"?>>
+									<input type="text" class="form-control c-square c-theme" placeholder=" آدرس قبض" name="ad1_c" value="<?php echo $ad1_c; ?>"  <?php if ($user_id != "") echo "disabled"?>>
 								</div>
 							</div>
 				       </div>   <?php if ($user_id == "") { ?>
@@ -240,13 +279,9 @@ function createRandomPassword($length = 8) {
                                 <div class="c-shipping-address">
                    <div class="form-group">
 							<div class="row">
-								<div class="col-md-9" >
+								<div class="col-md-12" >
 									<label class="control-label">آدرس </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="ادامه آدرس" name="ad2_e" value="<?php echo $ad2_e; ?>">
-								</div>
-								<div class="col-md-3" >
-									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t2_e" value="<?php echo $t2_e; ?>">
+									<input type="text" class="form-control c-square c-theme" placeholder=" آدرس ارسال" name="ad2_c" value="<?php echo $ad2_c; ?>">
 								</div>
 							</div>
 				       </div>
@@ -353,28 +388,27 @@ function createRandomPassword($length = 8) {
                                             <div class="col-md-12">
                                                 <div class="c-radio-list">
                                                     <div class="c-radio">
-                                                        <input type="radio" id="radio1" class="c-radio" name="payment" checked="">
+                                                        <input type="radio" id="radio1" class="c-radio" name="payment" checked="" value="1">
                                                         <label for="radio1" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Direct Bank Transfer 
+                                                            <span class="box"></span> آپ 
                                                         </label>
-                                                        <p class="help-block">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
                                                     </div>
                                                     <div class="c-radio">
-                                                        <input type="radio" id="radio2" class="c-radio" name="payment">
+                                                        <input type="radio" id="radio2" class="c-radio" name="payment" value="2">
                                                         <label for="radio2" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Cheque Payment
+                                                            <span class="box"></span> به ملت
                                                         </label>
                                                     </div>
                                                     <div class="c-radio">
-                                                        <input type="radio" id="radio3" class="c-radio" name="payment">
+                                                        <input type="radio" id="radio3" class="c-radio" name="payment" value="3">
                                                         <label for="radio3" class="c-font-bold c-font-20">
                                                             <span class="inc"></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span> Paypal 
+                                                            <span class="box"></span> به سامان 
                                                         </label>
                                                     </div>
                                                 </div>
@@ -383,7 +417,7 @@ function createRandomPassword($length = 8) {
                                         <li class="row c-margin-b-15 c-margin-t-15">
                                             <div class="form-group col-md-12">
                                                 <div class="c-checkbox">
-                                                    <input type="checkbox" id="checkbox1-11" class="c-check">
+                                                    <input type="checkbox" id="checkbox1-11" class="c-check" name="gh_sh" value="yes">
                                                     <label for="checkbox1-11">
                                                         <span class="inc"></span>
                                                         <span class="check"></span>

@@ -22,7 +22,9 @@
                             <h3 class="c-font-uppercase c-font-bold"><?php echo $row_p["user_name"].' '.$row_l["user_family"] ; ?></h3>
                             <ul class="list-unstyled">
                                 <li><?php echo $row_p["user_country"].' - '.$row_p["user_city"].' - '.$row_p["user_address1"] ; ?></li>
-                                <li>تلفن : <?php echo $row_p["user_tell1"];?></li>
+                                <li>تلفن یک : <?php echo $row_p["user_tell1"];?></li>
+                                <li>تلفن دو: <?php echo $row_p["user_tell2"];?></li>
+                                <li>موبایل : <?php echo $row_p["user_mobile"];?></li>
                                <li>ایمیل : 
                                     <a href="mailto:<?php echo $row_p["user_email"];?>" class="c-theme-link"><?php echo $row_p["user_email"];?></a>
                                 </li>

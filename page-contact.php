@@ -22,7 +22,7 @@ $co_email = get_safe_post($mysqlicheck,"email");
 $co_tel = get_safe_post($mysqlicheck,"tel");
 $co_text = get_safe_post($mysqlicheck,"message");
 $seve = get_safe_post($mysqlicheck,"submit");
-$co_date = date('H:i:s').' '.mkdate("Y/m/d",date('Y-m-d'),'fa');
+$co_date = $time.' '.$date;
 			
 	if ($user_id == "")
 	{

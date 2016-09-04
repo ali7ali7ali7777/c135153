@@ -69,9 +69,11 @@ if(!empty($send))
 			$ad2_c = get_safe_post($mysqlicheck,"ad2_c");
 			$ca_c = get_safe_post($mysqlicheck,"ca_c");
 			$ci_c = get_safe_post($mysqlicheck,"ci_c");
-			$t_c = get_safe_post($mysqlicheck,"t_c");
+			$t1_c = get_safe_post($mysqlicheck,"t1_c");
+			$t2_c = get_safe_post($mysqlicheck,"t2_c");
+			$m_c = get_safe_post($mysqlicheck,"m_c");
 			$ad_c = $ad1_c." ".$ad2_c;
-			if ($e_c!=""&&$f_c!=""&&$u_c!=""&&$ad1_c!=""&&$ad2_c!=""&&$ca_c!=""&&$ci_c!=""&&$t_c!="" )
+			if ($e_c!=""&&$f_c!=""&&$u_c!=""&&$ad1_c!=""&&$ad2_c!=""&&$ca_c!=""&&$ci_c!=""&&$m_c!="" )
 			{
 				$result_c = mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE `user_email` = '".$e_c."'");
 				if ($result_c->num_rows > 0)
@@ -80,7 +82,7 @@ if(!empty($send))
 				}
 				else
 				{
-					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`, `user_pass`, `user_type`, `user_tell1`, `user_address1`,  `user_city`, `user_country`) VALUES ("'.$u_c.'","'.$f_c.'","'.$e_c.'","'.md5($p_c).'", 2 ,"'.$t_c.'","'.$ad_c.'","'.$ci_c.'","'.$ca_c.'")';
+					$sql_c = 'INSERT INTO `user`(`user_name`, `user_family`, `user_email`, `user_pass`, `user_type`, `user_tell1`, `user_address1`,  `user_city`, `user_country`, `user_tell2` , `user_mobile`) VALUES ("'.$u_c.'","'.$f_c.'","'.$e_c.'","'.md5($p_c).'", 2 ,"'.$t1_c.'","'.$ad_c.'","'.$ci_c.'","'.$ca_c.'","'.$t2_c.'","'.$m_c.'")';
 					$result_c1 = $mysqlicheck->query($sql_c);
                     if (!$result_c1)
 					{
@@ -200,7 +202,7 @@ function createRandomPassword($length = 8) {
 			}
 			if ($mas_c == 1)
 			{
-				echo '<div class="alert alert-warning" role="alert">پر کردن همه فیلدها الزامیست .</div>';	
+				echo '<div class="alert alert-warning" role="alert">پر کردن همه فیلدها به جزء تلفن الزامیست .</div>';	
 			}
 			else if ($mas_c == 2)
 			{
@@ -343,11 +345,23 @@ function createRandomPassword($length = 8) {
 														<label class="control-label">آدرس ایمیل </label>
 														<input type="email" class="form-control c-square c-theme" placeholder=" جهت ورود به سایت و ارسال رمز عبور شما" name="e_c" value="<?php echo $e_c; ?>"> </div>
 													<div class="col-md-6">
-														<label class="control-label">تلفن</label>
-														<input type="tel" class="form-control c-square c-theme" placeholder="تلفن" name="t_c" value="<?php echo $t_c; ?>"> </div>
+														<label class="control-label">موبایل</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="موبایل" name="m_c" value="<?php echo $m_c; ?>"> </div>
 												</div>
 											</div>
-                                            <div class="form-group">
+                                           <div class="form-group">
+												<div class="row">
+													<div class="col-md-6">
+														<label class="control-label">تلفن 1</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="تلفن یک" name="t1_c" value="<?php echo $t1_c; ?>">
+													</div>
+													<div class="col-md-6">
+														<label class="control-label">تلفن 2</label>
+														<input type="tel" class="form-control c-square c-theme" placeholder="تلفن دو یا فکس" name="t2_c" value="<?php echo $t2_c; ?>">
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
                                                 <label class="control-label">آدرس</label>
                                                 <input type="text" class="form-control c-square c-theme" placeholder="خیابان" name="ad1_c" value="<?php echo $ad1_c; ?>"> </div>
                                             <div class="form-group">

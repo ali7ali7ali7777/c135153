@@ -55,7 +55,7 @@ switch($action) {
 }
 }
 
-			
+		
 if(isset($_SESSION["cart_item"])){
     $item_total = 0;
 ?>    
@@ -172,32 +172,7 @@ if(isset($_SESSION["cart_item"])){
                             </div> 
                         </div>
                         <!-- END: SUBTOTAL ITEM ROW -->
-                        <!-- BEGIN: SUBTOTAL ITEM ROW -->
-                        <div class="row">
-                            <div class="c-cart-subtotal-row">
-                                <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-uppercase c-font-bold c-left c-font-16 c-font-grey-2 shop-cart-table" >هزینه ارسال</h3>
-                                </div>
-                                <div class="col-md-2 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-bold c-font-16">150,000 ريال</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: SUBTOTAL ITEM ROW -->
-                        <!-- BEGIN: SUBTOTAL ITEM ROW -->
-                        <div class="row">
-                            <div class="c-cart-subtotal-row">
-                                <div class="col-md-2 col-md-offset-8 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2 shop-cart-table">جمع کل</h3>
-                                </div>
-                                <?php $total_end = $item_total + 150000 ;  ?>
-                                <div class="col-md-2 col-sm-6 col-xs-6 c-cart-subtotal-border">
-                                    <h3 class="c-font-bold c-font-16"><?php echo number_format($total_end) ;  ?> ريال</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: SUBTOTAL ITEM ROW -->
-                        <div class="c-cart-buttons">
+                       <div class="c-cart-buttons">
                             <a href="index.php" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-r">ادامه خرید</a>
                             <a href="" class="btn c-btn btn-lg c-btn-yellow-1 c-btn-square c-font-white c-font-bold c-font-uppercase " id="empty">خالی کردن سبد</a>
                             <a href="shop-checkout.php" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">پرداخت</a>

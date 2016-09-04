@@ -19,21 +19,19 @@ if (isset($_POST["send"]))
 		
 		
 		$ad_e = $row_p["user_address$nu"];
-		$t_e = $row_p["user_tell$nu"];
+		
 	}
 	elseif($send == "e_ad_t")
 	{
 		$ad_e = get_safe_post($mysqlicheck,"ad_e");
-		$t_e = get_safe_post($mysqlicheck,"t_e");
 		$u_a = 'user_address'.$nu;
-		$u_t = 'user_tell'.$nu;
-		if ($ad_e == "" || $t_e == "" )
+		if ($ad_e == "" )
 		{
-				echo  '<div class="alert alert-warning" role="alert">پر کردن هر دو فیلد الزامیست  . </div>';
+				echo  '<div class="alert alert-warning" role="alert">پر کردن فیلد الزامیست  . </div>';
 		}
-		elseif($ad_e != "" && $t_e != "" )
+		elseif($ad_e != "" )
 		{
-				$s_ch1 = 'UPDATE user SET '.$u_a.' = "'.$ad_e.'", '.$u_t.' = '.$t_e.' WHERE user_id = '.$user_id;
+				$s_ch1 = 'UPDATE user SET '.$u_a.' = "'.$ad_e.'" WHERE user_id = '.$user_id;
 				$r_ch1 = $mysqlicheck->query($s_ch1);
 				if (!$r_ch1)
 				{
@@ -66,13 +64,9 @@ $row_p["user_city"].'</span> می باشد.<br /> در صورتی که نیاز 
                     <form class="c-shop-form-1" method="post" >
                        <div class="form-group">
 							<div class="row">
-								<div class="col-md-9">
+								<div class="col-md-12">
 									<label class="control-label">آدرس </label>
 									<input type="text" class="form-control c-square c-theme" placeholder="آدرس" name="ad_e" value="<?php echo $ad_e; ?>">
-								</div>
-								<div class="col-md-3" >
-									<label class="control-label">تلفن </label>
-									<input type="text" class="form-control c-square c-theme" placeholder="تلفن" name="t_e" value="<?php echo $t_e; ?>">
 								</div>
 							</div>
 				       </div>

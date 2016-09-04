@@ -24,6 +24,12 @@ elseif($requst_from == 'shop-checkout.php' && $_SESSION["cart_item"] == "")
 	header( "Location: $url" );
 	die();
 }
+elseif($requst_from == 'shop-checkout-complete.php' && $_SESSION["check"] == "")
+{
+	$url = 'shop-cart.php';
+	header( "Location: $url" );
+	die();
+}
 
 
 function mkdate($type,$maket="now",$lang = _LANG,$transnumber = 0)

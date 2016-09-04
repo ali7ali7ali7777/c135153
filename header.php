@@ -11,6 +11,10 @@
 $user_id = $_SESSION["login"]["id"];
 $user_ty = $_SESSION["login"]["type"];
 $user_name = $_SESSION["login"]["name"];
+$date = mkdate("Y/m/d",date('Y-m-d'),'fa');
+$time = date('H:i:s');
+$user_ip = getUserIP();
+
 ?>
 
 <!DOCTYPE html>

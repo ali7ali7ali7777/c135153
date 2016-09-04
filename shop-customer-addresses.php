@@ -29,7 +29,7 @@ $action = get_safe_post($mysqlicheck,"action");
                                 <li><?php echo $user_name .  "</li>
                                 <li>".$row_p['user_country']." - ".$row_p['user_city']."</li>
                                 <li>".$row_p['user_address1']."</li>
-                                <li>تلفن: ".$row_p['user_tell1']; ?></li>
+                                <li>موبایل: ".$row_p['user_mobile']; ?></li>
                             </ul>
                             <form action="shop-customer-e-a.php" method="post">
                             	<input type="hidden" value="1" name="nu">
@@ -43,7 +43,7 @@ $action = get_safe_post($mysqlicheck,"action");
                                 <li><?php echo $user_name .  "</li>
                                 <li>".$row_p['user_country']." - ".$row_p['user_city']."</li>
                                 <li>".$row_p['user_address2']."</li>
-                                <li>تلفن: ".$row_p['user_tell2']; ?></li>
+                                <li>موبایل: ".$row_p['user_mobile']; ?></li>
                             </ul>
                             <form action="shop-customer-e-a.php" method="post">
                             	<input type="hidden" value="2" name="nu">
