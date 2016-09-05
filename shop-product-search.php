@@ -6,7 +6,7 @@
                 <div class="c-layout-sidebar-menu c-theme ">
                     <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
                     <div class="c-sidebar-menu-toggler">
-                        <h3 class="c-title c-font-uppercase c-font-bold">Navigation</h3>
+                        <h3 class="c-title c-font-uppercase c-font-bold">نمایش گروهها</h3>
                         <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
                             <span class="c-line"></span>
                             <span class="c-line"></span>
@@ -18,28 +18,28 @@
                         <li>
                             <label class="control-label c-font-uppercase c-font-bold">دسته بندی</label>
                             <select class="form-control c-square c-theme">
-                                <option value="0">All Categories</option>
-                                <option value="1">Art</option>
-                                <option value="2">Baby</option>
-                                <option value="3">Books</option>
-                                <option value="4">Business &amp; Industrial</option>
-                                <option value="5">Cameras &amp; Photo</option>
-                                <option value="6">Cell Phones &amp; Accessories</option>
-                                <option value="7">Clothing, Shoes &amp; Accessories</option>
-                                <option value="8">Coins &amp; Paper Money</option>
-                                <option value="9">Collectibles</option>
-                                <option value="10">Computers/Tablets &amp; Networking</option>
-                            </select>
+                                <option value="0">همه دسته بندیها</option>
+                                <?php
+$rant_s1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
+if (mysqli_num_rows($rant_s1) > 0)
+{	
+	while($row_s1=mysqli_fetch_assoc($rant_s1))
+	{								
+                               echo '<option value="'.$row_s1['gro_kod'].'">'.$row_s1['gro_name'].'</option>';
+	}
+}
+									?>
+                             </select>
                         </li>
                         <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Availability</label>
+                            <label class="control-label c-font-uppercase c-font-bold">دسترسی</label>
                             <div class="c-checkbox">
                                 <input type="checkbox" id="checkbox-sidebar-3-1" class="c-check">
                                 <label for="checkbox-sidebar-3-1">
                                     <span class="inc"></span>
                                     <span class="check"></span>
                                     <span class="box"></span>
-                                    <p>Not Available (3)</p>
+                                    <p>موجود نمی باشد (3)</p>
                                 </label>
                             </div>
                             <div class="c-checkbox c-checkbox-height">
@@ -48,68 +48,71 @@
                                     <span class="inc"></span>
                                     <span class="check"></span>
                                     <span class="box"></span>
-                                    <p>In Stock (23)</p>
+                                    <p>موجود می باشد (23)</p>
                                 </label>
                             </div>
                         </li>
                         <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Price Range</label>
+                            <label class="control-label c-font-uppercase c-font-bold">محدوده قیمت</label>
                             <div class="c-price-range-box input-group">
                                 <div class="c-price input-group col-md-6 pull-right">
-                                    <input type="text" class="form-control c-square c-theme" placeholder="from">
+                                    <input type="text" class="form-control c-square c-theme" placeholder="از">
                                     <span class="input-group-addon c-square c-theme">ریال</span> </div>
                                 <div class="c-price input-group col-md-6 pull-right">
-                                    <input type="text" class="form-control c-square c-theme" placeholder="to">
+                                    <input type="text" class="form-control c-square c-theme" placeholder="تا">
                                     <span class="input-group-addon c-square c-theme">ریال</span> </div>
                             </div>
                         </li>
-                        <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Price Range Slider Color</label>
-                            <p>Price Range: $1 - $ 500</p>
+<?php
+$rant_s5 = mysqli_query($mysqlicheck,"SELECT object_sale FROM `object` where object_status = 1");
+	$min = 10000000000 ;
+	$max = 0 ;
+	while($row_s5=mysqli_fetch_assoc($rant_s5))
+	{
+		$gh = str_replace(",","",$row_s5['object_sale']);
+		if($gh<$min)
+			$min = $gh ;
+		if($gh>$max)
+			$max = $gh ;
+	}
+						
+?>						
+   						<li>
+    						<label class="control-label c-font-uppercase c-font-bold">محدوده قیمت با نوار لغزان</label>
+                            <p><?php echo number_format($min).' - '.number_format($max) ; ?> ريال</p>
                             <div class="c-price-range-slider c-theme-1 input-group">
-                                <input type="text" class="c-price-slider" value="" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="[100,250]"> </div>
+                                <input type="text" class="c-price-slider" value="" data-slider-min="<?php echo $min ;?>" data-slider-max="<?php echo $max ;?>" data-slider-step="5000" data-slider-value="<?php echo '['.$min.','.$max.']';?>"> </div>
                         </li>
-                        <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Price Range Slider Color</label>
-                            <p>Price Range: $1 - $ 500</p>
-                            <div class="c-price-range-slider c-theme-2 input-group">
-                                <input type="text" class="c-price-slider" value="" data-slider-handle="square" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="[100,250]"> </div>
-                        </li>
-                        <li>
-                            <label class="control-label c-font-uppercase c-font-bold">Price Group</label>
-                            <div class="input-group">
-                                <div class="c-checkbox">
-                                    <input type="checkbox" id="checkbox-sidebar-1-1" class="c-check">
-                                    <label for="checkbox-sidebar-1-1">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> $0 - $10 (15) </label>
-                                </div>
-                                <div class="c-checkbox">
-                                    <input type="checkbox" id="checkbox-sidebar-1-2" class="c-check">
-                                    <label for="checkbox-sidebar-1-2">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> $11 - $20 (17) </label>
-                                </div>
-                                <div class="c-checkbox">
-                                    <input type="checkbox" id="checkbox-sidebar-1-3" class="c-check">
-                                    <label for="checkbox-sidebar-1-3">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> $21 - $30 (23) </label>
-                                </div>
-                                <div class="c-checkbox c-checkbox-height">
-                                    <input type="checkbox" id="checkbox-sidebar-1-4" class="c-check">
-                                    <label for="checkbox-sidebar-1-4">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> $31 - $40 (19) </label>
-                                </div>
-                            </div>
-                        </li>
+<?php
+$rant_s6 = mysqli_query($mysqlicheck,"SELECT object_visit FROM `object` where object_status = 1");
+	$i5 = 0 ;
+	$i4 = 0 ;
+	$i3 = 0 ;
+	$i2 = 0 ;
+	$i1 = 0 ;
+	$i0 = 0 ;
+						
+	while($row_s6=mysqli_fetch_assoc($rant_s6))
+	{
+		$te = $row_s6['object_visit'];
+		
+		if($te == 0)
+			$i0 ++ ;
+		elseif(0 < $te && $te <= 1)
+			$i1 ++ ;
+		elseif(1 < $te && $te <= 2)
+			$i2 ++ ;
+		elseif(2 < $te && $te <= 3)
+			$i3 ++ ;
+		elseif(3 < $te && $te <= 4)
+			$i4 ++ ;
+		elseif(4 < $te && $te <= 5)
+			$i5 ++ ;
+		
+	}
+?>
                         <li class="c-margin-b-40">
-                            <label class="control-label c-font-uppercase c-font-bold">Review Rating</label>
+                            <label class="control-label c-font-uppercase c-font-bold">بررسی رتبه</label>
                             <div class="c-checkbox">
                                 <input type="checkbox" id="checkbox-sidebar-2-1" class="c-check">
                                 <label for="checkbox-sidebar-2-1">
@@ -121,7 +124,7 @@
                                         <span class="fa fa-star c-theme-font"></span>
                                         <span class="fa fa-star c-theme-font"></span>
                                         <span class="fa fa-star c-theme-font"></span>
-                                        <span class="fa fa-star c-theme-font"></span> (18) </p>
+                                        <span class="fa fa-star c-theme-font"></span> (<?php echo $i5 ;?>) </p>
                                 </label>
                             </div>
                             <div class="c-checkbox">
@@ -134,7 +137,7 @@
                                         <span class="fa fa-star c-theme-font"></span>
                                         <span class="fa fa-star c-theme-font"></span>
                                         <span class="fa fa-star c-theme-font"></span>
-                                        <span class="fa fa-star c-theme-font"></span> (20) </p>
+                                        <span class="fa fa-star c-theme-font"></span> (<?php echo $i4 ;?>) </p>
                                 </label>
                             </div>
                             <div class="c-checkbox">
@@ -146,7 +149,7 @@
                                     <p class="c-review-star">
                                         <span class="fa fa-star c-theme-font"></span>
                                         <span class="fa fa-star c-theme-font"></span>
-                                        <span class="fa fa-star c-theme-font"></span> (9) </p>
+                                        <span class="fa fa-star c-theme-font"></span> (<?php echo $i3 ;?>) </p>
                                 </label>
                             </div>
                             <div class="c-checkbox">
@@ -157,7 +160,7 @@
                                     <span class="box"></span>
                                     <p class="c-review-star">
                                         <span class="fa fa-star c-theme-font"></span>
-                                        <span class="fa fa-star c-theme-font"></span> (4) </p>
+                                        <span class="fa fa-star c-theme-font"></span> (<?php echo $i2 ;?>) </p>
                                 </label>
                             </div>
                             <div class="c-checkbox">
@@ -167,7 +170,7 @@
                                     <span class="check"></span>
                                     <span class="box"></span>
                                     <p class="c-review-star">
-                                        <span class="fa fa-star c-theme-font"></span> (1) </p>
+                                        <span class="fa fa-star c-theme-font"></span> (<?php echo $i1 ;?>) </p>
                                 </label>
                             </div>
                             <div class="c-checkbox">
@@ -176,352 +179,78 @@
                                     <span class="inc"></span>
                                     <span class="check"></span>
                                     <span class="box"></span>
-                                    <p class="c-review-star">No yet rated (10)</p>
+                                    <p class="c-review-star">هنوز رتبه دهی نشده (<?php echo $i0 ;?>)</p>
                                 </label>
                             </div>
                         </li>
                     </ul>
                     <!-- END: CONTENT/SHOPS/SHOP-FILTER-SEARCH-1 -->
                     <ul class="c-sidebar-menu collapse " id="sidebar-menu-1">
+<?php
+$rant_s2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
+if (mysqli_num_rows($rant_s2) > 0)
+{	$i = 1 ;
+	while($row_s2=mysqli_fetch_assoc($rant_s2))
+	{		?>				
                         <li class="c-dropdown c-active c-open">
-                            <a href="javascript:;" class="c-toggler">Active Section
+                            <a href="javascript:;" class="c-toggler"><?php echo $row_s2['gro_name']; ?>
                                 <span class="c-arrow"></span>
                             </a>
                             <ul class="c-dropdown-menu">
+                          <?php
+		$rant_s3 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '".$row_s2['gro_kod']."__' and gro_status =1");
+		if (mysqli_num_rows($rant_s3) > 0)
+		{		
+			while($row_s3=mysqli_fetch_assoc($rant_s3))
+			{
+								?>                       
                                 <li class="c-active">
-                                    <a href="#">Active Link</a>
+                                    <a href="" data-code="<?php echo $row_s3['gro_kod'] ?>"><?php echo $row_s3['gro_name']; ?></a>
                                 </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
+                                <?php
+			}
+		}
+								?>
                             </ul>
                         </li>
-                        <li class="c-dropdown">
-                            <a href="javascript:;" class="c-toggler">Sub Menu Section
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li class="c-dropdown">
-                                    <a href="javascript:;" class="c-toggler">Sub Menu
-                                        <span class="c-arrow"></span>
-                                    </a>
-                                    <ul class="c-dropdown-menu">
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li class="c-dropdown">
-                                    <a href="javascript:;" class="c-toggler">Sub Menu
-                                        <span class="c-arrow"></span>
-                                    </a>
-                                    <ul class="c-dropdown-menu">
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li class="c-dropdown">
-                                            <a href="javascript:;" class="c-toggler">Sub Menu
-                                                <span class="c-arrow"></span>
-                                            </a>
-                                            <ul class="c-dropdown-menu">
-                                                <li>
-                                                    <a href="#">Example Link</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Example Link</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Example Link</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Example Link</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Example Link</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="c-dropdown">
-                            <a href="javascript:;" class="c-toggler">Section With Icons
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-social-dribbble"></i> Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bell"></i> Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bubbles"></i> Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i> Example Link</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="c-dropdown">
-                            <a href="javascript:;" class="c-toggler">Expanded Section
-                                <span class="c-arrow"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="c-dropdown">
-                            <a href="javascript:;">Arrow Toggler
-                                <span class="c-arrow c-toggler"></span>
-                            </a>
-                            <ul class="c-dropdown-menu">
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Example Link</a>
-                                </li>
-                                <li class="c-dropdown">
-                                    <a href="javascript:;">Sub Menu
-                                        <span class="c-arrow c-toggler"></span>
-                                    </a>
-                                    <ul class="c-dropdown-menu">
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Example Link</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+<?php
+	}
+}
+?>
                     </ul>
                     <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
                 </div>
                 <div class="c-layout-sidebar-content ">
                     <!-- BEGIN: PAGE CONTENT -->
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-ADVANCED-SEARCH-1 -->
-                    <form class="c-shop-advanced-search-1">
-                        <div class="row">
+                    <form class="c-shop-advanced-search-1" method="post">
+                      <div class="row">
                             <div class="form-group col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label">Keywords or Item Number</label>
-                                        <input type="text" class="form-control c-square c-theme input-lg" placeholder="Enter keywords or item number"> </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label">&nbsp;</label>
-                                        <select class="form-control c-square c-theme input-lg">
-                                            <option value="1">All words, any order</option>
-                                            <option value="2">Any words, any order</option>
-                                            <option value="3">Exact words, exact order</option>
-                                            <option value="4">Exact words, any order</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                <label class="control-label">کلمه مورد جستجو</label>
+                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="کلمه مورد نظر را جهت جستجو وارد نمائید " name="word"> </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="control-label">Exclude Words</label>
-                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="Enter exclude words from search"> </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Category</label>
-                                <select class="form-control c-square c-theme input-lg">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Art</option>
-                                    <option value="2">Baby</option>
-                                    <option value="3">Books</option>
-                                    <option value="4">Business &amp; Industrial</option>
-                                    <option value="5">Cameras &amp; Photo</option>
-                                    <option value="6">Cell Phones &amp; Accessories</option>
-                                    <option value="7">Clothing, Shoes &amp; Accessories</option>
-                                    <option value="8">Coins &amp; Paper Money</option>
-                                    <option value="9">Collectibles</option>
-                                    <option value="10">Computers/Tablets &amp; Networking</option>
+                                <label class="control-label">دسته بندی</label>
+                                <select class="form-control c-square c-theme input-lg" name="gro">
+                                    <option value="0">همه دسته بندیها</option>
+                                       <?php
+$rant_s4 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '_____' and gro_status =1");
+if (mysqli_num_rows($rant_s4) > 0)
+{	
+	while($row_s4=mysqli_fetch_assoc($rant_s4))
+	{								
+                               echo '<option value="'.$row_s4['gro_kod'].'">'.$row_s4['gro_name'].'</option>';
+	}
+}
+									?>
                                 </select>
                             </div>
                         </div>
-                        <div class="row c-margin-t-15">
-                            <div class="form-group col-md-12">
-                                <div class="c-checkbox c-toggle-hide" data-object-selector="c-advanced-search" data-animation-speed="600">
-                                    <input type="checkbox" id="checkbox-1" class="c-check">
-                                    <label for="checkbox-1">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> Advanced Search </label>
-                                </div>
-                                <p class="help-block">See general
-                                    <a href="#" class="c-theme-link c-font-bold">search tips</a> or
-                                    <a href="#" class="c-theme-link c-font-bold">using advanced search options</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row c-advanced-search">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <h3 class="c-font-sbold c-font-uppercase c-font-20">Search including</h3>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-1-1" class="c-check">
-                                        <label for="checkbox-1-1">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Title and description </label>
-                                    </div>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-1-2" class="c-check">
-                                        <label for="checkbox-1-2">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Completed listing </label>
-                                    </div>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-1-3" class="c-check">
-                                        <label for="checkbox-1-3">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Sold listing </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <h3 class="c-font-sbold c-font-uppercase c-font-20">Shipping options</h3>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-2-1" class="c-check">
-                                        <label for="checkbox-2-1">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Flat rate </label>
-                                    </div>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-2-2" class="c-check">
-                                        <label for="checkbox-2-2">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Local delivery </label>
-                                    </div>
-                                    <div class="c-checkbox">
-                                        <input type="checkbox" id="checkbox-2-3" class="c-check">
-                                        <label for="checkbox-2-3">
-                                            <span class="inc"></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Local pickup </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label">Sort By</label>
-                                    <select class="form-control c-square c-theme input-lg">
-                                        <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
-                                        <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-                                        <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-                                        <option value="#?sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
-                                        <option value="#?sort=p.price&amp;order=DESC" selected>Price (High &gt; Low)</option>
-                                        <option value="#?sort=rating&amp;order=DESC">Rating (Highest)</option>
-                                        <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
-                                        <option value="#?sort=p.model&amp;order=ASC">Model (A - Z)</option>
-                                        <option value="#?sort=p.model&amp;order=DESC">Model (Z - A)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label">View Results</label>
-                                            <select class="form-control c-square c-theme input-lg">
-                                                <option value="1">All Items</option>
-                                                <option value="2">Picture Gallery</option>
-                                                <option value="3">Show Item Numbers</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label">Result Per Page</label>
-                                            <select class="form-control c-square c-theme input-lg">
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="75">75</option>
-                                                <option value="100">100</option>
-                                                <option value="150">150</option>
-                                                <option value="200">200</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group" role="group">
-                            <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                <i class="fa fa-search"></i>Search</button>
-                            <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold">Clear</button>
+                            <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="search">
+                                <i class="fa fa-search"></i>جستجو</button>
+                            <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" name="send" value="cancel">پاک کردن</button>
                         </div>
                     </form>
                     <!-- END: CONTENT/SHOPS/SHOP-ADVANCED-SEARCH-1 -->
@@ -529,195 +258,157 @@
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-RESULT-FILTER-1 -->
                     <div class="c-shop-result-filter-1 clearfix form-inline">
                         <div class="c-filter">
-                            <label class="control-label c-font-16">Show:</label>
+                            <label class="control-label c-font-16">مشاهده:</label>
                             <select class="form-control c-square c-theme c-input">
                                 <option value="#?limit=24" selected="selected">24</option>
                                 <option value="#?limit=25">25</option>
                                 <option value="#?limit=50">50</option>
                                 <option value="#?limit=75">75</option>
-                                <option value="#?limit=100" selected>100</option>
+                                <option value="#?limit=100">100</option>
                             </select>
                         </div>
                         <div class="c-filter">
-                            <label class="control-label c-font-16">Sort&nbsp;By:</label>
+                            <label class="control-label c-font-16">مرتب سازی بر اساس:</label>
                             <select class="form-control c-square c-theme c-input">
-                                <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
-                                <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-                                <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-                                <option value="#?sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
-                                <option value="#?sort=p.price&amp;order=DESC" selected>Price (High &gt; Low)</option>
-                                <option value="#?sort=rating&amp;order=DESC">Rating (Highest)</option>
-                                <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
-                                <option value="#?sort=p.model&amp;order=ASC">Model (A - Z)</option>
-                                <option value="#?sort=p.model&amp;order=DESC">Model (Z - A)</option>
+                                <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">پیش فرض</option>
+                                <option value="#?sort=pd.name&amp;order=ASC">نام ( الف - ی )</option>
+                                <option value="#?sort=pd.name&amp;order=DESC">نام ( ی - الف )</option>
+                                <option value="#?sort=p.price&amp;order=ASC">قیمت ( کم &gt; زیاد )</option>
+                                <option value="#?sort=p.price&amp;order=DESC" selected>قیمت ( زیاد &gt; کم )</option>
+                                <option value="#?sort=rating&amp;order=DESC">امتیاز ( بیشترین )</option>
+                                <option value="#?sort=rating&amp;order=ASC">امتیاز ( کمترین )</option>
                             </select>
                         </div>
                     </div>
                     <!-- END: CONTENT/SHOPS/SHOP-RESULT-FILTER-1 -->
                     <div class="c-margin-t-20"></div>
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-2-8 -->
-                    <div class="row c-margin-b-40">
+<?php
+$select = "SELECT * FROM object where object_status = 1 " ;
+if (isset($_POST['send']) )
+{
+	$send = get_safe_post($mysqlicheck,"send");
+	if(!empty($send))
+	{
+		switch($send)
+		{
+			case 'search':
+				$gro = get_safe_post($mysqlicheck,"gro");
+				$word = get_safe_post($mysqlicheck,"word");
+				if ($gro == 0)
+					$select = "SELECT * FROM object where object_status = 1 and gro_kod like '___' " ;
+				else
+					$select = "SELECT * FROM object where object_status = 1 and gro_kod like '___' and object_code like '___'" ;
+			break;
+			case 'cancel':
+				
+			break;
+		}
+	}
+}
+		$rant_s6 = mysqli_query($mysqlicheck,$select);
+		if (mysqli_num_rows($rant_s6) > 0)
+		{
+			while($row_s6=mysqli_fetch_assoc($rant_s6))
+			{
+				$se = $row_s6['object_visit'];
+		
+				if($se == 0)
+					$star = 0 ;
+				elseif(0 < $te && $te <= 1)
+					$star = 1 ;
+				elseif(1 < $te && $te <= 2)
+					$star = 2 ;
+				elseif(2 < $te && $te <= 3)
+					$star = 3 ;
+				elseif(3 < $te && $te <= 4)
+					$star = 4 ;
+				elseif(4 < $te && $te <= 5)
+					$star = 5 ;
+				
+				$dir = 'images/object/'.$row_s6['object_id'].'/';
+				// iterate
+				if(!$dir){
+					 $src = "images/none.jpg";
+				}
+				else
+				{
+					// image extensions
+					$extensions = array('jpg', 'jpeg', 'png');
+					// init result
+					$resultimg = array();
+					// directory to scan
+					$directory = new DirectoryIterator($dir);
+					foreach ($directory as $fileinfo)
+					{
+						// must be a file
+						if ($fileinfo->isFile())
+						{
+							// file extension
+							$extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
+							// check if extension match
+							if (in_array($extension, $extensions))
+							{
+								// add to result
+								$resultimg[] = $fileinfo->getFilename();
+							}
+						$src = "images/object/".$row_s6['object_id']."/".$resultimg[0] ;	
+						}
+					}
+
+				}
+				if ($resultimg[0] == "")
+				{
+					$src = "images/none.jpg";
+				}
+		?>                             
+                    
+                    <div class="row c-margin-b-40" data-stars="<?php echo $star ; ?>",  data-price="<?php echo str_replace(",","",$row_s6['object_sale']) ; ?>">
                         <div class="c-content-product-2 c-bg-white">
                             <div class="col-md-4">
                                 <div class="c-content-overlay">
-                                    <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
-                                    <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
                                     <div class="c-overlay-wrapper">
                                         <div class="c-overlay-content">
-                                            <a href="shop-product-details.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                            <a href="shop-product-details.php?selected=<?php echo $row_s6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
                                         </div>
                                     </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(assets/base/img/content/shop3/20.jpg);"></div>
+                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(<?php echo $src; ?>);"></div>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="c-info-list">
                                     <h3 class="c-title c-font-bold c-font-22 c-font-dark">
-                                        <a class="c-theme-link" href="shop-product-details.html">Winter Coat</a>
+                                        <a class="c-theme-link" href="shop-product-details.php?selected=<?php echo $row_s6['object_id']; ?>"><?php echo $row_s6['object_name']; ?></a>
                                     </h3>
-                                    <p class="c-desc c-font-16 c-font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
-                                    <p class="c-price c-font-26 c-font-thin">$548 &nbsp;
-                                        <span class="c-font-26 c-font-line-through c-font-red">$600</span>
-                                    </p>
-                                </div>
+                                    <p class="c-desc c-font-16 c-font-thin">توضیحات.</p>
+                                    <?php
+								if ($row_s6['object_sale_di'] != "")
+								echo	'<p class="c-price c-font-22 c-font-thin"> '.$row_s6['object_sale_di'].' ريال  &nbsp;
+											<span class="c-font-22 c-font-line-through c-font-red"> '.$row_s6['object_sale'].' ريال </span>
+										</p>';
+								else 
+								echo   '<p class="c-price c-font-22 c-font-thin"> '.$row_s6['object_sale'].' ريال  
+                                    </p>';
+							?>
+                               </div>
                                 <div>
                                     <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-shopping-cart"></i>Add Cart </button>
+                                        <i class="fa fa-shopping-cart"></i>اضافه نمودن به سبد خرید </button>
                                     <button type="submit" class="btn btn-sm btn-default c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-heart-o"></i>Add Wishlist </button>
+                                        <i class="fa fa-heart-o"></i>اضافه نمودن به علاقه مندیها </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row c-margin-b-40">
-                        <div class="c-content-product-2 c-bg-white">
-                            <div class="col-md-4">
-                                <div class="c-content-overlay">
-                                    <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">New</div>
-                                    <div class="c-overlay-wrapper">
-                                        <div class="c-overlay-content">
-                                            <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                        </div>
-                                    </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(assets/base/img/content/shop3/10.jpg);"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="c-info-list">
-                                    <h3 class="c-title c-font-bold c-font-22 c-font-dark">
-                                        <a class="c-theme-link" href="shop-product-details-2.html">Winter Coat</a>
-                                    </h3>
-                                    <p class="c-desc c-font-16 c-font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
-                                    <p class="c-price c-font-26 c-font-thin">$548 &nbsp;
-                                        <span class="c-font-26 c-font-line-through c-font-red">$600</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-shopping-cart"></i>Add Cart </button>
-                                    <button type="submit" class="btn btn-sm btn-default c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-heart-o"></i>Add Wishlist </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row c-margin-b-40">
-                        <div class="c-content-product-2 c-bg-white">
-                            <div class="col-md-4">
-                                <div class="c-content-overlay">
-                                    <div class="c-overlay-wrapper">
-                                        <div class="c-overlay-content">
-                                            <a href="shop-product-details.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                        </div>
-                                    </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(assets/base/img/content/shop3/22.jpg);"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="c-info-list">
-                                    <h3 class="c-title c-font-bold c-font-22 c-font-dark">
-                                        <a class="c-theme-link" href="shop-product-details.html">Winter Coat</a>
-                                    </h3>
-                                    <p class="c-desc c-font-16 c-font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
-                                    <p class="c-price c-font-26 c-font-thin">$548 &nbsp;
-                                        <span class="c-font-26 c-font-line-through c-font-red">$600</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-shopping-cart"></i>Add Cart </button>
-                                    <button type="submit" class="btn btn-sm btn-default c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-heart-o"></i>Add Wishlist </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row c-margin-b-40">
-                        <div class="c-content-product-2 c-bg-white">
-                            <div class="col-md-4">
-                                <div class="c-content-overlay">
-                                    <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
-                                    <div class="c-overlay-wrapper">
-                                        <div class="c-overlay-content">
-                                            <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                        </div>
-                                    </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(assets/base/img/content/shop3/21.jpg);"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="c-info-list">
-                                    <h3 class="c-title c-font-bold c-font-22 c-font-dark">
-                                        <a class="c-theme-link" href="shop-product-details-2.html">Winter Coat</a>
-                                    </h3>
-                                    <p class="c-desc c-font-16 c-font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
-                                    <p class="c-price c-font-26 c-font-thin">$548 &nbsp;
-                                        <span class="c-font-26 c-font-line-through c-font-red">$600</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-shopping-cart"></i>Add Cart </button>
-                                    <button type="submit" class="btn btn-sm btn-default c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-heart-o"></i>Add Wishlist </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row c-margin-b-40">
-                        <div class="c-content-product-2 c-bg-white">
-                            <div class="col-md-4">
-                                <div class="c-content-overlay">
-                                    <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
-                                    <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">New</div>
-                                    <div class="c-overlay-wrapper">
-                                        <div class="c-overlay-content">
-                                            <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                        </div>
-                                    </div>
-                                    <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url(assets/base/img/content/shop3/23.jpg);"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="c-info-list">
-                                    <h3 class="c-title c-font-bold c-font-22 c-font-dark">
-                                        <a class="c-theme-link" href="shop-product-details-2.html">Winter Coat</a>
-                                    </h3>
-                                    <p class="c-desc c-font-16 c-font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
-                                    <p class="c-price c-font-26 c-font-thin">$548 &nbsp;
-                                        <span class="c-font-26 c-font-line-through c-font-red">$600</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-shopping-cart"></i>Add Cart </button>
-                                    <button type="submit" class="btn btn-sm btn-default c-btn-square c-btn-uppercase c-btn-bold">
-                                        <i class="fa fa-heart-o"></i>Add Wishlist </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: CONTENT/SHOPS/SHOP-2-8 -->
+   <?php
+           }
+		}
+                     
+       ?>                     
+                    
+                   <!-- END: CONTENT/SHOPS/SHOP-2-8 -->
                     <div class="c-margin-t-20"></div>
                     <ul class="c-content-pagination c-square c-theme pull-left">
                         <li class="c-prev">

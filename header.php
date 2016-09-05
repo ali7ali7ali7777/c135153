@@ -61,7 +61,7 @@ $user_ip = getUserIP();
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" type="text/css" href="assets/base/fonts/font.css" />
          </head>
-<!--<body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">-->
+
     <body class="c-layout-header-fixed c-layout-header-6-topbar c-layout-header-mobile-fixed c-page-on-scroll" >
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
 <header class="c-layout-header c-layout-header-6 c-navbar-fluid" data-minimize-offset="80">
@@ -110,7 +110,7 @@ $user_ip = getUserIP();
       <div class="c-navbar-wrapper clearfix"> 
         <!-- END: BRAND --> 
         <!-- BEGIN: QUICK SEARCH -->
-        <form class="c-quick-search" action="#">
+        <form class="c-quick-search" action="shop-product-search.php" method="post">
           <input type="text" name="query" placeholder="جهت جستجو مطلب خود را وارد نمایید ..." value="" class="form-control" autocomplete="off">
           <span class="c-theme-link">&times;</span>
         </form>
@@ -133,7 +133,7 @@ if (mysqli_num_rows($rant_h1) > 0)
 	while($row_h1=mysqli_fetch_assoc($rant_h1))
 	{
 ?>
-            <li> <a href="shop-product-search.php?id=<?php echo $row_h1['gro_id'] ?>" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?> <span class="c-arrow c-toggler"></span> </a>
+            <li> <a href="shop-product-search.php?code=<?php echo $row_h1['gro_kod'] ?>" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?> <span class="c-arrow c-toggler"></span> </a>
               <div class="dropdown-menu c-menu-type-mega c-menu-type-fullwidth" style="min-width: auto">
                 <div class="row">
                   <?php
@@ -145,7 +145,7 @@ if (mysqli_num_rows($rant_h1) > 0)
 ?>
                   <div class="col-md-2">
                     <ul class="dropdown-menu c-menu-type-inline">
-                      <li> <a href="shop-product-search.php?id=<?php echo $row_h2['gro_id'] ?>"><?php echo $row_h2['gro_name'] ?></a> </li>
+                      <li> <a href="shop-product-search.php?code=<?php echo $row_h2['gro_kod'] ?>"><?php echo $row_h2['gro_name'] ?></a> </li>
                     </ul>
                   </div>
                   <?php
@@ -181,7 +181,7 @@ else
                                         <span class="c-line"></span>
                                     </a>
                                 </li>-->
-            <li class="c-search-toggler-wrapper"> <a href="#" class="c-btn-icon c-search-toggler"> <i class="fa fa-search"></i> </a> </li>
+            <li class="c-search-toggler-wrapper"> <a href="shop-product-search.php" class="c-btn-icon c-search-toggler"> <i class="fa fa-search"></i> </a> </li>
           </ul>
         </nav>
         <!-- END: MEGA MENU --> 
