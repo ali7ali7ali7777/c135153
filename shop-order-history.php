@@ -105,7 +105,7 @@ if ($res_h1->num_rows > 0)
                             </div>
                             <div class="clearfix col-md-2 col-sm-3 col-xs-6 c-cart-price">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">قیمت </p>
-                                <p class="c-cart-price c-font-bold"><?php echo $row_h1['object_out_sales_price']; ?></p>
+                                <p class="c-cart-price c-font-bold"><?php echo number_format($row_h1['object_out_sales_price']); ?></p>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 c-cart-total">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">روش پرداخت </p>

@@ -141,7 +141,7 @@ if ($res_w1->num_rows > 0)
                                 </div>
                                 <div class="col-md-2 col-sm-2">
                                     <p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">قیمت واحد</p>
-                                    <p class="c-font-sbold c-font-uppercase c-font-18"><?php if ($row_w2['object_sale_di'] == "") echo $row_w2['object_sale']; else echo $row_w2['object_sale_di']; ?></p>
+                                    <p class="c-font-sbold c-font-uppercase c-font-18"><?php if ($row_w2['object_sale_di'] == "0") echo number_format($row_w2['object_sale']); else echo number_format($row_w2['object_sale_di']); ?></p>
                                 </div>
                             </div>
                         </div>

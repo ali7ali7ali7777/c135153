@@ -255,12 +255,12 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                 <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name'] ; ?></p>
                            <?php
-							if ($row_i5['object_sale_di'] != "")
-							echo	'<p class="c-price c-font-16 c-font-slim"> '.$row_i5['object_sale_di'].' ريال  &nbsp;
-                                        <span class="c-font-16 c-font-line-through c-font-red"> '.$row_i5['object_sale'].' ريال </span>
+							if ($row_i5['object_sale_di'] != "0")
+							echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale_di']).' ريال  &nbsp;
+                                        <span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i5['object_sale']).' ريال </span>
                                     </p>';
 							else 
-							echo   '<p class="c-price c-font-16 c-font-slim"> '.$row_i5['object_sale'].' ريال  
+							echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale']).' ريال  
                                     </p>';
 							?>
                                     
@@ -354,12 +354,12 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                 <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?></p>
                                     <?php
-								if ($row_i6['object_sale_di'] != "")
-								echo	'<p class="c-price c-font-16 c-font-slim"> '.$row_i6['object_sale_di'].' ريال  &nbsp;
-											<span class="c-font-16 c-font-line-through c-font-red"> '.$row_i6['object_sale'].' ريال </span>
+								if ($row_i6['object_sale_di'] != "0")
+								echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale_di']).' ريال  &nbsp;
+											<span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i6['object_sale']).' ريال </span>
 										</p>';
 								else 
-								echo   '<p class="c-price c-font-16 c-font-slim"> '.$row_i6['object_sale'].' ريال  
+								echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale']).' ريال  
                                     </p>';
 							?>
                                 </div>

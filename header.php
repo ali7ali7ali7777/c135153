@@ -83,8 +83,9 @@ $user_ip = getUserIP();
         <ul class="c-ext hide c-theme-ul">
           <li class="c-search hide"> 
             <!-- BEGIN: QUICK SEARCH -->
-            <form action="#">
-              <input type="text" name="query" placeholder="جستجو..." value="" class="form-control" autocomplete="off">
+            <form action="shop-product-search.php" method="get">
+              <input type="text" name="word" placeholder="جستجو..." value="" class="form-control" autocomplete="off">
+              <input name="send" value="search" type="hidden">
               <i class="fa fa-search"></i>
             </form>
             <!-- END: QUICK SEARCH --> 
@@ -110,8 +111,9 @@ $user_ip = getUserIP();
       <div class="c-navbar-wrapper clearfix"> 
         <!-- END: BRAND --> 
         <!-- BEGIN: QUICK SEARCH -->
-        <form class="c-quick-search" action="shop-product-search.php" method="post">
-          <input type="text" name="query" placeholder="جهت جستجو مطلب خود را وارد نمایید ..." value="" class="form-control" autocomplete="off">
+        <form class="c-quick-search" action="shop-product-search.php" method="get">
+          <input type="text" name="word" placeholder="جهت جستجو مطلب خود را وارد نمایید ..." value="" class="form-control" autocomplete="off">
+          <input name="send" value="search" type="hidden">
           <span class="c-theme-link">&times;</span>
         </form>
         <!-- END: QUICK SEARCH --> 

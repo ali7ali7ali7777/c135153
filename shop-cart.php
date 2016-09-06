@@ -18,12 +18,11 @@ switch($action) {
 		if(!empty($_POST["quantity"])) {
 			$product = mysqli_fetch_assoc(mysqli_query($mysqlicheck,'SELECT * FROM object where  object_code = "'.$code.'" '));
 			
-			if ($product["object_sale_di"] != "")
+			if ($product["object_sale_di"] != "0")
 				$price = $product["object_sale_di"];
 			else
 				$price = $product["object_sale"];
 			
-			$price = str_replace(",","",$price);
 			$itemArray = array($product["object_code"]=>array('name'=>$product["object_name"], 'code'=>$product["object_code"], 'quantity'=>$_POST["quantity"], 'price'=>$price, 'img'=>$src));
 			if(!empty($_SESSION["cart_item"])) {
 				if(array_key_exists($product["object_code"],$_SESSION["cart_item"])) {

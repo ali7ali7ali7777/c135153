@@ -2,11 +2,44 @@
         <?php require_once "header.php";?>
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
+<?php
+		
+$select = "SELECT * FROM object where object_status = 1 " ;
+if (isset($_GET['send']) )
+{
+	$send = get_safe_get($mysqlicheck,"send");
+	if($send == 'search')
+	{
+		//ORDER BY ASC|DESC 
+		$gro = get_safe_get($mysqlicheck,"gro");
+		$word = get_safe_get($mysqlicheck,"word");
+		$sort = get_safe_get($mysqlicheck,"sort");
+		$order = get_safe_get($mysqlicheck,"order");
+		echo $sort . "<br />";
+			echo $order . "<br />";
+		if ($gro == "" && $word != "")
+			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' " ;
+		elseif($gro != "" && $word != "")
+			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%'" ;
+		elseif($gro != "" && $word == "")
+			$select = "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%'" ;
+		elseif($sort != "" && $order != "" && $gro == "" && $word != "")
+			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%'  ORDER BY ".$sort." ".$order ;
+		elseif($sort != "" && $order != "" && $gro != "" && $word == "")
+			echo  "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
+		elseif($sort != "" && $order != "" && $gro != "" && $word != "")
+			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
+	}
+	else
+		echo "<script>window.location.href='shop-product-search.php';</script>";
+}
+				
+?>
 			<div class="container">
                 <div class="c-layout-sidebar-menu c-theme ">
                     <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
                     <div class="c-sidebar-menu-toggler">
-                        <h3 class="c-title c-font-uppercase c-font-bold">نمایش گروهها</h3>
+                        <h3 class="c-title c-font-uppercase c-font-bold">نمایش دسته بندیها</h3>
                         <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">
                             <span class="c-line"></span>
                             <span class="c-line"></span>
@@ -17,15 +50,18 @@
                     <ul class="c-shop-filter-search-1 list-unstyled">
                         <li>
                             <label class="control-label c-font-uppercase c-font-bold">دسته بندی</label>
-                            <select class="form-control c-square c-theme">
-                                <option value="0">همه دسته بندیها</option>
+                            <select class="form-control c-square c-theme" id="ghone">
+                                <option value="" <?php if($gro == "") echo 'selected="selected"'; ?>>همه دسته بندیها</option>
                                 <?php
 $rant_s1 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___' and gro_status =1");
 if (mysqli_num_rows($rant_s1) > 0)
 {	
 	while($row_s1=mysqli_fetch_assoc($rant_s1))
 	{								
-                               echo '<option value="'.$row_s1['gro_kod'].'">'.$row_s1['gro_name'].'</option>';
+                               echo '<option value="'.$row_s1['gro_kod'].'"';
+		if(strlen($gro) == 3 && $gro == $row_s1['gro_kod']) echo 'selected="selected"';
+		elseif(strlen($gro) > 3 && substr($gro ,0 ,3) == $row_s1['gro_kod']) echo 'selected="selected"';
+							   echo '>'.$row_s1['gro_name'].'</option>';
 	}
 }
 									?>
@@ -64,18 +100,13 @@ if (mysqli_num_rows($rant_s1) > 0)
                             </div>
                         </li>
 <?php
-$rant_s5 = mysqli_query($mysqlicheck,"SELECT object_sale FROM `object` where object_status = 1");
-	$min = 10000000000 ;
-	$max = 0 ;
-	while($row_s5=mysqli_fetch_assoc($rant_s5))
-	{
-		$gh = str_replace(",","",$row_s5['object_sale']);
-		if($gh<$min)
-			$min = $gh ;
-		if($gh>$max)
-			$max = $gh ;
-	}
-						
+$rant_s5 = mysqli_query($mysqlicheck,"SELECT max(object_sale) as max,min(object_sale) as min  FROM `object` where object_status = 1");
+	
+	$row_s5=mysqli_fetch_assoc($rant_s5);
+	
+		$min = $row_s5['min'] ;
+		$max = $row_s5['max'] ;
+	
 ?>						
    						<li>
     						<label class="control-label c-font-uppercase c-font-bold">محدوده قیمت با نوار لغزان</label>
@@ -191,8 +222,9 @@ $rant_s2 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___'
 if (mysqli_num_rows($rant_s2) > 0)
 {	$i = 1 ;
 	while($row_s2=mysqli_fetch_assoc($rant_s2))
-	{		?>				
-                        <li class="c-dropdown c-active c-open">
+	{	
+						?>				
+                        <li class="c-dropdown <?php if(substr($gro ,0 ,3) == $row_s2['gro_kod']) echo 'c-active';?> c-open">
                             <a href="javascript:;" class="c-toggler"><?php echo $row_s2['gro_name']; ?>
                                 <span class="c-arrow"></span>
                             </a>
@@ -204,15 +236,15 @@ if (mysqli_num_rows($rant_s2) > 0)
 			while($row_s3=mysqli_fetch_assoc($rant_s3))
 			{
 								?>                       
-                                <li class="c-active">
-                                    <a href="" data-code="<?php echo $row_s3['gro_kod'] ?>"><?php echo $row_s3['gro_name']; ?></a>
+                                <li <?php if($gro == $row_s3['gro_kod']) echo 'class="c-active"';?>>
+                                    <a href="shop-product-search.php?send=search&gro=<?php echo $row_s3['gro_kod'] ?>"><?php echo $row_s3['gro_name']; ?></a>
                                 </li>
                                 <?php
 			}
 		}
 								?>
                             </ul>
-                        </li>
+                      </li>
 <?php
 	}
 }
@@ -223,24 +255,26 @@ if (mysqli_num_rows($rant_s2) > 0)
                 <div class="c-layout-sidebar-content ">
                     <!-- BEGIN: PAGE CONTENT -->
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-ADVANCED-SEARCH-1 -->
-                    <form class="c-shop-advanced-search-1" method="post">
+                    <form class="c-shop-advanced-search-1" method="get">
                       <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">کلمه مورد جستجو</label>
-                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="کلمه مورد نظر را جهت جستجو وارد نمائید " name="word"> </div>
+                                <input type="text" class="form-control c-square c-theme input-lg" placeholder="کلمه مورد نظر را جهت جستجو وارد نمائید " name="word" value="<?php echo $word ; ?>"> </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">دسته بندی</label>
                                 <select class="form-control c-square c-theme input-lg" name="gro">
-                                    <option value="0">همه دسته بندیها</option>
+                                    <option value="" <?php if($gro == "") echo 'selected="selected"'; ?>>همه دسته بندیها</option>
                                        <?php
 $rant_s4 = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '_____' and gro_status =1");
 if (mysqli_num_rows($rant_s4) > 0)
 {	
 	while($row_s4=mysqli_fetch_assoc($rant_s4))
 	{								
-                               echo '<option value="'.$row_s4['gro_kod'].'">'.$row_s4['gro_name'].'</option>';
+                               echo '<option value="'.$row_s4['gro_kod'].'"';
+							   if($gro == $row_s4['gro_kod']) echo 'selected="selected"';
+								echo '>'.$row_s4['gro_name'].'</option>';
 	}
 }
 									?>
@@ -250,12 +284,18 @@ if (mysqli_num_rows($rant_s4) > 0)
                         <div class="form-group" role="group">
                             <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="search">
                                 <i class="fa fa-search"></i>جستجو</button>
-                            <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" name="send" value="cancel">پاک کردن</button>
+                            <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" >دوباره</button>
                         </div>
                     </form>
                     <!-- END: CONTENT/SHOPS/SHOP-ADVANCED-SEARCH-1 -->
                     <div class="c-margin-t-30"></div>
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-RESULT-FILTER-1 -->
+<?php
+
+		$rant_s6 = mysqli_query($mysqlicheck,$select);
+		if (mysqli_num_rows($rant_s6) > 0)
+		{
+?>
                     <div class="c-shop-result-filter-1 clearfix form-inline">
                         <div class="c-filter">
                             <label class="control-label c-font-16">مشاهده:</label>
@@ -269,14 +309,14 @@ if (mysqli_num_rows($rant_s4) > 0)
                         </div>
                         <div class="c-filter">
                             <label class="control-label c-font-16">مرتب سازی بر اساس:</label>
-                            <select class="form-control c-square c-theme c-input">
-                                <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">پیش فرض</option>
-                                <option value="#?sort=pd.name&amp;order=ASC">نام ( الف - ی )</option>
-                                <option value="#?sort=pd.name&amp;order=DESC">نام ( ی - الف )</option>
-                                <option value="#?sort=p.price&amp;order=ASC">قیمت ( کم &gt; زیاد )</option>
-                                <option value="#?sort=p.price&amp;order=DESC" selected>قیمت ( زیاد &gt; کم )</option>
-                                <option value="#?sort=rating&amp;order=DESC">امتیاز ( بیشترین )</option>
-                                <option value="#?sort=rating&amp;order=ASC">امتیاز ( کمترین )</option>
+                            <select class="form-control c-square c-theme c-input" id="sort">
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>" <?php if($sort == "" && $order =="") echo 'selected="selected"' ;?> >پیش فرض</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_name&order=ASC" <?php if($sort == "object_name" && $order =="ASC") echo 'selected="selected"' ;?> >نام ( الف - ی )</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_name&order=DESC" <?php if($sort == "object_name" && $order =="DESC") echo 'selected="selected"' ;?> >نام ( ی - الف )</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_sale&order=ASC" <?php if($sort == "object_sale" && $order =="ASC") echo 'selected="selected"' ;?> >قیمت ( کم &gt; زیاد )</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_sale&order=DESC" <?php if($sort == "object_sale" && $order =="DESC") echo 'selected="selected"' ;?> >قیمت ( زیاد &gt; کم )</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_pupolar&order=DESC" <?php if($sort == "object_pupolar" && $order =="DESC") echo 'selected="selected"' ;?> >امتیاز ( بیشترین )</option>
+                                <option value="<?php echo $gro ; ?>&word=<?php echo $word ; ?>&sort=object_pupolar&order=ASC" <?php if($sort == "object_pupolar" && $order =="ASC") echo 'selected="selected"' ;?> >امتیاز ( کمترین )</option>
                             </select>
                         </div>
                     </div>
@@ -284,31 +324,7 @@ if (mysqli_num_rows($rant_s4) > 0)
                     <div class="c-margin-t-20"></div>
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-2-8 -->
 <?php
-$select = "SELECT * FROM object where object_status = 1 " ;
-if (isset($_POST['send']) )
-{
-	$send = get_safe_post($mysqlicheck,"send");
-	if(!empty($send))
-	{
-		switch($send)
-		{
-			case 'search':
-				$gro = get_safe_post($mysqlicheck,"gro");
-				$word = get_safe_post($mysqlicheck,"word");
-				if ($gro == 0)
-					$select = "SELECT * FROM object where object_status = 1 and gro_kod like '___' " ;
-				else
-					$select = "SELECT * FROM object where object_status = 1 and gro_kod like '___' and object_code like '___'" ;
-			break;
-			case 'cancel':
-				
-			break;
-		}
-	}
-}
-		$rant_s6 = mysqli_query($mysqlicheck,$select);
-		if (mysqli_num_rows($rant_s6) > 0)
-		{
+
 			while($row_s6=mysqli_fetch_assoc($rant_s6))
 			{
 				$se = $row_s6['object_visit'];
@@ -363,7 +379,7 @@ if (isset($_POST['send']) )
 				}
 		?>                             
                     
-                    <div class="row c-margin-b-40" data-stars="<?php echo $star ; ?>",  data-price="<?php echo str_replace(",","",$row_s6['object_sale']) ; ?>">
+                    <div class="row c-margin-b-40" data-stars="<?php echo $star ; ?>",  data-price="<?php echo $row_s6['object_sale'] ; ?>">
                         <div class="c-content-product-2 c-bg-white">
                             <div class="col-md-4">
                                 <div class="c-content-overlay">
@@ -384,12 +400,12 @@ if (isset($_POST['send']) )
                                     </h3>
                                     <p class="c-desc c-font-16 c-font-thin">توضیحات.</p>
                                     <?php
-								if ($row_s6['object_sale_di'] != "")
-								echo	'<p class="c-price c-font-22 c-font-thin"> '.$row_s6['object_sale_di'].' ريال  &nbsp;
-											<span class="c-font-22 c-font-line-through c-font-red"> '.$row_s6['object_sale'].' ريال </span>
+								if ($row_s6['object_sale_di'] != "0")
+								echo	'<p class="c-price c-font-22 c-font-thin"> '.number_format($row_s6['object_sale_di']).' ريال  &nbsp;
+											<span class="c-font-22 c-font-line-through c-font-red"> '.number_format($row_s6['object_sale']).' ريال </span>
 										</p>';
 								else 
-								echo   '<p class="c-price c-font-22 c-font-thin"> '.$row_s6['object_sale'].' ريال  
+								echo   '<p class="c-price c-font-22 c-font-thin"> '.number_format($row_s6['object_sale']).' ريال  
                                     </p>';
 							?>
                                </div>
@@ -404,7 +420,7 @@ if (isset($_POST['send']) )
                     </div>
    <?php
            }
-		}
+		
                      
        ?>                     
                     
@@ -434,6 +450,12 @@ if (isset($_POST['send']) )
                             </a>
                         </li>
                     </ul>
+                    <?php
+           }
+		else
+			echo '<div class="alert alert-warning" role="alert">محصولی مرتبط با جستجوی شما در دسته بندی مورد نظر یافت نشد  .</div>';	
+                     
+       ?>
                     <!-- END: PAGE CONTENT -->
                 </div>
             </div>

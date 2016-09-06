@@ -89,8 +89,8 @@ $datenow = mkdate("Y/m/d",date('Y-m-d'),'fa');
 					$m9 = get_safe_post($mysqlicheck,"m9");
 					$m10 = get_safe_post($mysqlicheck,"m10");
 					$m11 = get_safe_post($mysqlicheck,"m11");
-					$m_s = get_safe_post($mysqlicheck,"m_s");
-					$m_s_d = get_safe_post($mysqlicheck,"m_s_d");
+					$m_s = clean(get_safe_post($mysqlicheck,"m_s"));
+					$m_s_d = clean(get_safe_post($mysqlicheck,"m_s_d"));
 					$unit = get_safe_post($mysqlicheck,"m_unit");
                     
                     

@@ -94,6 +94,14 @@ $(document).ready(function() {
 		 code: j_cod});
 		$(location).attr('href', "shop-product-wishlist.php" );
 	});
+	$("select#ghone").change(function(){
+		var gro = $(this).val();
+		$(location).attr('href', "shop-product-search.php?send=search&gro=" + gro );
+	});
+	$("select#sort").change(function(){
+		var matkol = $(this).val();
+		$(location).attr('href', "shop-product-search.php?send=search&gro=" + matkol );
+	});
 });
 
 

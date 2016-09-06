@@ -165,7 +165,7 @@ if (mysqli_num_rows($rant_t1) > 0)
                 </div>
 					</div>
                     <div class="c-product-price">
-                      <?php if ($row_t1['object_sale_di'] != "") echo $row_t1['object_sale_di']; else echo $row_t1['object_sale']; ?>
+                      <?php if ($row_t1['object_sale_di'] != "0") echo number_format($row_t1['object_sale_di']); else echo number_format($row_t1['object_sale']); ?>
                     </div>
         			<div class="c-product-short-desc"> توضیح کوتاه کالا. </div>
                  	<input name="code" value="<?php echo $row_t1['object_code'] ?>" type="hidden">
