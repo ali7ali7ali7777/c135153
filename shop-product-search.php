@@ -10,25 +10,28 @@ if (isset($_GET['send']) )
 	$send = get_safe_get($mysqlicheck,"send");
 	if($send == 'search')
 	{
-		//ORDER BY ASC|DESC 
 		$gro = get_safe_get($mysqlicheck,"gro");
 		$word = get_safe_get($mysqlicheck,"word");
 		$sort = get_safe_get($mysqlicheck,"sort");
 		$order = get_safe_get($mysqlicheck,"order");
-		echo $sort . "<br />";
-			echo $order . "<br />";
+		
 		if ($gro == "" && $word != "")
 			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' " ;
 		elseif($gro != "" && $word != "")
 			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%'" ;
 		elseif($gro != "" && $word == "")
 			$select = "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%'" ;
-		elseif($sort != "" && $order != "" && $gro == "" && $word != "")
-			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%'  ORDER BY ".$sort." ".$order ;
-		elseif($sort != "" && $order != "" && $gro != "" && $word == "")
-			echo  "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
-		elseif($sort != "" && $order != "" && $gro != "" && $word != "")
-			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
+		elseif($sort != "" && $order != "")
+		{
+			if($gro == "" && $word != "")
+				$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%'  ORDER BY ".$sort." ".$order ;
+			elseif($gro != "" && $word == "")
+				$select = "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
+			elseif($gro != "" && $word != "")
+				$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
+			elseif($gro == "" && $word == "")
+				$select = "SELECT * FROM object where object_status = 1 ORDER BY ".$sort." ".$order ;
+		}
 	}
 	else
 		echo "<script>window.location.href='shop-product-search.php';</script>";
@@ -115,7 +118,7 @@ $rant_s5 = mysqli_query($mysqlicheck,"SELECT max(object_sale) as max,min(object_
                                 <input type="text" class="c-price-slider" value="" data-slider-min="<?php echo $min ;?>" data-slider-max="<?php echo $max ;?>" data-slider-step="5000" data-slider-value="<?php echo '['.$min.','.$max.']';?>"> </div>
                         </li>
 <?php
-$rant_s6 = mysqli_query($mysqlicheck,"SELECT object_visit FROM `object` where object_status = 1");
+$rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where object_status = 1");
 	$i5 = 0 ;
 	$i4 = 0 ;
 	$i3 = 0 ;
@@ -125,7 +128,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_visit FROM `object` where ob
 						
 	while($row_s6=mysqli_fetch_assoc($rant_s6))
 	{
-		$te = $row_s6['object_visit'];
+		$te = $row_s6['object_pupolar'];
 		
 		if($te == 0)
 			$i0 ++ ;
