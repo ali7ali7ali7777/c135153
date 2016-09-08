@@ -6,8 +6,8 @@ $src = "images/none.jpg";
 $object_id = get_safe_get($mysqlicheck,"selected");
 $object_code = get_safe_get($mysqlicheck,"code");	
 
-	
-	
+$sql_v = 'UPDATE `object` SET `object_visit`= object_visit+1 WHERE object_id = "'.$object_id.'" or object_code = "'.$object_code.'"';	
+$res_v = $mysqlicheck->query($sql_v);	
 	
 $rant_t1 = mysqli_query($mysqlicheck,'SELECT * FROM object 	where  object_id = "'.$object_id.'" or object_code = "'.$object_code.'"');
 if (mysqli_num_rows($rant_t1) > 0)
