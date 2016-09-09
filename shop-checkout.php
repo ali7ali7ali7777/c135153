@@ -188,7 +188,7 @@ function createRandomPassword($length = 8) {
 		}
 		return $pass;
 	} 
-								echo $user_id ;
+								
 ?>       
                                <?php if ($user_id == "") { ?>
                                 <!-- BEGIN: BILLING ADDRESS -->

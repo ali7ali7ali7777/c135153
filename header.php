@@ -2,11 +2,11 @@
 
 
  $it = 0 ;
- foreach ($_SESSION["cart_item"] as $c_item){
- $it ++ ;
-        $item_total += (str_replace(",","",$c_item["price"])*$c_item["quantity"]); 
-  
- }
+ foreach ($_SESSION["cart_item"] as $c_item)
+{
+    $it ++ ;
+    $item_total += ($c_item["price"]*$c_item["quantity"]); 
+}
 
 $user_id = $_SESSION["login"]["id"];
 $user_ty = $_SESSION["login"]["type"];

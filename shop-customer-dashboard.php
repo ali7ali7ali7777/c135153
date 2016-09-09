@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 c-margin-b-20">
-                            <h3 class="c-font-uppercase c-font-bold"><?php echo $row_p["user_name"].' '.$row_l["user_family"] ; ?></h3>
+                            <h3 class="c-font-uppercase c-font-bold"><?php echo $row_p["user_name"].' '.$row_p["user_family"] ; ?></h3>
                             <ul class="list-unstyled">
                                 <li><?php echo $row_p["user_country"].' - '.$row_p["user_city"].' - '.$row_p["user_address1"] ; ?></li>
                                 <li>تلفن یک : <?php echo $row_p["user_tell1"];?></li>

@@ -33,7 +33,7 @@ if ($res_h1->num_rows > 0)
                                 <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">قیمت</h3>
                             </div>
                             <div class="col-md-3 c-cart-total">
-                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">روش پرداخت</h3>
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">درگاه پرداخت</h3>
                             </div>
                             <div class="col-md-2 c-cart-qty">
                                 <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">تاریخ</h3>
@@ -108,8 +108,14 @@ if ($res_h1->num_rows > 0)
                                 <p class="c-cart-price c-font-bold"><?php echo number_format($row_h1['object_out_sales_price']); ?></p>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 c-cart-total">
-                                <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">روش پرداخت </p>
-                                <p class="c-cart-price c-font-bold">Credit Cart (MasterCard)</p>
+                                <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">درگاه پرداخت </p>
+                                <p class="c-cart-price c-font-bold"><?php if ($row_h1['object_out_payment'] == 1)
+                                                                           echo  'آپ' ;
+                                                                        elseif ($row_h1['object_out_payment']  == 2)
+                                                                            echo 'به ملت' ;
+                                                                        elseif ($row_h1['object_out_payment']  == 3)
+                                                                           echo  'به سامان' ; ?>
+                           </p>
                             </div>
                             <div class="col-md-2 col-sm-3 col-xs-6 c-cart-qty">
                                 <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">تاریخ</p>
