@@ -319,7 +319,7 @@ function createRandomPassword($length = 8) {
                                             <div class="c-line-right c-theme-bg"></div>
                                             <p>به ما بپیوندید و از خرید آنلاین لذت ببرید.</p>
                                         </div>
-                                        <div class="c-margin-fix">
+                                        <div class="c-margin-t-50">
                                             <div class="c-checkbox c-toggle-hide" data-object-selector="c-form-register" data-animation-speed="600">
                                                 <input type="checkbox" id="checkbox6-444" class="c-check">
                                                 <label for="checkbox6-444">
@@ -385,27 +385,7 @@ function createRandomPassword($length = 8) {
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="list-unstyled c-bs-grid-small-space">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 c-margin-t-10">
-                                            <a class="btn btn-block btn-social c-btn-square c-btn-uppercase btn-md btn-twitter">
-                                                <i class="fa fa-twitter"></i> Sign in with Twitter </a>
-                                        </div>
-                                        <div class="col-md-4 col-sm-4 c-margin-t-10">
-                                            <a class="btn btn-block btn-social c-btn-square c-btn-uppercase btn-md btn-facebook">
-                                                <i class="fa fa-facebook"></i> Sign in with Facebook </a>
-                                        </div>
-                                        <div class="col-md-4 col-sm-4 c-margin-t-10">
-                                            <a class="btn btn-block btn-social c-btn-square c-btn-uppercase btn-md btn-google">
-                                                <i class="fa fa-google-plus"></i> Sign in with Google </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div>
             <!-- END: CONTENT/SHOPS/SHOP-LOGIN-REGISTER-1 -->

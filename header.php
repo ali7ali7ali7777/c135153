@@ -135,7 +135,7 @@ if (mysqli_num_rows($rant_h1) > 0)
 	while($row_h1=mysqli_fetch_assoc($rant_h1))
 	{
 ?>
-            <li> <a href="shop-product-search.php?code=<?php echo $row_h1['gro_kod'] ?>" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?> <span class="c-arrow c-toggler"></span> </a>
+            <li> <a href="shop-product-search.php?send=search&gro=<?php echo $row_h1['gro_kod'] ?>" class="c-link dropdown-toggle"><?php echo $row_h1['gro_name'] ?> <span class="c-arrow c-toggler"></span> </a>
               <div class="dropdown-menu c-menu-type-mega c-menu-type-fullwidth" style="min-width: auto">
                 <div class="row">
                   <?php
@@ -147,7 +147,7 @@ if (mysqli_num_rows($rant_h1) > 0)
 ?>
                   <div class="col-md-2">
                     <ul class="dropdown-menu c-menu-type-inline">
-                      <li> <a href="shop-product-search.php?code=<?php echo $row_h2['gro_kod'] ?>"><?php echo $row_h2['gro_name'] ?></a> </li>
+                      <li> <a href="shop-product-search.php?send=search&gro=<?php echo $row_h2['gro_kod'] ?>"><?php echo $row_h2['gro_name'] ?></a> </li>
                     </ul>
                   </div>
                   <?php

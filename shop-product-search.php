@@ -3,7 +3,7 @@
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
 <?php
-		
+$per = get_safe_get($mysqlicheck,"per_in");		
 $select = "SELECT * FROM object where object_status = 1 " ;
 if (isset($_GET['send']) )
 {
@@ -19,17 +19,17 @@ if (isset($_GET['send']) )
 			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' " ;
 		elseif($gro != "" && $word != "")
 			$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%'" ;
-		elseif($gro != "" && $word == "")
+		if($gro != "" && $word == "")
 			$select = "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%'" ;
-		elseif($sort != "" && $order != "")
+		if($sort != "" && $order != "")
 		{
 			if($gro == "" && $word != "")
 				$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%'  ORDER BY ".$sort." ".$order ;
-			elseif($gro != "" && $word == "")
+			if($gro != "" && $word == "")
 				$select = "SELECT * FROM object where object_status = 1 and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
-			elseif($gro != "" && $word != "")
+			if($gro != "" && $word != "")
 				$select = "SELECT * FROM object where object_status = 1 and object_name like '%".$word."%' and object_code like '".$gro."%' ORDER BY ".$sort." ".$order ;
-			elseif($gro == "" && $word == "")
+			if($gro == "" && $word == "")
 				$select = "SELECT * FROM object where object_status = 1 ORDER BY ".$sort." ".$order ;
 		}
 	}
@@ -148,7 +148,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                         <li class="c-margin-b-40">
                             <label class="control-label c-font-uppercase c-font-bold">بررسی رتبه</label>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-1" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-1" class="c-check" checked="checked" value="5">
                                 <label for="checkbox-sidebar-2-1">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -162,7 +162,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                 </label>
                             </div>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-2" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-2" class="c-check" checked="checked" value="4">
                                 <label for="checkbox-sidebar-2-2">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -175,7 +175,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                 </label>
                             </div>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-3" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-3" class="c-check" checked="checked" value="3">
                                 <label for="checkbox-sidebar-2-3">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -187,7 +187,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                 </label>
                             </div>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-4" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-4" class="c-check" checked="checked" value="2">
                                 <label for="checkbox-sidebar-2-4">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -198,7 +198,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                 </label>
                             </div>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-5" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-5" class="c-check" checked="checked" value="1">
                                 <label for="checkbox-sidebar-2-5">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -208,7 +208,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                 </label>
                             </div>
                             <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-6" class="c-check">
+                                <input type="checkbox" id="checkbox-sidebar-2-6" class="c-check" checked="checked" value="0">
                                 <label for="checkbox-sidebar-2-6">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -302,12 +302,12 @@ if (mysqli_num_rows($rant_s4) > 0)
                     <div class="c-shop-result-filter-1 clearfix form-inline">
                         <div class="c-filter">
                             <label class="control-label c-font-16">مشاهده:</label>
-                            <select class="form-control c-square c-theme c-input" id="per_p">
-                                <option value="5" selected="selected">5</option>
-                                <option value="10">10</option>
-                                <option value="50">50</option>
-                                <option value="75">75</option>
-                                <option value="100">100</option>
+                            <select class="form-control c-square c-theme c-input" id="per_p" name="per_in">
+                                <option value="5" <?php if ($per == 5 )echo 'selected="selected"'; ?>>5</option>
+                                <option value="10" <?php if ($per == 10 )echo 'selected="selected"'; ?>>10</option>
+                                <option value="20" <?php if ($per == 20 )echo 'selected="selected"'; ?>>20</option>
+                                <option value="35" <?php if ($per == 35 )echo 'selected="selected"'; ?>>35</option>
+                                <option value="50" <?php if ($per == 50 )echo 'selected="selected"'; ?>>50</option>
                             </select>
                         </div>
                         <div class="c-filter">

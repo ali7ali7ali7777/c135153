@@ -106,11 +106,69 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function(){
-	//$('select#per_p').change(function() {
-        //how much items per page to show
-	var show_per_page =5; 
-    //alert(show_per_page);
+$(document).ready(function(){  
+  
+    //when a link in the filters div is clicked...  
+    $('#checkbox-sidebar-2-1').click(function(e){  
+  
+        //prevent the default behaviour of the link  
+        e.preventDefault();  
+  
+        //get the id of the clicked link(which is equal to classes of our content  
+        var filter = $(this).val();  
+  		alert(filter);
+        //show all the list items(this is needed to get the hidden ones shown)  
+        $('#content div').show();  
+  
+        /*using the :not attribute and the filter class in it we are selecting 
+        only the list items that don't have that class and hide them '*/  
+        $('#content ul li:not(.' + filter + ')').hide();  
+  
+    });  
+  
+}); 
+
+
+
+
+/*$(document).ready(function() {
+	$( "#per_p" ).change(function () {
+    $( "select#per_p" ).each(function() {
+       showperpage();
+    });
+  })
+  .change();
+	$('#checkbox-sidebar-2-1').click(function() {
+		// fetch the class of the clicked item
+		var our = $(this).val();
+		 $("#checkbox-sidebar-2-1").toggle(this.checked);
+		// reset the active class on all the buttons
+		//$('#checkbox-sidebar-2-1').removeAttr('checked');
+		// update the active state on our clicked button
+		//$(this).parent().attr('checked' , 'checked');
+		
+		if(our == 'all') {
+			// show all our items
+			$('#content').children('div.row').show();	
+		}
+		else {
+			// hide all elements that don't share ourClass
+			$('#content').children('div:not(.' + ourClass + ')').hide();
+			// show all elements that do share ourClass
+			$('#content').children('div.' + ourClass).show();
+		}
+		return false;
+	});
+});*/
+
+
+
+function showperpage()
+{
+	
+    //how much items per page to show
+	var show_per_page = $('#per_p option:selected').val();
+    
 	//getting the amount of elements inside content div
 	var number_of_items = $('#content').children().size();
     //calculate the number of pages we are going to have
@@ -128,13 +186,14 @@ $(document).ready(function(){
 		- links to specific pages
 		- link to next page
 	*/
-var navigation_html =  '<li><a  href="javascript:next();"><i class="fa fa-angle-right"></i></a></li>';
+	var navigation_html =  '<li><a  href="javascript:previous();"><i class="fa fa-angle-right"></i></a></li>';
 	var current_link = 0;
-	while(number_of_pages > current_link){
-		navigation_html += '<li class="page_link"><a  href="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a></li>';
+	while(number_of_pages > current_link)
+	{
+		navigation_html += '<li class="page_link" longdesc="' + current_link +'"><a  href="javascript:go_to_page(' + current_link +')" >'+ (current_link + 1) +'</a></li>';
 		current_link++;
 	}
-	navigation_html +='<li><a  href="javascript:previous();"><i class="fa fa-angle-left"></i></a></li>';
+	navigation_html +='<li><a href="javascript:next();"><i class="fa fa-angle-left"></i></a></li>';
 	
 	$('.c-content-pagination').html(navigation_html);
 	
@@ -147,27 +206,28 @@ var navigation_html =  '<li><a  href="javascript:next();"><i class="fa fa-angle-
 	//and show the first n (show_per_page) elements
 	$('#content').children().slice(0, show_per_page).css('display', 'block');
 	
-});
+}
 
-function previous(){
-	
+function previous()
+{
 	new_page = parseInt($('#current_page').val()) - 1;
 	//if there is an item before the current active link run the function
 	if($('.c-active').prev('.page_link').length==true){
 		go_to_page(new_page);
 	}
-	
 }
 
-function next(){
+function next()
+{
 	new_page = parseInt($('#current_page').val()) + 1;
 	//if there is an item after the current active link run the function
 	if($('.c-active').next('.page_link').length==true){
 		go_to_page(new_page);
 	}
-	
 }
-function go_to_page(page_num){
+
+function go_to_page(page_num)
+{
 	//get the number of items shown per page
 	var show_per_page = parseInt($('#show_per_page').val());
 	
