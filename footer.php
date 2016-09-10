@@ -188,7 +188,7 @@ $rant_f1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
         <script src="assets/base/js/components-shop.js" type="text/javascript"></script>
         <script src="assets/base/js/app.js" type="text/javascript"></script>
         <script src="assets/base/js/object-post.js" type="text/javascript"></script>
-        <script>
+       <script>
             $(document).ready(function()
             {
 				App.init(); // init core

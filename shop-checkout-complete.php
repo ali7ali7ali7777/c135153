@@ -135,7 +135,7 @@ if ($sel_co->num_rows > 0)
 				{
 					$dir = 'images/object/'.$row_co2['object_id'].'/';
 					// iterate
-					if(!$dir)
+					if (!file_exists($dir) && !is_dir($dir))
 					{
 						 $src = "images/none.jpg";
 					}

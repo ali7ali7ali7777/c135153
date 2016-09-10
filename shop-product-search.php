@@ -302,12 +302,12 @@ if (mysqli_num_rows($rant_s4) > 0)
                     <div class="c-shop-result-filter-1 clearfix form-inline">
                         <div class="c-filter">
                             <label class="control-label c-font-16">مشاهده:</label>
-                            <select class="form-control c-square c-theme c-input">
-                                <option value="#?limit=24" selected="selected">24</option>
-                                <option value="#?limit=25">25</option>
-                                <option value="#?limit=50">50</option>
-                                <option value="#?limit=75">75</option>
-                                <option value="#?limit=100">100</option>
+                            <select class="form-control c-square c-theme c-input" id="per_p">
+                                <option value="5" selected="selected">5</option>
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
                             </select>
                         </div>
                         <div class="c-filter">
@@ -326,6 +326,10 @@ if (mysqli_num_rows($rant_s4) > 0)
                     <!-- END: CONTENT/SHOPS/SHOP-RESULT-FILTER-1 -->
                     <div class="c-margin-t-20"></div>
                     <!-- BEGIN: CONTENT/SHOPS/SHOP-2-8 -->
+                    <input type='hidden' id='current_page' />
+	                <input type='hidden' id='show_per_page' />
+                    <div  id="content">
+                    
 <?php
 
 			while($row_s6=mysqli_fetch_assoc($rant_s6))
@@ -347,7 +351,8 @@ if (mysqli_num_rows($rant_s4) > 0)
 				
 				$dir = 'images/object/'.$row_s6['object_id'].'/';
 				// iterate
-				if(!$dir){
+				if (!file_exists($dir) && !is_dir($dir))
+                {
 					 $src = "images/none.jpg";
 				}
 				else
@@ -380,14 +385,21 @@ if (mysqli_num_rows($rant_s4) > 0)
 				{
 					$src = "images/none.jpg";
 				}
+                
+                $now = time(); // or your date as well
+                $your_date = strtotime($row_s6['object_date']);
+                $datediff = $now - $your_date;
+                $check_d = floor($datediff / (60 * 60 * 24));
 		?>                             
                     
                     <div class="row c-margin-b-40" data-stars="<?php echo $star ; ?>",  data-price="<?php echo $row_s6['object_sale'] ; ?>">
                         <div class="c-content-product-2 c-bg-white">
                             <div class="col-md-4">
                                 <div class="c-content-overlay">
-                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
-                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
+                                   <?php if ($row_s6['object_sale_di'] != 0) {?>
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div><?php }?>
+                                    <?php if ($check_d <8 ){ ?>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div><?php  }?>
                                     <div class="c-overlay-wrapper">
                                         <div class="c-overlay-content">
                                             <a href="shop-product-details.php?selected=<?php echo $row_s6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
@@ -425,11 +437,26 @@ if (mysqli_num_rows($rant_s4) > 0)
            }
 		
                      
-       ?>                     
+       ?>   
+                    </div>                  
                     
                    <!-- END: CONTENT/SHOPS/SHOP-2-8 -->
+                   <style>
+#page_navigation a{
+	padding:3px;
+	border:1px solid gray;
+	margin:2px;
+	color:black;
+	text-decoration:none
+}
+.active_page{
+	background:darkblue;
+	color:white !important;
+}
+</style>
                     <div class="c-margin-t-20"></div>
-                    <ul class="c-content-pagination c-square c-theme pull-left">
+                    <ul class="c-content-pagination c-square c-theme pull-left"  ></ul>
+                  <!-- <ul class="c-content-pagination c-square c-theme pull-left">
                         <li class="c-prev">
                             <a href="#">
                                 <i class="fa fa-angle-right"></i>
@@ -452,7 +479,7 @@ if (mysqli_num_rows($rant_s4) > 0)
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul>-->
                     <?php
            }
 		else

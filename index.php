@@ -123,9 +123,10 @@ if ( mysqli_num_rows($rant_i1) > 0)
 					{
 						$dir = 'images/object/'.$row_i4['object_id'].'/';
 						// iterate
-						if(!$dir){
+						if (!file_exists($dir) && !is_dir($dir)) 
+                        
 							 $src = "images/none.jpg";
-	                   }else
+	                    else
 						{
 							// image extensions
 							$extensions = array('jpg', 'jpeg', 'png');
@@ -201,7 +202,8 @@ if ( mysqli_num_rows($rant_i1) > 0)
 			{  
 				$dir = 'images/object/'.$row_i5['object_id'].'/';
 				// iterate
-				if(!$dir){
+				if (!file_exists($dir) && !is_dir($dir)) 
+                {
 					 $src = "images/none.jpg";			
 				}
 				else
@@ -234,7 +236,10 @@ if ( mysqli_num_rows($rant_i1) > 0)
 				{
 					$src = "images/none.jpg";
 				}
-				
+				$now = time(); // or your date as well
+                $your_date = strtotime($row_i5['object_date']);
+                $datediff = $now - $your_date;
+                $check_d = floor($datediff / (60 * 60 * 24));
 				
 				if ($I_ac == "1" || $I_ac == "5") echo   '<div class="row">';
 	?>
@@ -242,8 +247,10 @@ if ( mysqli_num_rows($rant_i1) > 0)
                 	<div class="col-md-3 col-sm-6 c-margin-b-20">
                             <div class="c-content-product-2 c-bg-white">
                                 <div class="c-content-overlay">
-                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
-                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
+                                    <?php if ($row_i5['object_sale_di'] != 0) {?>
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div><?php }?>
+                                    <?php if ($check_d < 8) {?>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div><?php }?>
                                     <div class="c-overlay-wrapper">
                                         <div class="c-overlay-content">
                                             <a href="shop-product-details.php?selected=<?php echo $row_i5['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>
@@ -255,7 +262,7 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                 <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name'] ; ?></p>
                            <?php
-							if ($row_i5['object_sale_di'] != "0")
+							if ($row_i5['object_sale_di'] != 0)
 							echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale_di']).' ريال  &nbsp;
                                         <span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i5['object_sale']).' ريال </span>
                                     </p>';
@@ -305,10 +312,11 @@ if ( mysqli_num_rows($rant_i1) > 0)
 			{   
 				$dir = 'images/object/'.$row_i6['object_id'].'/';
 				// iterate
-				if(!$dir){
+				if (!file_exists($dir) && !is_dir($dir)) 
+                {
 					 $src = "images/none.jpg";
 				}
-				else
+				elseif (file_exists($dir) && is_dir($dir))
 				{
 					// image extensions
 					$extensions = array('jpg', 'jpeg', 'png');
@@ -338,12 +346,18 @@ if ( mysqli_num_rows($rant_i1) > 0)
 				{
 					$src = "images/none.jpg";
 				}
+                $now = time(); // or your date as well
+                $your_date = strtotime($row_i6['object_date']);
+                $datediff = $now - $your_date;
+                $check_d = floor($datediff / (60 * 60 * 24));
 		?>         
                 	<div class="col-md-3 col-sm-6 c-margin-b-20">
                             <div class="c-content-product-2 c-bg-white">
                                 <div class="c-content-overlay">
-                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
-                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
+                                    <?php if ($row_i6['object_sale_di'] != 0) {?>
+                                    <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div><?php }?>
+                                    <?php if ($check_d < 8) {?>
+                                    <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div><?php } ?>
                                     <div class="c-overlay-wrapper">
                                         <div class="c-overlay-content">
                                             <a href="shop-product-details.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a>

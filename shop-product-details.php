@@ -21,9 +21,18 @@ if (mysqli_num_rows($rant_t1) > 0)
 	if(!array_key_exists($row_t1['object_code'],$_SESSION["cart_item"]))
 		echo '<input name="ch_2" value="11" type="hidden">';
 	
+     
+                        
+    $now = time(); // or your date as well
+    $your_date = strtotime($row_t1['object_date']);
+    $datediff = $now - $your_date;
+    $check_d = floor($datediff / (60 * 60 * 24));
+    
 	$dir = 'images/object/'.$row_t1['object_id'].'/';
 	// iterate
-	if(!$dir){
+	if (!file_exists($dir) && !is_dir($dir))
+    {
+        
 	}
 	else
 	{
@@ -58,6 +67,101 @@ if (mysqli_num_rows($rant_t1) > 0)
   <!-- BEGIN: PAGE CONTENT --> 
   <!-- BEGIN: CONTENT/SHOPS/SHOP-PRODUCT-DETAILS-2 -->
   <div class="c-content-box c-size-lg c-overflow-hide c-bg-white">
+   <?php
+if(isset($_POST['submit'])){
+		
+$n_reviw = get_safe_post($mysqlicheck,"rg1");
+$co_email = get_safe_post($mysqlicheck,"email");
+$co_tel = get_safe_post($mysqlicheck,"tel");
+$co_text = get_safe_post($mysqlicheck,"message");
+$seve = get_safe_post($mysqlicheck,"submit");
+$co_date = $time.' '.$date;
+			
+	if ($user_id == "")
+	{
+		if( $seve == "save" && ($co_name == ""  || $co_email == "" || $co_tel == "" || $co_text == "" ))
+		{	
+			echo   '<div class="alert alert-warning alert-dismissible" role="alert">
+								لطفا تمامی قسمتها را پر نمائید .
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';
+		}
+		elseif($seve == "save" && $co_name != "" && $co_email != "" && $co_tel != "" && $co_text != "" )
+		{
+			$sql_c="INSERT INTO comment ( comment_text, comment_name, comment_email, comment_tel, comment_status, comment_data) VALUES ( '".$co_text."', '".$co_name."', '".$co_email."', '".$co_tel."', 3 , '".$co_date."')";
+			$result_c = $mysqlicheck->query($sql_c);
+			if (!$result_c)
+			{
+					echo   '<div class="alert alert-danger alert-dismissible" role="alert"> ارسال نظر با خطا مواجه گردید ، لطفاً دوباره سعی نمائید .
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';  
+			}
+			else 
+			{
+				echo "<script>setTimeout(function(){window.location.href='page-contact.php';}, 3000); 
+				</script>";
+				$co_name ='';
+				$co_email = '';
+				$co_tel = '';
+				$co_text = '';
+				echo    '<div class="alert alert-success alert-dismissible" role="alert"> نظر شما با موفقیت ارسال شد.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';
+			}
+
+		}
+	}
+	elseif($user_id != "")
+	{
+		if( $seve == "save" && $co_text == "" )
+		{	
+			echo   '<div class="alert alert-warning alert-dismissible" role="alert">
+								لطفا تمامی قسمتها را پر نمائید .
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';
+		}
+		elseif($seve == "save" && $co_text != "" )
+		{
+			$sql_c1="INSERT INTO comment ( comment_user_id,comment_text, comment_status, comment_data) VALUES ('".$user_id."', '".$co_text."', 3 , '".$co_date."')";
+			$result_c1 = $mysqlicheck->query($sql_c1);
+			if (!$result_c1)
+			{
+					echo   '<div class="alert alert-danger alert-dismissible" role="alert"> ارسال نظر با خطا مواجه گردید ، لطفاً دوباره سعی نمائید .
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';  
+			}
+			else 
+			{
+				echo "<script>setTimeout(function(){window.location.href='page-contact.php';}, 3000); 
+				</script>";
+				$co_name ='';
+				$co_email = '';
+				$co_tel = '';
+				$co_text = '';
+				echo    '<div class="alert alert-success alert-dismissible" role="alert"> نظر شما با موفقیت ارسال شد.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>';
+			}
+
+		}
+	}
+}   
+   
+   
+   
+   ?>
     <div class="container">
       <div class="c-shop-product-details-2">
         <div class="row">
@@ -104,8 +208,10 @@ if (mysqli_num_rows($rant_t1) > 0)
                       <div class="c-line-left"></div>
                     </div>
                     <div class="c-product-badge">
-                      <div class="c-product-sale">تخفیف</div>
-                      <div class="c-product-new">جدید</div>
+                     <?php if ($row_t1['object_sale_di'] != 0) {?>
+                      <div class="c-product-sale">تخفیف</div><?php }?>
+                      <?php if ($check_d < 8) {?>
+                      <div class="c-product-new">جدید</div><?php }?>
                     </div>
 					<div class="c-product-review">
                 		<div class="c-product-rating"> <i class="fa fa-star c-font-red"></i> <i class="fa fa-star c-font-red"></i> <i class="fa fa-star c-font-red"></i> <i class="fa fa-star c-font-red"></i> <i class="fa fa-star-half-o c-font-red"></i>
@@ -123,15 +229,15 @@ if (mysqli_num_rows($rant_t1) > 0)
                           <div class="modal-body">
                             <div class="form-group">
                               <div class="wrapper"> <span class="em">امتیاز :</span>
-                                <input type="radio" id="r1" name="rg1">
+                                <input type="radio" id="r1" name="rg1" value="1">
                                 <label for="r1">&#10038;</label>
-                                <input type="radio" id="r2" name="rg1">
+                                <input type="radio" id="r2" name="rg1" value="2">
                                 <label for="r2">&#10038;</label>
-                                <input type="radio" id="r3" name="rg1">
+                                <input type="radio" id="r3" name="rg1" value="3">
                                 <label for="r3">&#10038;</label>
-                                <input type="radio" id="r4" name="rg1">
+                                <input type="radio" id="r4" name="rg1" value="4">
                                 <label for="r4">&#10038;</label>
-                                <input type="radio" id="r5" name="rg1">
+                                <input type="radio" id="r5" name="rg1" value="5">
                                 <label for="r5">&#10038;</label>
                               </div>
                             </div>
@@ -155,7 +261,7 @@ if (mysqli_num_rows($rant_t1) > 0)
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn c-theme-btn c-btn-square c-btn-bold c-btn-uppercase" name="review" value="seve">ارسال نظر</button>
+                            <button type="submit" class="btn c-theme-btn c-btn-square c-btn-bold c-btn-uppercase" name="review" value="seve">ارسال نظر</button>
                             <button type="button" class="btn c-theme-btn c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase" data-dismiss="modal">انصراف </button>
                           </div>
                         </form>

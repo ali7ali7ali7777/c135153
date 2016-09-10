@@ -72,7 +72,8 @@ if ($res_w1->num_rows > 0)
 			{
 				$dir = 'images/object/'.$row_w2['object_id'].'/';
 					// iterate
-					if(!$dir){
+					if (!file_exists($dir) && !is_dir($dir)) 
+                    {
 						 $src = "images/none.jpg";
 					}
 					else
