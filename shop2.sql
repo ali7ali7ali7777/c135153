@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2016 at 12:16 PM
+-- Generation Time: Sep 18, 2016 at 03:23 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -42,7 +42,7 @@ CREATE TABLE `category` (
 CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
   `comment_user_id` int(11) NOT NULL,
-  `Comment_sub_id` int(11) NOT NULL,
+  `Comment_user_re` int(11) NOT NULL,
   `comment_object_id` int(11) NOT NULL,
   `comment_text` varchar(512) NOT NULL,
   `comment_name` varchar(20) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `comment` (
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`comment_id`, `comment_user_id`, `Comment_sub_id`, `comment_object_id`, `comment_text`, `comment_name`, `comment_email`, `comment_tel`, `comment_status`, `comment_data`) VALUES
+INSERT INTO `comment` (`comment_id`, `comment_user_id`, `Comment_user_re`, `comment_object_id`, `comment_text`, `comment_name`, `comment_email`, `comment_tel`, `comment_status`, `comment_data`) VALUES
 (1, 0, 0, 0, 'سلام متن برای تست', 'یوزر یک', 'user1@yahoo.com', 222222222222, 3, '16:12:08 1395/05/12'),
 (2, 0, 0, 0, 'متن دو برای تست', 'یوزر دو', 'uder27@gmail.com', 1111111, 3, '16:12:59 1395/05/12'),
 (3, 0, 0, 0, 'متن سوم برای تست', 'یوزر 3', 'user3@ggg.', 333333333, 3, '16:15:38 1395/05/12'),
@@ -66,7 +66,8 @@ INSERT INTO `comment` (`comment_id`, `comment_user_id`, `Comment_sub_id`, `comme
 (7, 0, 0, 0, 's', 's', 's', 0, 3, '12:38:20 1395/05/23'),
 (8, 0, 0, 0, 's', 's', 's', 0, 3, '12:45:47 1395/05/23'),
 (9, 22, 0, 0, 'عجب سایت باحالی', '', '', 0, 3, '15:10:00 1395/06/09'),
-(10, 0, 0, 0, 'س', 'س', 'س', 0, 3, '15:10:41 1395/06/09');
+(10, 0, 0, 0, 'س', 'س', 'س', 0, 3, '15:10:41 1395/06/09'),
+(13, 22, 5, 4, 'khoob', '', '', 0, 3, '17:20:54 1395/06/28');
 
 -- --------------------------------------------------------
 
@@ -212,16 +213,17 @@ CREATE TABLE `object` (
 --
 
 INSERT INTO `object` (`object_id`, `object_date`, `object_code`, `object_name`, `object_unit`, `object_sale`, `object_sale_di`, `object_m1`, `object_m2`, `object_m3`, `object_m4`, `object_m5`, `object_m6`, `object_m7`, `object_m8`, `object_m9`, `object_m10`, `object_m11`, `object_status`, `object_pupolar`, `object_visit`) VALUES
-(2, '2016-08-10 10:18:48', 10201002, 'دستبند فنری', 'عدد', 20000000, 0, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
-(3, '2016-08-11 10:10:36', 10103002, 'پلیور', 'جین', 250000, 240000, '333', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
-(4, '2016-08-11 10:11:20', 10104010, 'تیشرت یقه دار', 'جین', 300000, 280000, '222', '', '', '', '', '', '', '', '', '', '', 1, 1, 0),
-(5, '2016-08-11 10:21:36', 10106002, 'گرمکن ورزشی سفید', 'دست', 2800000, 2650000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
+(2, '2016-08-10 10:18:48', 10201002, 'دستبند فنری', 'عدد', 20000000, 0, '', '', '', '', '', '', '', '', '', '', '', 1, 3.75, 12),
+(3, '2016-08-11 10:10:36', 10103002, 'پلیور', 'جین', 250000, 240000, '333', '', '', '', '', '', '', '', '', '', '', 1, 0, 1),
+(4, '2016-08-11 10:11:20', 10104010, 'تیشرت یقه دار', 'جین', 300000, 280000, '222', '', '', '', '', '', '', '', '', '', '', 1, 4, 24),
+(5, '2016-08-11 10:21:36', 10106002, 'گرمکن ورزشی سفید', 'دست', 2800000, 2650000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 4),
 (6, '2016-08-11 13:27:30', 10102002, 'ساق', 'عدد', 20000, 15000, '', '', '', '', '', '', '', '', '', '', '', 1, 3, 0),
-(7, '2016-08-11 13:28:08', 10104007, 'حلقه ای مارک دار', 'جین', 180000, 170000, '111', '', '', '', '', '', '', '', '', '', '', 1, 3, 0),
+(7, '2016-08-11 13:28:08', 10104007, 'حلقه ای مارک دار', 'جین', 180000, 170000, '111', '', '', '', '', '', '', '', '', '', '', 1, 3, 15),
 (8, '2016-08-11 13:28:43', 10401002, 'ساعت پروانه ای', 'عدد', 750000, 700000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
 (9, '2016-08-11 13:29:08', 10301002, 'کفش اسپرت زنانه', 'عدد', 895000, 890000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
-(10, '2016-08-11 13:30:46', 10107002, 'شرت', 'جین', 170000, 0, '', '', '', '', '', '', '', '', '', '', '', 1, 2, 5),
-(11, '2016-09-06 18:27:00', 10101001, 'شلوار کتان صابونی', 'عدد', 950000, 800000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0);
+(10, '2016-08-11 13:30:46', 10107002, 'شرت', 'جین', 170000, 0, '', '', '', '', '', '', '', '', '', '', '', 1, 2, 13),
+(11, '2016-09-06 18:27:00', 10101001, 'شلوار کتان صابونی', 'عدد', 950000, 800000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 0),
+(12, '2016-09-10 21:16:32', 10104011, 'آستین کش', 'عدد', 295000, 280000, '', '', '', '', '', '', '', '', '', '', '', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -275,7 +277,9 @@ INSERT INTO `object_out` (`object_out_id`, `object_out_factor`, `object_out_pers
 (16, 1000, 22, 10103002, 3, 240000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-14', '17:17:18', '::1', 3, 3),
 (17, 1000, 22, 10106002, 6, 2650000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-14', '17:17:18', '::1', 3, 3),
 (18, 1000, 22, 10107002, 1, 170000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-14', '17:17:18', '::1', 3, 3),
-(19, 1000, 22, 10104007, 7, 170000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-14', '17:17:18', '::1', 3, 3);
+(19, 1000, 22, 10104007, 7, 170000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-14', '17:17:18', '::1', 3, 3),
+(20, 1001, 22, 10107002, 1, 170000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-27', '00:25:38', '::1', 2, 1),
+(21, 1002, 22, 10106002, 3, 2650000, 2, 2, 0, 'یادداشت ویژه ای ثبت نشد', '1395-06-28', '17:25:25', '::1', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -367,6 +371,13 @@ CREATE TABLE `wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`wish_id`, `wish_user_id`, `wish_object_code`) VALUES
+(1, 22, 10107002);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -449,7 +460,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `company`
 --
@@ -469,7 +480,7 @@ ALTER TABLE `gro`
 -- AUTO_INCREMENT for table `object`
 --
 ALTER TABLE `object`
-  MODIFY `object_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `object_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `object_in`
 --
@@ -479,7 +490,7 @@ ALTER TABLE `object_in`
 -- AUTO_INCREMENT for table `object_out`
 --
 ALTER TABLE `object_out`
-  MODIFY `object_out_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'شماره آی دی', AUTO_INCREMENT=20;
+  MODIFY `object_out_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'شماره آی دی', AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `unit`
 --
@@ -494,7 +505,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
