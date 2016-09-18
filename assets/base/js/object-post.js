@@ -106,62 +106,66 @@ $(document).ready(function() {
 
 
 
+$(function () {
+      $('#slider-container').slider({
+          range: true,
+          min: 299,
+          max: 1099,
+          values: [299, 1099],
+          create: function() {
+              $("#amount").val("$299 - $1099");
+          },
+          slide: function (event, ui) {
+              $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+              var mi = ui.values[0];
+              var mx = ui.values[1];
+              filterSystem(mi, mx);
+          }
+      })
+});
+
+  function filterSystem(minPrice, maxPrice) {
+      $("#computers div.system").hide().filter(function () {
+          var price = parseInt($(this).data("price"), 10);
+          return price >= minPrice && price <= maxPrice;
+      }).show();
+  }
+
+
+ 
+
 $(document).ready(function(){  
   
-    //when a link in the filters div is clicked...  
-    $('#checkbox-sidebar-2-1').click(function(e){  
+    
+ 
+    
+    
+    
   
-        //prevent the default behaviour of the link  
-        e.preventDefault();  
-  
-        //get the id of the clicked link(which is equal to classes of our content  
-        var filter = $(this).val();  
-  		alert(filter);
-        //show all the list items(this is needed to get the hidden ones shown)  
-        $('#content div').show();  
-  
-        /*using the :not attribute and the filter class in it we are selecting 
-        only the list items that don't have that class and hide them '*/  
-        $('#content ul li:not(.' + filter + ')').hide();  
-  
-    });  
+   
   
 }); 
 
 
+ 
+$("#stars_s input").click(function() {
+    var va  = $(this).val(),
+        clas = '.stars'+va ;
+    if($(this).is(":checked")) {
+        $(clas).show();
+    } else {
+        $(clas).hide();
+    }
+});
 
-
-/*$(document).ready(function() {
+$(document).ready(function() {
 	$( "#per_p" ).change(function () {
-    $( "select#per_p" ).each(function() {
-       showperpage();
-    });
+        $( "select#per_p" ).each(function() {
+           showperpage();
+        });
   })
   .change();
-	$('#checkbox-sidebar-2-1').click(function() {
-		// fetch the class of the clicked item
-		var our = $(this).val();
-		 $("#checkbox-sidebar-2-1").toggle(this.checked);
-		// reset the active class on all the buttons
-		//$('#checkbox-sidebar-2-1').removeAttr('checked');
-		// update the active state on our clicked button
-		//$(this).parent().attr('checked' , 'checked');
-		
-		if(our == 'all') {
-			// show all our items
-			$('#content').children('div.row').show();	
-		}
-		else {
-			// hide all elements that don't share ourClass
-			$('#content').children('div:not(.' + ourClass + ')').hide();
-			// show all elements that do share ourClass
-			$('#content').children('div.' + ourClass).show();
-		}
-		return false;
-	});
-});*/
-
-
+});
 
 function showperpage()
 {
@@ -202,7 +206,7 @@ function showperpage()
 	
 	//hide all the elements inside content div
 	$('#content').children().css('display', 'none');
-	
+	$('div#stars_s input').attr('checked', 'checked');
 	//and show the first n (show_per_page) elements
 	$('#content').children().slice(0, show_per_page).css('display', 'block');
 	
@@ -214,6 +218,7 @@ function previous()
 	//if there is an item before the current active link run the function
 	if($('.c-active').prev('.page_link').length==true){
 		go_to_page(new_page);
+        $('div#stars_s input').attr('checked', 'checked');
 	}
 }
 
@@ -223,6 +228,7 @@ function next()
 	//if there is an item after the current active link run the function
 	if($('.c-active').next('.page_link').length==true){
 		go_to_page(new_page);
+        $('div#stars_s input').attr('checked', 'checked');
 	}
 }
 
@@ -243,7 +249,7 @@ function go_to_page(page_num)
 	/*get the page link that has longdesc attribute of the current page and add active_page class to it
 	and remove that class from previously active page link*/
 	$('.page_link[longdesc=' + page_num +']').addClass('c-active').siblings('.c-active').removeClass('c-active');
-	
+	$('div#stars_s input').attr('checked', 'checked');
 	//update the current page input field
 	$('#current_page').val(page_num);
 }

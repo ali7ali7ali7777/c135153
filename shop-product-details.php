@@ -319,7 +319,7 @@ $n_date = $time.' '.$date;
         <div role="tabpanel" class="tab-pane fade" id="tab-3">
           <div class="container">
             <h3 class="c-font-uppercase c-font-bold c-font-22 c-center c-margin-b-40 c-margin-t-40">بررسی برای <?php echo $row_t1['object_name']; ?> </h3>
-            <?php
+            <?php 
 $rant_t2 = mysqli_query($mysqlicheck,'SELECT * FROM comment	where comment_object_id = "'.$row_t1['object_id'].'" ');
 if (mysqli_num_rows($rant_t2) > 0)
 {
@@ -426,26 +426,35 @@ if (mysqli_num_rows($rant_t2) > 0)
       <!-- /.modal-dialog --> 
     </div>
   </div>
-  <!-- BEGIN: CONTENT/SHOPS/SHOP-2-2 -->
-  <div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
-    <div class="container">
-      <div class="c-content-title-4">
-        <h3 class="c-font-uppercase c-center c-font-bold c-line-strike"> <span class="c-bg-white">Most Popular</span> </h3>
-      </div>
-      <div class="row">
-        <div data-slider="owl" data-items="4" data-auto-play="8000">
-          <div class="owl-carousel owl-theme c-theme owl-small-space">
-            <?php
+     <!-- BEGIN: CONTENT/SHOPS/SHOP-2-2 -->
+                                    <?php
 		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_pupolar DESC limit 6");
-		if (mysqli_num_rows($rant_i5) > 0)
+		if (mysqli_num_rows($rant_i6) > 0)
 		{
-			while($row_i6=mysqli_fetch_assoc($rant_i6))
+		?>
+            <div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
+                <div class="container">
+                    <div class="c-content-title-4">
+                        <h3 class="c-font-uppercase c-center c-font-bold c-line-strike">
+                            <span class="c-bg-white">محبوبترینها</span>
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <div data-slider="owl" data-items="4" data-auto-play="8000">
+                            <div class="owl-carousel owl-theme c-theme owl-small-space">
+                               
+                               
+    <?php                           
+                               
+       	while($row_i6=mysqli_fetch_assoc($rant_i6))
 			{   
 				$dir = 'images/object/'.$row_i6['object_id'].'/';
 				// iterate
-				if(!$dir){
+				if (!file_exists($dir) && !is_dir($dir)) 
+                {
+					 $src = "images/none.jpg";
 				}
-				else
+				elseif (file_exists($dir) && is_dir($dir))
 				{
 					// image extensions
 					$extensions = array('jpg', 'jpeg', 'png');
@@ -466,47 +475,67 @@ if (mysqli_num_rows($rant_t2) > 0)
 								// add to result
 								$resultimg[] = $fileinfo->getFilename();
 							}
-							
+						$src = "images/object/".$row_i6['object_id']."/".$resultimg[0] ;	
 						}
 					}
 
 				}
-				
-		?>
-            <div class="item">
-              <div class="c-content-product-2 c-bg-white c-border">
-                <div class="c-content-overlay">
-                  <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div>
-                  <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div>
-                  <div class="c-overlay-wrapper">
-                    <div class="c-overlay-content"> <a href="shop-product-details.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">جزئیات</a> </div>
-                  </div>
-                  <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php if($resultimg[0] != "")
-														echo "images/object/".$row_i6['object_id']."/".$resultimg[0] ;
-														else
-														echo $src; ?>);"></div>
+				if ($resultimg[0] == "")
+				{
+					$src = "images/none.jpg";
+				}
+                $now = time(); // or your date as well
+                $your_date = strtotime($row_i6['object_date']);
+                $datediff = $now - $your_date;
+                $check_d = floor($datediff / (60 * 60 * 24));
+		?>         
+                                <div class="item">
+                                    <div class="c-content-product-2 c-bg-white c-border">
+                                        <div class="c-content-overlay">
+                                            <?php if ($row_i6['object_sale_di'] != 0) {?>
+                                            <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div><?php }?>
+                                            <?php if ($check_d < 8) {?>
+                                            <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div><?php } ?>
+                                            <div class="c-overlay-wrapper">
+                                                <div class="c-overlay-content">
+                                                    <a href="shop-product-details.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">توضیحات</a>
+                                                </div>
+                                            </div>
+                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src; ?>);"></div>
+                                        </div>
+                                        <div class="c-info">
+                                            <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?>
+                                             <?php
+                                                if ($row_i6['object_sale_di'] != "0")
+                                                echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale_di']).' ريال  &nbsp;
+                                                            <span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i6['object_sale']).' ريال </span>
+                                                        </p>';
+                                                else 
+                                                echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale']).' ريال  
+                                                    </p>';
+                                            ?>
+                                        </div>
+                                        <div class="btn-group btn-group-justified" role="group">
+                                            <div class="btn-group c-border-top" role="group">
+                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a>
+                                            </div>
+                                            <div class="btn-group c-border-left c-border-top" role="group">
+                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">سبد خرید</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php }?>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="c-info">
-                  <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?></p>
-                  <p class="c-price c-font-16 c-font-slim"><?php echo $row_i6['object_sale_di']; ?> ريال &nbsp; <span class="c-font-16 c-font-line-through c-font-red"><?php echo $row_i6['object_sale']; ?> ريال</span> </p>
-                </div>
-                <div class="btn-group btn-group-justified" role="group">
-                  <div class="btn-group c-border-top" role="group"> <a href="shop-product-wishlist.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a> </div>
-                  <div class="btn-group c-border-left c-border-top" role="group"> <a href="shop-cart.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">سبد خرید</a> </div>
-                </div>
-              </div>
-              <?php
-           }
-		}
-                     
-       ?>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- END: CONTENT/SHOPS/SHOP-2-2 --> 
+             <?php }?>
+            <!-- END: CONTENT/SHOPS/SHOP-2-2 -->
   <!-- END: PAGE CONTENT --> 
 </div>
 <!-- END: PAGE CONTAINER -->

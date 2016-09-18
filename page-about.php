@@ -38,7 +38,7 @@ $rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                         <i class="icon-energy c-theme-font c-font-24"></i>
                                         <div class="c-feature-13-content">
                                             <h4 class="c-font-uppercase c-theme-font c-font-bold">تیتر یک</h4>
-                                            <p class="c-font-white"><?php echo $row_a1['about_title_1']; ?></p>
+                                            <p class="c-font-white" style="text-align: justify;"><?php echo $row_a1['about_title_1']; ?></p>
                                         </div>
                                     </div>
                               </div>
@@ -47,7 +47,7 @@ $rant_a1 = mysqli_query($mysqlicheck,"SELECT * FROM `contact`");
                                         <i class="icon-hourglass c-theme-font c-font-24"></i>
                                         <div class="c-feature-13-content">
                                             <h4 class="c-font-uppercase c-theme-font c-font-bold">در ادامه</h4>
-                                            <p class="c-font-white"><?php echo $row_a1['about_title_2']; ?></p>
+                                            <p class="c-font-white" style="text-align: justify;"><?php echo $row_a1['about_title_2']; ?></p>
                                         </div>
                                     </div>
                                 </div>

@@ -141,8 +141,8 @@ if(!empty($send))
 					$mas_l = 2 ;
 					echo "<script>
 						setTimeout(function(){
-							window.location.href='index.php'; 
-						}, 4000); 
+							window.location.href='shop-customer-dashboard.php'; 
+						}, 3000); 
 						</script>";
 				}
 				else
@@ -226,7 +226,7 @@ function createRandomPassword($length = 8) {
 			}
 			else if ($mas_l == 2)
 			{
-				echo  '<div class="alert alert-success" role="alert">خوش آمدید '.$row_l["user_name"].' '. $row_l["user_family"].' عزیز ، شما هم اکنون به صفحه نخست انتقال می یابید .</div>';
+				echo  '<div class="alert alert-success" role="alert">خوش آمدید '.$row_l["user_name"].' '. $row_l["user_family"].' عزیز </div>';
 			}
 			else if ($mas_l == 3)
 			{

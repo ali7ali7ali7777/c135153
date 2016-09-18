@@ -197,181 +197,114 @@ else { ?>
 ?>
             <!-- END: CONTENT/SHOPS/SHOP-CART-1 -->
             <!-- BEGIN: CONTENT/SHOPS/SHOP-2-2 -->
+                                    <?php
+		$rant_i6 = mysqli_query($mysqlicheck,"SELECT * FROM object where object_status =1 ORDER BY object_pupolar DESC limit 6");
+		if (mysqli_num_rows($rant_i6) > 0)
+		{
+		?>
             <div class="c-content-box c-size-md c-overflow-hide c-bs-grid-small-space">
                 <div class="container">
                     <div class="c-content-title-4">
                         <h3 class="c-font-uppercase c-center c-font-bold c-line-strike">
-                            <span class="c-bg-white">Most Popular</span>
+                            <span class="c-bg-white">محبوبترینها</span>
                         </h3>
                     </div>
                     <div class="row">
                         <div data-slider="owl" data-items="4" data-auto-play="8000">
                             <div class="owl-carousel owl-theme c-theme owl-small-space">
+                               
+                               
+    <?php                           
+                               
+       	while($row_i6=mysqli_fetch_assoc($rant_i6))
+			{   
+				$dir = 'images/object/'.$row_i6['object_id'].'/';
+				// iterate
+				if (!file_exists($dir) && !is_dir($dir)) 
+                {
+					 $src = "images/none.jpg";
+				}
+				elseif (file_exists($dir) && is_dir($dir))
+				{
+					// image extensions
+					$extensions = array('jpg', 'jpeg', 'png');
+					// init result
+					$resultimg = array();
+					// directory to scan
+					$directory = new DirectoryIterator($dir);
+					foreach ($directory as $fileinfo)
+					{
+						// must be a file
+						if ($fileinfo->isFile())
+						{
+							// file extension
+							$extension = strtolower(pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION));
+							// check if extension match
+							if (in_array($extension, $extensions))
+							{
+								// add to result
+								$resultimg[] = $fileinfo->getFilename();
+							}
+						$src = "images/object/".$row_i6['object_id']."/".$resultimg[0] ;	
+						}
+					}
+
+				}
+				if ($resultimg[0] == "")
+				{
+					$src = "images/none.jpg";
+				}
+                $now = time(); // or your date as well
+                $your_date = strtotime($row_i6['object_date']);
+                $datediff = $now - $your_date;
+                $check_d = floor($datediff / (60 * 60 * 24));
+		?>         
                                 <div class="item">
                                     <div class="c-content-product-2 c-bg-white c-border">
                                         <div class="c-content-overlay">
-                                            <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
+                                            <?php if ($row_i6['object_sale_di'] != 0) {?>
+                                            <div class="c-label c-label-right c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">تخفیف</div><?php }?>
+                                            <?php if ($check_d < 8) {?>
+                                            <div class="c-label c-label-left c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">جدید</div><?php } ?>
                                             <div class="c-overlay-wrapper">
                                                 <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+                                                    <a href="shop-product-details.php?selected=<?php echo $row_i6['object_id']; ?>" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">توضیحات</a>
                                                 </div>
                                             </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/18.png);"></div>
+                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(<?php echo $src; ?>);"></div>
                                         </div>
                                         <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">Samsung Galaxy Note 4</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
+                                            <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?>
+                                             <?php
+                                                if ($row_i6['object_sale_di'] != "0")
+                                                echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale_di']).' ريال  &nbsp;
+                                                            <span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i6['object_sale']).' ريال </span>
+                                                        </p>';
+                                                else 
+                                                echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale']).' ريال  
+                                                    </p>';
+                                            ?>
                                         </div>
                                         <div class="btn-group btn-group-justified" role="group">
                                             <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
+                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">علاقه مندیها</a>
                                             </div>
                                             <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
+                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">سبد خرید</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="c-content-product-2 c-bg-white c-border">
-                                        <div class="c-content-overlay">
-                                            <div class="c-overlay-wrapper">
-                                                <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                                </div>
-                                            </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/27.png);"></div>
-                                        </div>
-                                        <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">Samsung Galaxy S4</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
-                                        </div>
-                                        <div class="btn-group btn-group-justified" role="group">
-                                            <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
-                                            </div>
-                                            <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="c-content-product-2 c-bg-white c-border">
-                                        <div class="c-content-overlay">
-                                            <div class="c-overlay-wrapper">
-                                                <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                                </div>
-                                            </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/21.png);"></div>
-                                        </div>
-                                        <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">Apple iPhone 5</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
-                                        </div>
-                                        <div class="btn-group btn-group-justified" role="group">
-                                            <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
-                                            </div>
-                                            <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="c-content-product-2 c-bg-white c-border">
-                                        <div class="c-content-overlay">
-                                            <div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Sale</div>
-                                            <div class="c-label c-label-right c-theme-bg c-font-uppercase c-font-white c-font-13 c-font-bold">New</div>
-                                            <div class="c-overlay-wrapper">
-                                                <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                                </div>
-                                            </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/22.png);"></div>
-                                        </div>
-                                        <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">HTC</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
-                                        </div>
-                                        <div class="btn-group btn-group-justified" role="group">
-                                            <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
-                                            </div>
-                                            <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="c-content-product-2 c-bg-white c-border">
-                                        <div class="c-content-overlay">
-                                            <div class="c-overlay-wrapper">
-                                                <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                                </div>
-                                            </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/20.png);"></div>
-                                        </div>
-                                        <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">Apple iPhone 6</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
-                                        </div>
-                                        <div class="btn-group btn-group-justified" role="group">
-                                            <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
-                                            </div>
-                                            <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="c-content-product-2 c-bg-white c-border">
-                                        <div class="c-content-overlay">
-                                            <div class="c-label c-bg-red-2 c-font-uppercase c-font-white c-padding-10 c-font-13 c-font-bold">Hot</div>
-                                            <div class="c-overlay-wrapper">
-                                                <div class="c-overlay-content">
-                                                    <a href="shop-product-details-2.html" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
-                                                </div>
-                                            </div>
-                                            <div class="c-bg-img-center-contain c-overlay-object" data-height="height" style="height: 270px; background-image: url(assets/base/img/content/shop5/24.png);"></div>
-                                        </div>
-                                        <div class="c-info">
-                                            <p class="c-title c-font-18 c-font-slim">Apple iPhone 6+</p>
-                                            <p class="c-price c-font-16 c-font-slim">$548 &nbsp;
-                                                <span class="c-font-16 c-font-line-through c-font-red">$600</span>
-                                            </p>
-                                        </div>
-                                        <div class="btn-group btn-group-justified" role="group">
-                                            <div class="btn-group c-border-top" role="group">
-                                                <a href="shop-product-wishlist.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Wishlist</a>
-                                            </div>
-                                            <div class="btn-group c-border-left c-border-top" role="group">
-                                                <a href="shop-cart.html" class="btn btn-lg c-btn-white c-btn-uppercase c-btn-square c-font-grey-3 c-font-white-hover c-bg-red-2-hover c-btn-product">Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php }?>
+                                
+                                
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+             <?php }?>
             <!-- END: CONTENT/SHOPS/SHOP-2-2 -->
          
             <!-- END: PAGE CONTENT -->

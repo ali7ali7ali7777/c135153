@@ -2507,7 +2507,7 @@ h1 {
     transition: all 0.2s; }
   .c-layout-header .c-quick-search > .form-control {
     display: block;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 400;
     border: 0;
     background: transparent;
@@ -2668,7 +2668,7 @@ h1 {
     .c-layout-header .c-quick-search {
       position: relative; }
       .c-layout-header .c-quick-search > .form-control {
-        font-size: 20px;
+        font-size: 16px;
         padding: 10px 15px;
         height: 65px; }
       .c-layout-header .c-quick-search > span {

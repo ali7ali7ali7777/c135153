@@ -132,23 +132,23 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
 		
 		if($te == 0)
 			$i0 ++ ;
-		elseif(0 < $te && $te <= 1)
+		elseif($te > 0 && $te <= 1)
 			$i1 ++ ;
-		elseif(1 < $te && $te <= 2)
+		elseif($te > 1 && $te <= 2)
 			$i2 ++ ;
-		elseif(2 < $te && $te <= 3)
+		elseif($te > 2 && $te <= 3)
 			$i3 ++ ;
-		elseif(3 < $te && $te <= 4)
+		elseif($te > 3 && $te <= 4)
 			$i4 ++ ;
-		elseif(4 < $te && $te <= 5)
+		elseif($te > 4 && $te <= 5)
 			$i5 ++ ;
 		
 	}
 ?>
                         <li class="c-margin-b-40">
                             <label class="control-label c-font-uppercase c-font-bold">بررسی رتبه</label>
-                            <div class="c-checkbox">
-                                <input type="checkbox" id="checkbox-sidebar-2-1" class="c-check" checked="checked" value="5">
+                            <div class="c-checkbox" id="stars_s">
+                                <input type="checkbox" id="checkbox-sidebar-2-1" class="c-check" checked="checked" value="5" >
                                 <label for="checkbox-sidebar-2-1">
                                     <span class="inc"></span>
                                     <span class="check"></span>
@@ -161,7 +161,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                         <span class="fa fa-star c-theme-font"></span> (<?php echo $i5 ;?>) </p>
                                 </label>
                             </div>
-                            <div class="c-checkbox">
+                            <div class="c-checkbox" id="stars_s">
                                 <input type="checkbox" id="checkbox-sidebar-2-2" class="c-check" checked="checked" value="4">
                                 <label for="checkbox-sidebar-2-2">
                                     <span class="inc"></span>
@@ -174,7 +174,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                         <span class="fa fa-star c-theme-font"></span> (<?php echo $i4 ;?>) </p>
                                 </label>
                             </div>
-                            <div class="c-checkbox">
+                            <div class="c-checkbox" id="stars_s">
                                 <input type="checkbox" id="checkbox-sidebar-2-3" class="c-check" checked="checked" value="3">
                                 <label for="checkbox-sidebar-2-3">
                                     <span class="inc"></span>
@@ -186,7 +186,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                         <span class="fa fa-star c-theme-font"></span> (<?php echo $i3 ;?>) </p>
                                 </label>
                             </div>
-                            <div class="c-checkbox">
+                            <div class="c-checkbox" id="stars_s">
                                 <input type="checkbox" id="checkbox-sidebar-2-4" class="c-check" checked="checked" value="2">
                                 <label for="checkbox-sidebar-2-4">
                                     <span class="inc"></span>
@@ -197,7 +197,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                         <span class="fa fa-star c-theme-font"></span> (<?php echo $i2 ;?>) </p>
                                 </label>
                             </div>
-                            <div class="c-checkbox">
+                            <div class="c-checkbox" id="stars_s">
                                 <input type="checkbox" id="checkbox-sidebar-2-5" class="c-check" checked="checked" value="1">
                                 <label for="checkbox-sidebar-2-5">
                                     <span class="inc"></span>
@@ -207,7 +207,7 @@ $rant_s6 = mysqli_query($mysqlicheck,"SELECT object_pupolar FROM object where ob
                                         <span class="fa fa-star c-theme-font"></span> (<?php echo $i1 ;?>) </p>
                                 </label>
                             </div>
-                            <div class="c-checkbox">
+                            <div class="c-checkbox" id="stars_s">
                                 <input type="checkbox" id="checkbox-sidebar-2-6" class="c-check" checked="checked" value="0">
                                 <label for="checkbox-sidebar-2-6">
                                     <span class="inc"></span>
@@ -334,19 +334,19 @@ if (mysqli_num_rows($rant_s4) > 0)
 
 			while($row_s6=mysqli_fetch_assoc($rant_s6))
 			{
-				$se = $row_s6['object_visit'];
+				$se = $row_s6['object_pupolar'];
 		
 				if($se == 0)
 					$star = 0 ;
-				elseif(0 < $te && $te <= 1)
+				elseif($se > 0 && $se <= 1)
 					$star = 1 ;
-				elseif(1 < $te && $te <= 2)
+				elseif($se > 1 && $se <= 2)
 					$star = 2 ;
-				elseif(2 < $te && $te <= 3)
+				elseif($se > 2 && $se <= 3)
 					$star = 3 ;
-				elseif(3 < $te && $te <= 4)
+				elseif($se > 3 && $se <= 4)
 					$star = 4 ;
-				elseif(4 < $te && $te <= 5)
+				elseif($se > 4 && $se <= 5)
 					$star = 5 ;
 				
 				$dir = 'images/object/'.$row_s6['object_id'].'/';
@@ -392,7 +392,7 @@ if (mysqli_num_rows($rant_s4) > 0)
                 $check_d = floor($datediff / (60 * 60 * 24));
 		?>                             
                     
-                    <div class="row c-margin-b-40" data-stars="<?php echo $star ; ?>",  data-price="<?php echo $row_s6['object_sale'] ; ?>">
+                    <div class="row c-margin-b-40 stars<?php echo $star ; ?>" data-stars="<?php echo $star ; ?>",  data-price="<?php echo $row_s6['object_sale'] ; ?>" id="">
                         <div class="c-content-product-2 c-bg-white">
                             <div class="col-md-4">
                                 <div class="c-content-overlay">
@@ -456,30 +456,7 @@ if (mysqli_num_rows($rant_s4) > 0)
 </style>
                     <div class="c-margin-t-20"></div>
                     <ul class="c-content-pagination c-square c-theme pull-left"  ></ul>
-                  <!-- <ul class="c-content-pagination c-square c-theme pull-left">
-                        <li class="c-prev">
-                            <a href="#">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li class="c-active">
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li class="c-next">
-                            <a href="#">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                    </ul>-->
+                  
                     <?php
            }
 		else
