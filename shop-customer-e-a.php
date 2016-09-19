@@ -73,7 +73,7 @@ $row_p["user_city"].'</span> می باشد.<br /> در صورتی که نیاز 
 				       <input type="hidden" value="<?php echo $nu; ?>" name="nu"> 
 				      <div class="row c-margin-t-30">
                           <div class="form-group col-md-12" role="group">
-                              <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="e_ad_t">ارسال</button>
+                              <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="e_ad_t">ذخیره تغییرات</button>
                               <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" id="cancel" name="send" value="cancel">صرف نظر</button>
                          </div>
                        </div>

@@ -68,6 +68,8 @@ if (isset($_POST['send']))
 					}
 					if($p1_c != "" && $p2_c != "" && $p1_c == $p2_c && $che = 2)
 					{
+                        if(strlen($p1_c) > 5)
+                        {
 							$s_ch1 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_pass`="'.md5($p1_c).'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'",`user_tell1`="'.$t1_c.'",`user_tell2`="'.$t2_c.'",`user_mobile`="'.$m_c.'" WHERE `user_id`= "'.$user_id.'"';
 							$r_ch1 = $mysqlicheck->query($s_ch1);
 							if (!$r_ch1)
@@ -80,21 +82,26 @@ if (isset($_POST['send']))
 								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
 									  </script>";
 							}
-						}
-						elseif($p1_c == "" && $p2_c == "" && $che = 2)
-						{
-							$s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'",`user_tell1`="'.$t1_c.'",`user_tell2`="'.$t2_c.'",`user_mobile`="'.$m_c.'" WHERE `user_id`= "'.$user_id.'"';
-							$r_ch2 = $mysqlicheck->query($s_ch2);
-							if (!$r_ch2)
-							{
-								echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
-							}
-							else
-							{
-								echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما با موفقیت صورت پذیرفت .</div>';
-								echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
+                        }
+                        else
+                        {
+                            echo '<div class="alert alert-warning" role="alert">رمز عبور شما کمتر از شش کاراکتر است .</div>';
+                        }
+                    }
+                    elseif($p1_c == "" && $p2_c == "" && $che = 2)
+                    {
+                        $s_ch2 = 'UPDATE `user` SET `user_name`="'.$u_c.'",`user_family`="'.$f_c.'",`user_email`="'.$e_c.'",`user_city`= "'.$ci_c.'",`user_country`="'.$ca_c.'",`user_tell1`="'.$t1_c.'",`user_tell2`="'.$t2_c.'",`user_mobile`="'.$m_c.'" WHERE `user_id`= "'.$user_id.'"';
+                        $r_ch2 = $mysqlicheck->query($s_ch2);
+                        if (!$r_ch2)
+                        {
+                            echo '<div class="alert alert-danger" role="alert">ثبت اطلاعات با خطا مواجه گردید . </div>';
+                        }
+                        else
+                        {
+                            echo '<div class="alert alert-success" role="alert">ویرایش اطلاعات شما با موفقیت صورت پذیرفت .</div>';
+                            echo "<script>setTimeout(function(){window.location.href='shop-customer-dashboard.php';}, 3000); 
 									  </script>";
-							}
+                        }
 					}
 				}
 			}
@@ -180,7 +187,7 @@ if (isset($_POST['send']))
 				       </div>
                        <div class="row c-margin-t-30">
                           <div class="form-group col-md-12" role="group">
-                              <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="change">ارسال</button>
+                              <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="change">ذخیره تغییرات</button>
                               <button type="submit" class="btn btn-lg btn-default c-btn-square c-btn-uppercase c-btn-bold" id="cancel" name="send" value="cancel">صرف نظر</button>
                          </div>
                        </div>

@@ -265,24 +265,13 @@ function createRandomPassword($length = 8) {
                                                 <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
                                             </div>
                                             <div class="row c-margin-t-20">
-                                                <div class="col-xs-8">
-                                                    <div class="c-checkbox">
-                                                        <input type="checkbox" id="checkbox1-77" class="c-check" name="co_mem">
-                                                        <label for="checkbox1-77">
-                                                            <span class="inc"></span>
-                                                            <span class="check"></span>
-                                                            <span class="box"></span> مرا به خاطر بسپار </label>
-                                                    </div>
+                                                <div class="col-xs-8 c-margin-t-10">
+                                                    <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">رمز عبور خود را فراموش نموده اید ؟</a>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <button type="submit" class="pull-left btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="login">ورود</button>
                                                 </div>
                                             </div>
-                                            <div class="row c-margin-fix">
-                                            	<div class="col-xs-12">
-                                                	 <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">رمز عبور خود را فراموش نموده اید ؟</a>
-												</div>
-											</div>   
                                         </form>
                                     </div>
                                 </div>
@@ -319,7 +308,7 @@ function createRandomPassword($length = 8) {
                                             <div class="c-line-right c-theme-bg"></div>
                                             <p>به ما بپیوندید و از خرید آنلاین لذت ببرید.</p>
                                         </div>
-                                        <div class="c-margin-t-50">
+                                        <div class="c-margin-t-10">
                                             <div class="c-checkbox c-toggle-hide" data-object-selector="c-form-register" data-animation-speed="600">
                                                 <input type="checkbox" id="checkbox6-444" class="c-check">
                                                 <label for="checkbox6-444">

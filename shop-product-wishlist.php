@@ -126,7 +126,23 @@ if ($res_w1->num_rows > 0)
                                             <a href="shop-product-details.php?code=<?php echo $row_w2['object_code']; ?>" class="c-font-bold c-font-22 c-theme-link"><?php echo $row_w2['object_name']; ?></a>
                                         </li>
                                         <li class="c-margin-b-10">Color: Blue</li>
-                                        <li>Size: S</li>
+                                        <li class="c-margin-b-10">Size: S</li>
+                                        <li><?php $ip_r = $row_w2['object_pupolar'];
+                                        while($ip_r > 0)
+                                        {
+                                            if ($ip_r >0 && $ip_r <1)
+                                                echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
+                                            else
+                                                echo '<i class="fa fa-star c-font-red"></i>';
+                                            $ip_r --;
+                                        }
+                                            $ip_e = 5 - $row_w2['object_pupolar'];
+                                        while($ip_e >= 1)
+                                        {
+                                            echo '<i class="fa fa-star-o c-font-red"></i>';
+                                            $ip_e --;
+                                        }   
+                                         echo ' بازدید: ' . $row_w2['object_visit'] ; ?></li>
                                         <li class="c-margin-t-30">
                                             <div class="form-group" role="group">
                                                 <button type="submit" class="btn btn-sm c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" code="<?php echo $row_w2['object_code']; ?>" id="ad_to">

@@ -31,16 +31,13 @@
                                 </div>
                                 <div class="tab-content c-bordered c-padding-lg">
                                     <div class="tab-pane active" id="tab_2_1_content">
-                                        <p style="text-align:justify;"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, ut aliquip ex ea commodo consequat euismod tincidunt ut laoreet dolore magna aluam sed elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna sed
-                                            elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna. </p>
+                                        <p style="text-align:justify;">  با انتخاب دکمه ورود که در بالای سایت می باشد وارد صفحه لاگین شده و با وارد نمودن ایمیل و رمز عبور خود به ناحیه کاربری انتقال داده می شوید .<br /> در صورتی که اولین ورود شما می باشد می توانید رمز عبور خود را در ایمیل خود مشاهده نمائید  . </p>
                                     </div>
                                     <div class="tab-pane" id="tab_2_2_content">
-                                        <p style="text-align:justify;"> Lorem ipsum dolor sit amet, exerci et tation diam nisl ut aliquip ex ea commodo consequat euismod tincidunt ut laoreet dolore magna aluam sed elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna sed
-                                            elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna. </p>
+                                        <p style="text-align:justify;">در صورتی که می خواهید عضو فروشگاه ما باشید با انتخاب دکمه ورود در بالای سایت وارد صفحه لاگین شده و با زدن تیک ثبت نام جدید! اطلاعات خود را وارد نمائید ، پس از ثبت نام موفق ، رمز عبور شما به آدرس ایمیلتان ارسال می شود . </p>
                                     </div>
                                     <div class="tab-pane" id="tab_2_3_content">
-                                        <p style="text-align:justify;"> Lorem ipsum dolor sit amet, consectetuer adipiscing diam nisl ut aliquip ex ea commodo consequat euismod tincidunt ut laoreet dolore magna aluam sed elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                                            sed elit diam nonummy nibh euismod tincidunt ut laoreet dolore magna. </p>
+                                        <p style="text-align:justify;"> در صورتی که رمز عبور خود را فراموش نموده اید از بالای سایت دکمه ورود را انتخاب نمائید و رمز عبور خود را فراموش نموده اید ؟ را انتخاب کنید و ایمیلی که هنگام ثبت نام وارد نموده اید را وارد نمائید تا رمز عبور جدید به ایمیلتان ارسال شود  . </p>
                                     </div>
                                 </div>
                             </div>

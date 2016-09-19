@@ -297,7 +297,7 @@ function createRandomPassword($length = 8) {
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                               			 <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="send">ارسال</button>
+                               			 <button type="submit" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" name="send" value="send">ارسال و ذخیره تغییرات</button>
 									</div>
 								</div>
                             </div>

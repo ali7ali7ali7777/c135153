@@ -14,7 +14,7 @@
                         <div class="c-line-left"></div>
                         <p class=""> سلام 
                             <?php echo $row_p["user_name"].' '.$row_p["user_family"] ; ?> عزیز (
-                            <a href="login.php?o" class="c-theme-link">خروج</a>).
+                            <a href="login.php?o" class="c-theme-link">خروج</a> )
                             <br /> </p>
                     </div>
                     <div class="row">

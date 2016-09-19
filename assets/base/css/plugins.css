@@ -2,6 +2,19 @@
 /*********************************
 COMPONENTS 
 *********************************/
+
+.star_em {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background-image: url(../../../images/object/star.png);
+    background-position: center;
+    right: 0;
+    background-size: 17px 17px;
+    background-repeat: no-repeat;
+    float: right;
+} 
+                  
 code {
   border: 1px solid #d4d4d4;
   border-radius: 2px; }

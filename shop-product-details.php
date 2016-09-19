@@ -164,15 +164,24 @@ $n_date = $time.' '.$date;
               </div>
               <div class="c-product-review">
                 <div class="c-product-rating">
+                بازدید: <?php echo $row_t1['object_visit'] ; ?>
+                  </div>
+                  <div class="c-product-rating" style="padding-right: 1em;">
                 <?php $ip_r = $row_t1['object_pupolar'];
 				while($ip_r > 0)
 				{
 					if ($ip_r >0 && $ip_r <1)
-						echo '<i class="fa fa-star-half-o c-font-red"></i>';
+						echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
 					else
                 		echo '<i class="fa fa-star c-font-red"></i>';
 					$ip_r --;
 				}
+                    $ip_e = 5 - $row_t1['object_pupolar'];
+                while($ip_e >= 1)
+				{
+					echo '<i class="fa fa-star-o c-font-red"></i>';
+					$ip_e --;
+				}   
                 ?>
                 </div>
                 <div class="c-product-write-review">
@@ -355,6 +364,12 @@ if (mysqli_num_rows($rant_t2) > 0)
                                            echo '<i class="fa fa-star c-font-red"></i>';
 											$ir -- ;
 										}
+                                        $ie = 5 - $row_t2['Comment_user_re'];
+                                        while($ie > 0)
+										{
+                                           echo '<i class="fa fa-star-o c-font-red"></i>';
+											$ie -- ;
+										}
                                   echo '</div>
                                     </div>
                                 </div>
@@ -505,6 +520,23 @@ if (mysqli_num_rows($rant_t2) > 0)
                                         </div>
                                         <div class="c-info">
                                             <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?>
+                                            <p><?php $ip_r = $row_i6['object_pupolar'];
+                                        while($ip_r > 0)
+                                        {
+                                            if ($ip_r >0 && $ip_r <1)
+                                                echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
+                                            else
+                                                echo '<i class="fa fa-star c-font-red"></i>';
+                                            $ip_r --;
+                                        }
+                                            $ip_e = 5 - $row_i6['object_pupolar'];
+                                        while($ip_e >= 1)
+                                        {
+                                            echo '<i class="fa fa-star-o c-font-red"></i>';
+                                            $ip_e --;
+                                        }   
+                                        ?>
+                                   <span style="float: left;font-size: 14px">بازدید: <?php echo $row_i6['object_visit'] ; ?></span></p>
                                              <?php
                                                 if ($row_i6['object_sale_di'] != "0")
                                                 echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale_di']).' ريال  &nbsp;

@@ -413,6 +413,22 @@ if (mysqli_num_rows($rant_s4) > 0)
                                     <h3 class="c-title c-font-bold c-font-22 c-font-dark">
                                         <a class="c-theme-link" href="shop-product-details.php?selected=<?php echo $row_s6['object_id']; ?>"><?php echo $row_s6['object_name']; ?></a>
                                     </h3>
+                                    <p><?php $ip_r = $row_s6['object_pupolar'];
+                                        while($ip_r > 0)
+                                        {
+                                            if ($ip_r >0 && $ip_r <1)
+                                                echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
+                                            else
+                                                echo '<i class="fa fa-star c-font-red"></i>';
+                                            $ip_r --;
+                                        }
+                                            $ip_e = 5 - $row_s6['object_pupolar'];
+                                        while($ip_e >= 1)
+                                        {
+                                            echo '<i class="fa fa-star-o c-font-red"></i>';
+                                            $ip_e --;
+                                        }   
+                                         echo ' بازدید: ' . $row_s6['object_visit'] ; ?></p>
                                     <p class="c-desc c-font-16 c-font-thin">توضیحات.</p>
                                     <?php
 								if ($row_s6['object_sale_di'] != "0")

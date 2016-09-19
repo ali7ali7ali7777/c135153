@@ -260,17 +260,33 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                     </div>
                                 </div>
                                 <div class="c-info">
-                                    <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name'] ; ?></p>
-                           <?php
-							if ($row_i5['object_sale_di'] != 0)
-							echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale_di']).' ريال  &nbsp;
-                                        <span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i5['object_sale']).' ريال </span>
-                                    </p>';
-							else 
-							echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale']).' ريال  
+                                    <p class="c-title c-font-18 c-font-slim"><?php echo $row_i5['object_name']; ?></p>
+                                    <p><?php $ip_r = $row_i5['object_pupolar'];
+                                        while($ip_r > 0)
+                                        {
+                                            if ($ip_r >0 && $ip_r <1)
+                                                echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
+                                            else
+                                                echo '<i class="fa fa-star c-font-red"></i>';
+                                            $ip_r --;
+                                        }
+                                            $ip_e = 5 - $row_i5['object_pupolar'];
+                                        while($ip_e >= 1)
+                                        {
+                                            echo '<i class="fa fa-star-o c-font-red"></i>';
+                                            $ip_e --;
+                                        }   
+                                        ?>
+                                   <span style="float: left;font-size: 14px">بازدید: <?php echo $row_i5['object_visit'] ; ?></span></p>
+                                    <?php
+								if ($row_i5['object_sale_di'] != "0")
+								echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale_di']).' ريال  &nbsp;
+											<span class="c-font-16 c-font-line-through c-font-red" style="float: left;"> '.number_format($row_i5['object_sale']).' ريال </span>
+										</p>';
+								else 
+								echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i5['object_sale']).' ريال  
                                     </p>';
 							?>
-                                    
                                 </div>
                                 <div class="btn-group btn-group-justified" role="group">
                                     <div class="btn-group c-border-top" role="group">
@@ -367,10 +383,27 @@ if ( mysqli_num_rows($rant_i1) > 0)
                                 </div>
                                 <div class="c-info">
                                     <p class="c-title c-font-18 c-font-slim"><?php echo $row_i6['object_name']; ?></p>
+                                    <p><?php $ip_r = $row_i6['object_pupolar'];
+                                        while($ip_r > 0)
+                                        {
+                                            if ($ip_r >0 && $ip_r <1)
+                                                echo '<i class="fa fa-star-half-o c-font-red fa-flip-horizontal"></i>';
+                                            else
+                                                echo '<i class="fa fa-star c-font-red"></i>';
+                                            $ip_r --;
+                                        }
+                                            $ip_e = 5 - $row_i6['object_pupolar'];
+                                        while($ip_e >= 1)
+                                        {
+                                            echo '<i class="fa fa-star-o c-font-red"></i>';
+                                            $ip_e --;
+                                        }   
+                                        ?>
+                                   <span style="float: left;font-size: 14px">بازدید: <?php echo $row_i6['object_visit'] ; ?></span></p>
                                     <?php
 								if ($row_i6['object_sale_di'] != "0")
 								echo	'<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale_di']).' ريال  &nbsp;
-											<span class="c-font-16 c-font-line-through c-font-red"> '.number_format($row_i6['object_sale']).' ريال </span>
+											<span class="c-font-16 c-font-line-through c-font-red" style="float: left;"> '.number_format($row_i6['object_sale']).' ريال </span>
 										</p>';
 								else 
 								echo   '<p class="c-price c-font-16 c-font-slim"> '.number_format($row_i6['object_sale']).' ريال  
