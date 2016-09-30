@@ -115,7 +115,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                         <div class="panel-body">
                                             
                                         </div>
-
+                                        
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -130,9 +130,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                     </tr>
                                                 </thead>
                                                 <tbody id="myTable">
-                                                    <tr>
-                                                        <td></td>
-                                                        <td><input id="STname" type="text" name="name[]" class="form-control borderB1"  data-toggle="modal" data-target="#modal_full" value="" onkeypress="return runScript(event)"></td>
+                                                    <tr id="1">
+                                                        <td>1</td>
+                                                        <td><input type="text" name="name[]" class="form-control borderB1 STname"  data-toggle="modal" data-target="#modal_full" value="" onkeypress="onMODAL();"></td>
                                                         <td><input type="text" name="num[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>
                                                         <td><input type="text" name="price[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>
                                                         <td><input type="text" name="unit[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>
@@ -141,6 +141,20 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <select class="select" name="sub">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $table = mysqli_query($mysqlicheck,"SELECT * FROM gro where gro_kod like '___'	");
+                                                    while($rows=mysqli_fetch_assoc($table))
+                                                    {
+                                                        echo '<option value="'.$rows['gro_kod'].'">'.$rows['gro_name'].'</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                             </form>
@@ -178,7 +192,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                                                         $object_m4 = $rows['object_m4'];
 
                                                     ?>
-                                                <tr data-dismiss="modal" onclick="sendDATA(<?php echo $object_id ?>)">
+                                                <tr class="modalROW" data-dismiss="modal" onclick="sendDATA(<?php echo $object_id ?>)">
                                                     <td><?php echo $object_m1 ?></td>
                                                     <td><?php echo $object_code ?></td>
                                                     <td><?php echo $object_m1 ?></a></td>
@@ -205,9 +219,14 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
         
         $(document).ready(function() {
             
-            $('#STname').focus(function(){
-                $('#STname').val("");
+            $('.STname').blur(function(){
+                $(this).val("");
+                IDr = $(this).closest('tr').attr('id');
+                alert(IDr);
                 setTimeout(function(){$('#searchBTN').focus(); }, 1000);
+                $('.modalROW').attr('data-value',IDr);
+                $('.modalROW').addClass('moda');
+                $('.modalROW').removeClass('modalROW');
                 //$("#searchBTN").val('123');
                 //setTimeout(function(){$("#searchBTN").val('123'),alert("ok1"); }, 1000);
                 //alert("ok1");
@@ -217,48 +236,41 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                     
         });
         function sendDATA(valll) {
+            alert(this.getAttribute('data-value'));
             $.post('serv.php',{'sendDATA':'sendDATA','IsendDATA':valll},function(Iresult){
                 obj = jQuery.parseJSON( Iresult );
                 console.log(obj);
-                
+                $('#'+valll).val(obj.name);
                 
             });
             
         }
-         $(document).ready(function(){
-              var i=1;
-             $("#add_row").click(function(){
-              $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
-
-              $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-              i++; 
-          });
-             $("#delete_row").click(function(){
-                 if(i>1){
-                 $("#addr"+(i-1)).html('');
-                 i--;
-                 }
-             });
-
-        });
-        
         /////// inter
         function runScript(e) {
             if (e.which == 13 || e.keyCode == 13) {
-                    Fl = '<tr>'+
-                        '<td><input id="STname" type="text" class="form-control borderB1"  data-toggle="modal" data-target="#modal_full" value=""></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
-                        '<td><input type="text" class="form-control borderB1"></td>'+
+                
+                var i = $('#myTable tr:last').attr('id');
+                i++;
+                Fl = '<tr id="'+i+'">'+
+                        '<td>'+i+'</td>'+
+                        '<td><input type="text" name="name[]" class="form-control borderB1 STname"  data-toggle="modal" data-target="#modal_full" value="" onkeypress="onMODAL();"></td>'+
+                        '<td><input type="text" name="num[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>'+
+                        '<td><input type="text" name="price[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>'+
+                        '<td><input type="text" name="unit[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>'+
+                        '<td><input type="text" name="sum[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>'+
+                        '<td><input type="text" name="preamble[]" class="form-control borderB1" onkeypress="return runScript(event)"></td>'+
                     '</tr>';
                 $('#myTable tr:last').after(Fl);
+                i++; 
                 return false;
             }
             return true;
         }
+        function onMODAL(){
+            $("#modal_full").modal();
+        }
+        
+        
     </script>
 </body>
 </html>
