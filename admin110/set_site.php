@@ -271,7 +271,6 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                               <th>پیام</th>
                               <th>ایمیل</th>
                               <th>تاریخ</th>
-                              <th>وضعیت</th>
                               <th>تلفن</th>
                             </tr>
                           </thead>
@@ -279,18 +278,32 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                           
                           
                   <?php
-				  $sql_co_1=mysqli_query($mysqlicheck,"SELECT * FROM comment WHERE `comment_status` = '3' or `comment_status` = '4'");
+				  $sql_co_1=mysqli_query($mysqlicheck,"SELECT * FROM comment WHERE `comment_status` = '3'");
 				  while($show_a2=mysqli_fetch_assoc($sql_co_1))
 				  {
+			if($show_a2['comment_user_id'] == 0)
+			{
                      echo  "<tr>
                               <td>".$show_a2['comment_name']."</td>
                               <td>".$show_a2['comment_text']."</td>
                               <td>".$show_a2['comment_email']."</td>
                               <td>".$show_a2['comment_data']."</td>
-                              <td>".$show_a2['comment_status']."</td>
                               <td>".$show_a2['comment_tel']."</td>
                             </tr>";
-				  }
+			}
+			else
+			{
+				$sql_co_6=mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE user_id = '".$show_a2['comment_user_id']."'");
+					$show_a6=mysqli_fetch_assoc($sql_co_6);
+			echo  "<tr>
+                              <td>".$show_a6['user_name']." ".$show_a6['user_family']."</td>
+                              <td>".$show_a2['comment_text']."</td>
+                              <td>".$show_a6['user_email']."</td>
+                              <td>".$show_a2['comment_data']."</td>
+                              <td>".$show_a6['user_tell1']."</td>
+                            </tr>";
+			}
+				}
 				  ?>
 							
                            </tbody>
@@ -307,9 +320,9 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
                               <th>کالا</th>
                               <th>نظر</th>
                               <th>کاربر</th>
+                              <th>میزان رأی</th>
+                              <th>وضعیت نمایش</th>
                               <th>تاریخ</th>
-                              <th>وضعیت</th>
-                              <th>تلفن</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -319,21 +332,45 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 				  $sql_co_2=mysqli_query($mysqlicheck,"SELECT * FROM comment WHERE comment_status = '1' or `comment_status` = '2' ");
 				  while($show_a3=mysqli_fetch_assoc($sql_co_2))
 				  {
-                     echo  "<tr>
-                              <td>".$show_a3['comment_object_id']."</td>
-                              <td>".$show_a3['comment_text']."</td>
-                              <td>".$show_a3['comment_user_id']."</td>
-                              <td>".$show_a3['comment_data']."</td>
-                              <td>".$show_a3['comment_status']."</td>
-                              <td>".$show_a3['comment_tel']."</td>
-                            </tr>";
+					
+					 $sql_co_4=mysqli_query($mysqlicheck,"SELECT * FROM `object` WHERE object_id = '".$show_a3['comment_object_id']."'");
+					$show_a4=mysqli_fetch_assoc($sql_co_4);
+					 $sql_co_5=mysqli_query($mysqlicheck,"SELECT * FROM `user` WHERE user_id = '".$show_a3['comment_user_id']."'");
+					$show_a5=mysqli_fetch_assoc($sql_co_5);
+					
+                     echo  '<tr>
+			      <td>نام: '.$show_a4["object_name"].'<br />کد: '.$show_a4["object_code"].'</td>
+                              <td>'.$show_a3['comment_text'].'</td>
+                              <td>فامیل: '.$show_a5["user_family"].'<br />آی دی: '.$show_a5["user_id"].'</td>
+                              <td>';
+                    $s1 = 5 - $show_a3["comment_user_re"];
+                      $s0 = 5 - $s1 ;
+                      while($s0 > 0)
+                      {
+                          echo '<img src="../images/object/star1.png">';
+                          $s0 -- ;
+                      }
+                      while($s1 > 0)
+                      {
+                          echo '<img src="../images/object/star0.png">';
+                          $s1 -- ;
+                      }
+                        echo '</td>
+                              <td id="s_re'.$show_a3["comment_id"].'">';
+				if($show_a3["comment_status"]==1)
+					echo '<a class="btn bg-success-400" onclick="change_re(2,'.$show_a3["comment_id"].')">دیده می شود</a>';
+				elseif($show_a3["comment_status"]==2)
+					echo '<a class="btn bg-danger-400" onclick="change_re(1,'.$show_a3["comment_id"].')">دیده نمی شود</a>';
+				echo '</td>
+                              <td>'.$show_a3["comment_data"].'</td>
+                            </tr>';
 				  }
 				  ?>
 							
                            </tbody>
                         </table>
                       </div>
-                      <!-- /restore column visibility --> 
+			<!-- /restore column visibility --> 
                     </div>
                   </div>
                 </div>

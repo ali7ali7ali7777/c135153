@@ -1,6 +1,24 @@
-// JavaScript Document
+﻿// JavaScript Document
 
+function change_re(st,id) {
+	$.post("serv.php",{co_id: id, co_st:st, che_st: 'yy'},function(re_v){
 
+                if(re_v == 'yes' )
+		{
+			$check_re = 2 ;
+                }
+		else
+		{
+			$check_re = 3 ;
+                }
+            });
+	if (st == 1 && $check_re == 2) {
+           $('#s_re'+id).html('<a class="btn bg-success-400" onclick="change_re(2,'+id+')">دیده می شود</a>');
+	}
+        else{
+            $('#s_re'+id).html('<a class="btn bg-danger-400" onclick="change_re(1,'+id+')">دیده نمی شود</a>');
+	}
+    }	
 
 $(function() {
   $("#btn-contact").on("click", function() {
@@ -21,19 +39,7 @@ $(function() {
         }
     });
 	
-	
-	
-	
-        
-        
-       
-    
-	
-	
-	
-	
-	 // Select2 select
-    // ------------------------------
+// ------------------------------
 
     // Basic
     $('.select').select2();

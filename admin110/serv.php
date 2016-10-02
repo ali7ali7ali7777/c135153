@@ -29,6 +29,20 @@ if(get_safe_post($mysqlicheck,'method4')== 'change4'){
 }
 
 
+//re_object
+if(get_safe_post($mysqlicheck,'che_st') == 'yy'){
+	
+	$co_id = get_safe_post($mysqlicheck,'co_id');
+	$co_st = get_safe_post($mysqlicheck,'co_st');
+
+	$sql_re = "UPDATE `comment` SET `comment_status`='$co_st' WHERE `comment_id`='$co_id'";
+	if($mysqlicheck->query($sql_re) === TRUE) {
+		echo "yes";
+	}else{
+		die();
+	}
+}
+
 ///////edit object
 if(get_safe_post($mysqlicheck,'object3')== 'object3'){
 	

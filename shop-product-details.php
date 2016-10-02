@@ -1,4 +1,4 @@
-<?php require_once "header.php"; ?>
+﻿<?php require_once "header.php"; ?>
 <!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
   <?php 
@@ -80,7 +80,7 @@ $n_date = $time.' '.$date;
 			
 	if($seve == "save" && $n_text != "" && $n_review != "")
 	{	
-		$sql_nn = 'INSERT INTO `comment`(`comment_user_id`, `Comment_user_re`, `comment_object_id`, `comment_text`, `comment_status`, `comment_data`) VALUES ("'.$user_id.'","'.$n_review.'","'.$row_t1['object_id'].'","'.$n_text.'",3,"'.$n_date.'")';
+		$sql_nn = 'INSERT INTO `comment`(`comment_user_id`, `comment_user_re`, `comment_object_id`, `comment_text`, `comment_status`, `comment_data`) VALUES ("'.$user_id.'","'.$n_review.'","'.$row_t1['object_id'].'","'.$n_text.'",2,"'.$n_date.'")';
 		$result_nn = $mysqlicheck->query($sql_nn);
 		$sql_nv = 'UPDATE `object` SET `object_pupolar`= (`object_pupolar`+"'.$n_review.'")/2 WHERE object_id = "'.$row_t1['object_id'].'" or object_code = "'.$object_code.'"';	
 		$res_nv = $mysqlicheck->query($sql_nv);
@@ -329,20 +329,20 @@ $n_date = $time.' '.$date;
           <div class="container">
             <h3 class="c-font-uppercase c-font-bold c-font-22 c-center c-margin-b-40 c-margin-t-40">بررسی برای <?php echo $row_t1['object_name']; ?> </h3>
             <?php 
-$rant_t2 = mysqli_query($mysqlicheck,'SELECT * FROM comment	where comment_object_id = "'.$row_t1['object_id'].'" ');
+$rant_t2 = mysqli_query($mysqlicheck,'SELECT * FROM comment	where comment_object_id = "'.$row_t1['object_id'].'" and `comment_status` = 1');
 if (mysqli_num_rows($rant_t2) > 0)
 {
 	while($row_t2=mysqli_fetch_assoc($rant_t2))
 		{
-			if($row_t2['Comment_user_re'] == 1)
+			if($row_t2['comment_user_re'] == 1)
 				$src_p_u = 'images/object/r1.jpg';
-			elseif($row_t2['Comment_user_re'] == 2)
+			elseif($row_t2['comment_user_re'] == 2)
 				$src_p_u = 'images/object/r2.jpg';
-			elseif($row_t2['Comment_user_re'] == 3)
+			elseif($row_t2['comment_user_re'] == 3)
 				$src_p_u = 'images/object/r3.jpg';
-			elseif($row_t2['Comment_user_re'] == 4)
+			elseif($row_t2['comment_user_re'] == 4)
 				$src_p_u = 'images/object/r4.jpg';
-			elseif($row_t2['Comment_user_re'] == 5)
+			elseif($row_t2['comment_user_re'] == 5)
 				$src_p_u = 'images/object/r5.jpg';
 		
 			$rant_t3 = mysqli_query($mysqlicheck,'SELECT * FROM user where user_id = "'.$row_t2['comment_user_id'].'" ');
@@ -358,13 +358,13 @@ if (mysqli_num_rows($rant_t2) > 0)
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="c-product-rating c-right">';
-										$ir = $row_t2['Comment_user_re'];
+										$ir = $row_t2['comment_user_re'];
 										while($ir > 0)
 										{
                                            echo '<i class="fa fa-star c-font-red"></i>';
 											$ir -- ;
 										}
-                                        $ie = 5 - $row_t2['Comment_user_re'];
+                                        $ie = 5 - $row_t2['comment_user_re'];
                                         while($ie > 0)
 										{
                                            echo '<i class="fa fa-star-o c-font-red"></i>';
