@@ -7,10 +7,20 @@
     $it ++ ;
     $item_total += ($c_item["price"]*$c_item["quantity"]); 
 }
-
-$user_id = $_SESSION["login"]["id"];
-$user_ty = $_SESSION["login"]["type"];
-$user_name = $_SESSION["login"]["name"];
+$sel_h0 = mysqli_query($mysqlicheck,"SELECT user_email FROM `user` WHERE `user_id` ='".$_SESSION["login"]["id"]."'");
+if ($sel_h0->num_rows > 0)
+{
+    $user_id = $_SESSION["login"]["id"];
+    $user_ty = $_SESSION["login"]["type"];
+    $user_name = $_SESSION["login"]["name"];
+}
+else
+{
+    unset($_SESSION["login"]);
+    $user_id = '';
+    $user_name = '';
+    $user_ty = '';
+}
 $date = mkdate("Y/m/d",date('Y-m-d'),'fa');
 $time = date('H:i:s');
 $user_ip = getUserIP();

@@ -342,20 +342,7 @@ if($_SESSION['login']!="modir" && $_SESSION['login']!="user" )
 			      <td>نام: '.$show_a4["object_name"].'<br />کد: '.$show_a4["object_code"].'</td>
                               <td>'.$show_a3['comment_text'].'</td>
                               <td>فامیل: '.$show_a5["user_family"].'<br />آی دی: '.$show_a5["user_id"].'</td>
-                              <td>';
-                    $s1 = 5 - $show_a3["comment_user_re"];
-                      $s0 = 5 - $s1 ;
-                      while($s0 > 0)
-                      {
-                          echo '<img src="../images/object/star1.png">';
-                          $s0 -- ;
-                      }
-                      while($s1 > 0)
-                      {
-                          echo '<img src="../images/object/star0.png">';
-                          $s1 -- ;
-                      }
-                        echo '</td>
+                              <td><img src="../images/object/star'.$show_a3["comment_user_re"].'.png"></td>
                               <td id="s_re'.$show_a3["comment_id"].'">';
 				if($show_a3["comment_status"]==1)
 					echo '<a class="btn bg-success-400" onclick="change_re(2,'.$show_a3["comment_id"].')">دیده می شود</a>';
